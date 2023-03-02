@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b19e153a-b93b-43b7-bbc2-43394a293a12" name="Changes" comment="Test">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BrandubhConsole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/BRBStageModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BRBStageModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +63,7 @@
       <updated>1677741033086</updated>
       <workItem from="1677741034497" duration="4010000" />
       <workItem from="1677745112963" duration="2151000" />
-      <workItem from="1677748561595" duration="6422000" />
+      <workItem from="1677748561595" duration="9226000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>

@@ -99,6 +99,21 @@ public class BRBStageModel extends GameStageModel {
     private void computePartyResult() {
         //TODO Ici on peut tester si la partie est fini ou non
         int idWinner = -1;
+        // SI le king est dans un coin alors le joueur noir gagne
+        if (board.getElement(0, 0) == blackKingPawns[0]
+                || board.getElement(0, 6) == blackKingPawns[0]
+                || board.getElement(6, 0) == blackKingPawns[0]
+                || board.getElement(6, 6) == blackKingPawns[0]) {
+            idWinner = 0;
+        }
+        //TODO SI il n'y a plus aucun pion rouge alors le joueur noir gagne
+        //TODO SI le king est entouré de pions rouges alors le joueur rouge gagne
+
+        //TODO ouais faudra faire la fonction isCaptured() je sais
+        //if (blackKingPawns.isCaptured()) {
+        //    idWinner = 1;
+        //}
+
         // get the empty cell, which should be in 2D at [0,0], [0,2], [1,1], [2,0] or [2,2]
         // i.e. or in 1D at index 0, 2, 4, 6 or 8
         /*

@@ -41,6 +41,9 @@ public class BRBController extends Controller {
         endGame();
     }
 
+    /**
+     * Defines what to do when the stage is over
+     */
     public void nextPlayer() {
         // for the first player, the id of the player is already set, so do not compute it
         if (!firstPlayer) {
@@ -74,17 +77,22 @@ public class BRBController extends Controller {
             }
         }
     }
+
+    /**
+     * @param line the line read from the console
+     * @return true if the line is correct and the action has been played
+     */
     private boolean analyseAndPlay(String line) {
         BRBStageModel gameStage = (BRBStageModel) model.getGameStage();
         // get the pawn value from the first char
         int pawnIndex = (int) (line.charAt(0) - '1');
-        if ((pawnIndex<0)||(pawnIndex>3)) return false;
+        if ((pawnIndex<0)||(pawnIndex>8)) return false;
         // get the ccords in the board
         int col = (int) (line.charAt(1) - 'A');
         int row = (int) (line.charAt(2) - '1');
         // check coords validity
-        if ((row<0)||(row>2)) return false;
-        if ((col<0)||(col>2)) return false;
+        if ((row<0)||(row>6)) return false;
+        if ((col<0)||(col>6)) return false;
         // check if the pawn is still in its pot
         /*
         GridElement pot = null;
