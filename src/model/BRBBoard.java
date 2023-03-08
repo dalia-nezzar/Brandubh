@@ -24,6 +24,7 @@ public class BRBBoard extends GridElement {
         }
     }
     public List<Point> computeValidCells(int number) {
+        //TODO La faut tout refaire, les murs tt ça
         List<Point> lst = new ArrayList<>();
         Pawn p = null;
         // if the grid is empty, is it the first turn and thus, all cells are valid

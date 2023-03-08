@@ -70,6 +70,15 @@ public class GridElement extends StaticElement {
 
     public boolean canReachCell(int row, int col) {
         if ((row >= 0) && (row < nbRows) && (col >= 0) && (col < nbCols)) {
+            // Print reachable cells
+            /*
+            for (int i = 0; i < nbRows; i++) {
+                for (int j = 0; j < nbCols; j++) {
+                    System.out.print(reachableCells[i][j] ? "1" : "0");
+                }
+                System.out.println();
+            }
+             */
             return reachableCells[row][col];
         }
         return false;
