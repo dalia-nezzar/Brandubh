@@ -47,7 +47,7 @@ public class MoveAction extends GameAction {
     }
 
     public void execute() {
-        GridElement gridSrc = element.getGrid();
+        GridElement gridSrc = model.getGrid(this.gridDest);
         GridElement gridDest = model.getGrid(this.gridDest);
         if (gridDest == null) return;
         boolean autoLoc = true;

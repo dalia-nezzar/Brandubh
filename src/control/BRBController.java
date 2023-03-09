@@ -88,10 +88,10 @@ public class BRBController extends Controller {
         int pawnIndex = (int) (line.charAt(0) - '1');
         // Check pawn color (red or black)
         if (model.getIdPlayer() == 0) {
-            if ((pawnIndex<0)||(pawnIndex>7)) return false;
+            if ((pawnIndex<0)||(pawnIndex>3)) return false;
             // get the cords in the board
         } else {
-            if ((pawnIndex<0)||(pawnIndex>3)) return false;
+            if ((pawnIndex<0)||(pawnIndex>7)) return false;
             // get the cords in the board
         }
         int col = (int) (line.charAt(1) - 'A');

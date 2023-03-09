@@ -29,6 +29,8 @@ public abstract class Controller {
         if (firstStageName.isEmpty()) throw new GameException("The name of the first stage have not been set. Abort");
         System.out.println("START THE GAME");
         startStage(firstStageName);
+        // Make the second player play first
+        model.setNextPlayer();
     }
 
     /**

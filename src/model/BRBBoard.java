@@ -30,6 +30,22 @@ public class BRBBoard extends GridElement {
         //TODO La faut tout refaire, les murs tt ça
         List<Point> lst = new ArrayList<>();
         Pawn p = null;
+        // Check the rown and col of the actual pawn, if a cell is empty on the same row or col, it is valid
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 7; j++) {
+                /*
+                if (isEmptyAt(i,j)) {
+                    // check if the cell is on the same row or col
+                    if (i == number || j == number) {
+                        lst.add(new Point(j,i));
+                    }
+                }
+                 */
+                lst.add(new Point(j,i));
+            }
+        }
+
+        // Forget this
         /*
         // if the grid is empty, is it the first turn and thus, all cells are valid
         if (isEmpty()) {
@@ -120,6 +136,9 @@ public class BRBBoard extends GridElement {
             }
         }
          */
+        for (Point p1 : lst) {
+            System.out.println("x: " + p1.x + " y: " + p1.y);
+        }
         return lst;
     }
 }

@@ -21,16 +21,16 @@ public class BrandubhConsole {
         }
         Model model = new Model();
         if (mode == 0) {
-            model.addHumanPlayer("player1");
             model.addHumanPlayer("player2");
+            model.addHumanPlayer("player1");
         }
         else if (mode == 1) {
             model.addHumanPlayer("player");
             model.addComputerPlayer("computer");
         }
         else if (mode == 2) {
-            model.addComputerPlayer("computer1");
             model.addComputerPlayer("computer2");
+            model.addComputerPlayer("computer1");
         }
 
         StageFactory.registerModelAndView("BRB", "model.BRBStageModel", "view.BRBStageView");
