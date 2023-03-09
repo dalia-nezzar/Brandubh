@@ -54,6 +54,8 @@ public class MoveAction extends GameAction {
         // NB : if an animation has been created, it should lead the element to its correct location, thus no reason to relocate it at its cell center.
         if (animation != null) autoLoc = false;
         if (gridSrc == gridDest) {
+                System.out.println("This is rowDest + colDest " + rowDest + " " + colDest);
+                System.out.println("This is element : " + element);
                 gridDest.moveElement(element, rowDest, colDest, autoLoc);
         }
         else {

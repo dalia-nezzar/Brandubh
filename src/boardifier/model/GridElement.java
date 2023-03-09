@@ -131,9 +131,12 @@ public class GridElement extends StaticElement {
      * @param colDest the new grid column of the element
      */
     public void moveElement(GameElement element, int rowDest, int colDest, boolean autoLoc) {
-        int[] coords = getElementCell(element);
+        // I have to get the coords of the GameElement in the grid
+        int[] coords;
+        coords = getElementCell(element);
         if (coords == null) {
             System.out.println("NO CELL FOR MOVE");
+            // TODO : NO CELL FOR MOVE PROBLEM
         }
         // if the element is in the grid, and not already in rowDest,colDest cell: move it.
         if ((coords != null) && ((rowDest != coords[0]) || (colDest != coords[1]))) {
