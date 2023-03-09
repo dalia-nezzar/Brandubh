@@ -9,14 +9,17 @@ import java.awt.*;
 
 public class BRBBoard extends GridElement {
     public BRBBoard(int x, int y, GameStageModel gameStageModel) {
-        // call the super-constructor to create a 3x3 grid, named "BRBboard", and in x,y in space
+        // call the super-constructor to create a 7x7 grid, named "BRBboard", and in x,y in space
         super("BRBboard", x, y, 7 , 7, gameStageModel);
         resetReachableCells(false);
     }
 
     public void setValidCells(int number) {
         resetReachableCells(false);
+
         List<Point> valid = computeValidCells(number);
+        System.out.println("number: " + number);
+        // if the list is not empty, set the reachable cells to true
         if (valid != null) {
             for(Point p : valid) {
                 reachableCells[p.y][p.x] = true;
@@ -27,6 +30,7 @@ public class BRBBoard extends GridElement {
         //TODO La faut tout refaire, les murs tt ça
         List<Point> lst = new ArrayList<>();
         Pawn p = null;
+        /*
         // if the grid is empty, is it the first turn and thus, all cells are valid
         if (isEmpty()) {
             // i are rows
@@ -115,6 +119,7 @@ public class BRBBoard extends GridElement {
                 }
             }
         }
+         */
         return lst;
     }
 }

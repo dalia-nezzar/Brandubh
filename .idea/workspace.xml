@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b19e153a-b93b-43b7-bbc2-43394a293a12" name="Changes" comment="Test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/model/GridElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/model/GridElement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/BRBBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BRBBoard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,12 +35,13 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "TODO_SCOPE": "All Places",
     "WebServerToolWindowFactoryState": "false",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "preferences.toDoOptions",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -66,6 +67,7 @@
       <workItem from="1677748561595" duration="9226000" />
       <workItem from="1677863797270" duration="136000" />
       <workItem from="1678260031133" duration="4086000" />
+      <workItem from="1678345704567" duration="3563000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>

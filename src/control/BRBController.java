@@ -86,8 +86,14 @@ public class BRBController extends Controller {
         BRBStageModel gameStage = (BRBStageModel) model.getGameStage();
         // get the pawn value from the first char
         int pawnIndex = (int) (line.charAt(0) - '1');
-        if ((pawnIndex<0)||(pawnIndex>8)) return false;
-        // get the ccords in the board
+        // Check pawn color (red or black)
+        if (model.getIdPlayer() == 0) {
+            if ((pawnIndex<0)||(pawnIndex>7)) return false;
+            // get the cords in the board
+        } else {
+            if ((pawnIndex<0)||(pawnIndex>3)) return false;
+            // get the cords in the board
+        }
         int col = (int) (line.charAt(1) - 'A');
         int row = (int) (line.charAt(2) - '1');
         // check coords validity
