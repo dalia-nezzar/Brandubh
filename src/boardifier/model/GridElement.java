@@ -1,5 +1,7 @@
 package boardifier.model;
 
+import model.BRBBoard;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,7 +135,8 @@ public class GridElement extends StaticElement {
     public void moveElement(GameElement element, int rowDest, int colDest, boolean autoLoc) {
         // I have to get the coords of the GameElement in the grid
         int[] coords;
-        coords = getElementCell(element);
+        System.out.println("element get grid : " + element.getGrid());
+        coords = element.getGrid().getElementCell(element);
         if (coords == null) {
             System.out.println("NO CELL FOR MOVE");
             // TODO : NO CELL FOR MOVE PROBLEM
@@ -157,6 +160,7 @@ public class GridElement extends StaticElement {
     public int[] getElementCell(GameElement element) {
         for (int i = 0; i < nbRows; i++) {
             for (int j = 0; j < nbCols; j++) {
+                System.out.println("print element in grid : " + grid[i][j].toString());
                 if (grid[i][j].contains(element)) {
                     int[] tab = {i, j};
                     return tab;

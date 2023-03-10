@@ -46,6 +46,9 @@ public class MoveAction extends GameAction {
         return colDest;
     }
 
+    /**
+     * execute the action
+     */
     public void execute() {
         GridElement gridSrc = model.getGrid(this.gridDest);
         GridElement gridDest = model.getGrid(this.gridDest);
@@ -56,7 +59,10 @@ public class MoveAction extends GameAction {
         if (gridSrc == gridDest) {
                 System.out.println("This is rowDest + colDest " + rowDest + " " + colDest);
                 System.out.println("This is element : " + element);
-                gridDest.moveElement(element, rowDest, colDest, autoLoc);
+                // must get the pawn
+                gridSrc.moveElement(element.getGrid().getElement(rowDest, colDest), rowDest, colDest, autoLoc);
+                // this doesn't work because element is the grid, not the pawn
+                // to fix this, we need get the element pawn
         }
         else {
             gridSrc.removeElement(element);
