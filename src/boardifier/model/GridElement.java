@@ -232,20 +232,20 @@ public class GridElement extends StaticElement {
         return grid[row][col].get(index);
     }
 
+    /**
+     * get the coordinates of the first element that has the specified number and color
+     *
+     * @param number the number of the element
+     * @param color the color of the element
+     * @return the coordinates of the element or null if not found
+     */
     public int[] getCoords(int number, int color) {
         for (int i = 0; i < nbRows; i++) {
             for (int j = 0; j < nbCols; j++) {
-                // get element
-                GameElement element = getElement(i, j);
-                // if cell contain a pawn
-                if (element != null) {
-                    // get pawn number
-                    int pawnNumber = element.getNumber();
-                    // if pawn number is equal to number
-                    if (pawnNumber == number && element.getColor() == color) {
-                        // return coords
-                        int[] coords = {i, j};
-                        return coords;
+                if (grid[i][j].size() > 0) {
+                    if (grid[i][j].get(0).getNumber() == number && grid[i][j].get(0).getColor() == color) {
+                        int[] tab = {i, j};
+                        return tab;
                     }
                 }
             }
