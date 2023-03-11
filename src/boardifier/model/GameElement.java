@@ -424,4 +424,12 @@ public abstract class GameElement {
     public Model getModel() {
         return gameStageModel.getModel();
     }
+
+    protected int getNumber() {
+        return -1;
+    }
+
+    protected int getColor() {
+        return -1;
+    }
 }

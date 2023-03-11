@@ -135,8 +135,7 @@ public class GridElement extends StaticElement {
     public void moveElement(GameElement element, int rowDest, int colDest, boolean autoLoc) {
         // I have to get the coords of the GameElement in the grid
         int[] coords;
-        System.out.println("element get grid : " + element.getGrid());
-        coords = element.getGrid().getElementCell(element);
+        coords = getElementCell(element);
         if (coords == null) {
             System.out.println("NO CELL FOR MOVE");
             // TODO : NO CELL FOR MOVE PROBLEM
@@ -160,7 +159,7 @@ public class GridElement extends StaticElement {
     public int[] getElementCell(GameElement element) {
         for (int i = 0; i < nbRows; i++) {
             for (int j = 0; j < nbCols; j++) {
-                System.out.println("print element in grid : " + grid[i][j].toString());
+                System.out.println("print element in grid : " + grid[i][j].toString() + " " + i + " " + j);
                 if (grid[i][j].contains(element)) {
                     int[] tab = {i, j};
                     return tab;
@@ -183,6 +182,8 @@ public class GridElement extends StaticElement {
      * @return the first element stored or null if there are no elements
      */
     public GameElement getFirstElement(int row, int col) {
+        // print grid element
+        System.out.println("get first element size " + grid[row][col].size() + " " + row + " " + col);
         if (grid[row][col].size() > 0) {
             return grid[row][col].get(0);
         }
@@ -225,9 +226,31 @@ public class GridElement extends StaticElement {
      * @param index the index of the element to retrieve in the list store in cell row,col
      * @return the first element stored or null if there are no elements
      */
+
     public GameElement getElement(int row, int col, int index) {
         if ((grid[row][col].size() == 0) || (index < 0) || (index >= grid[row][col].size())) return null;
         return grid[row][col].get(index);
+    }
+
+    public int[] getCoords(int number, int color) {
+        for (int i = 0; i < nbRows; i++) {
+            for (int j = 0; j < nbCols; j++) {
+                // get element
+                GameElement element = getElement(i, j);
+                // if cell contain a pawn
+                if (element != null) {
+                    // get pawn number
+                    int pawnNumber = element.getNumber();
+                    // if pawn number is equal to number
+                    if (pawnNumber == number && element.getColor() == color) {
+                        // return coords
+                        int[] coords = {i, j};
+                        return coords;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     /**

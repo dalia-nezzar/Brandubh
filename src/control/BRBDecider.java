@@ -27,6 +27,7 @@ public class BRBDecider extends Decider {
 
     @Override
     public ActionList decide() {
+        System.out.println("ActionList is getting executed");
         // do a cast get a variable of the real type to get access to the attributes of HoleStageModel
         BRBStageModel stage = (BRBStageModel)model.getGameStage();
         BRBBoard board = stage.getBoard(); // get the board
@@ -60,6 +61,7 @@ public class BRBDecider extends Decider {
             }
         }
          */
+
         // create action list. After the last action, it is next player's turn.
         ActionList actions = new ActionList(true);
         // create the move action, without animation => the pawn will be put at the center of dest cell

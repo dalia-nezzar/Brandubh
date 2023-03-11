@@ -136,9 +136,6 @@ public class BRBBoard extends GridElement {
             }
         }
          */
-        for (Point p1 : lst) {
-            System.out.println("x: " + p1.x + " y: " + p1.y);
-        }
         return lst;
     }
 }

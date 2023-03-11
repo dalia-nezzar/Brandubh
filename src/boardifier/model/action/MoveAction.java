@@ -52,17 +52,14 @@ public class MoveAction extends GameAction {
     public void execute() {
         GridElement gridSrc = model.getGrid(this.gridDest);
         GridElement gridDest = model.getGrid(this.gridDest);
+        // set the element
         if (gridDest == null) return;
         boolean autoLoc = true;
         // NB : if an animation has been created, it should lead the element to its correct location, thus no reason to relocate it at its cell center.
         if (animation != null) autoLoc = false;
         if (gridSrc == gridDest) {
-                System.out.println("This is rowDest + colDest " + rowDest + " " + colDest);
-                System.out.println("This is element : " + element);
-                // must get the pawn
-                gridSrc.moveElement(element.getGrid().getElement(rowDest, colDest), rowDest, colDest, autoLoc);
-                // this doesn't work because element is the grid, not the pawn
-                // to fix this, we need get the element pawn
+                System.out.println("Checkpoint 1, print element: " + element);
+                gridSrc.moveElement(element, rowDest, colDest, autoLoc);
         }
         else {
             gridSrc.removeElement(element);

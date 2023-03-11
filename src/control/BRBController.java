@@ -10,6 +10,7 @@ import boardifier.model.action.ActionList;
 import boardifier.model.action.GameAction;
 import boardifier.model.action.MoveAction;
 import boardifier.view.View;
+import model.BRBBoard;
 import model.BRBStageModel;
 
 import java.io.BufferedReader;
@@ -111,7 +112,11 @@ public class BRBController extends Controller {
         if (pot.isEmptyAt(pawnIndex,0)) return false;
         GameElement pawn = pot.getElement(pawnIndex,0);
          */
-        GameElement pawn = gameStage.getElements().get(pawnIndex);
+        int[] coords = gameStage.getBoard().getCoords(pawnIndex+1, model.getIdPlayer());
+        System.out.println("row: "+ (row) +" col: "+col);
+        System.out.println("gamestage.getBoard().getElement(row,col): "+gameStage.getBoard().getElement(coords[0],coords[1]));
+        GameElement pawn = gameStage.getBoard().getElement(coords[0],coords[1]);
+        // GameElement pawn = pot.getElement(pawnIndex,0);
         // compute valid cells for the chosen pawn
         gameStage.getBoard().setValidCells(pawnIndex+1);
         if (!gameStage.getBoard().canReachCell(row,col)) return false;

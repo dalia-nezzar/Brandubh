@@ -12,7 +12,7 @@ public abstract class GameAction {
     protected int animationType;
     protected Animation animation;
 
-    // the onEnd callbak
+    // the onEnd callback
     ActionCallback onEndCallback;
 
     public GameAction(Model model, GameElement element, String animationName) {

@@ -29,6 +29,7 @@ public class BRBStageModel extends GameStageModel {
         this.board = board;
         addGrid(board);
     }
+
     /*
     public BRBPawnPot getBlackPot() {
         return blackPot;
