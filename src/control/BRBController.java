@@ -118,7 +118,7 @@ public class BRBController extends Controller {
         GameElement pawn = gameStage.getBoard().getElement(coords[0],coords[1]);
         // GameElement pawn = pot.getElement(pawnIndex,0);
         // compute valid cells for the chosen pawn
-        gameStage.getBoard().setValidCells(pawnIndex+1);
+        gameStage.getBoard().setValidCells(coords[0], coords[1]);
         if (!gameStage.getBoard().canReachCell(row,col)) return false;
 
         ActionList actions = new ActionList(true);
