@@ -10,6 +10,7 @@ public class Pawn extends GameElement {
 
     private int number;
     private int color;
+    private char king;
     private boolean captured = false;
     public static int PAWN_BLACK = 0;
     public static int PAWN_RED = 1;
@@ -22,6 +23,21 @@ public class Pawn extends GameElement {
         type = ElementTypes.getType("pawn");
         this.number = number;
         this.color = color;
+        this.king = ' ';
+    }
+
+    public Pawn(int number, int color, GameStageModel gameStageModel, boolean king) {
+        super(gameStageModel);
+        // registering element types defined especially for this game
+        ElementTypes.register("pawn",50);
+        type = ElementTypes.getType("pawn");
+        this.number = number;
+        this.color = color;
+        if (king) {
+            this.king = 'K';
+        } else {
+            this.king = ' ';
+        }
     }
 
     public int getNumber() {
@@ -30,6 +46,10 @@ public class Pawn extends GameElement {
 
     public int getColor() {
         return color;
+    }
+
+    public char getKing() {
+        return king;
     }
 
 }

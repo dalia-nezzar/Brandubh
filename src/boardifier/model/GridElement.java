@@ -239,13 +239,28 @@ public class GridElement extends StaticElement {
      * @param color the color of the element
      * @return the coordinates of the element or null if not found
      */
-    public int[] getCoords(int number, int color) {
-        for (int i = 0; i < nbRows; i++) {
-            for (int j = 0; j < nbCols; j++) {
-                if (grid[i][j].size() > 0) {
-                    if (grid[i][j].get(0).getNumber() == number && grid[i][j].get(0).getColor() == color) {
-                        int[] tab = {i, j};
-                        return tab;
+    public int[] getCoords(int number, int color, char king) {
+        if (king == 'K' || king == 'k') {
+            for (int i = 0; i < nbRows; i++) {
+                for (int j = 0; j < nbCols; j++) {
+                    if (grid[i][j].size() > 0) {
+                        if ((king == 'K' || king == 'k') && grid[i][j].get(0).getKing() == 'K') {
+                            System.out.println("get coords King " + i + " " + j);
+                            int[] tab = {i, j};
+                            return tab;
+                        }
+                    }
+                }
+            }
+        } else {
+            for (int i = 0; i < nbRows; i++) {
+                for (int j = 0; j < nbCols; j++) {
+                    if (grid[i][j].size() > 0) {
+                        if (grid[i][j].get(0).getNumber() == number && grid[i][j].get(0).getColor() == color) {
+                            System.out.println("get coords Other " + i + " " + j);
+                            int[] tab = {i, j};
+                            return tab;
+                        }
                     }
                 }
             }

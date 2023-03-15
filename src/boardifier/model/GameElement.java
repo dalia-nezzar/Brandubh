@@ -432,4 +432,8 @@ public abstract class GameElement {
     protected int getColor() {
         return -1;
     }
+
+    protected char getKing() {
+        return ' ';
+    }
 }

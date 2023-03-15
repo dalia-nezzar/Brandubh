@@ -86,9 +86,9 @@ public class BRBController extends Controller {
     private boolean analyseAndPlay(String line) {
         BRBStageModel gameStage = (BRBStageModel) model.getGameStage();
         // get the pawn value from the first char
-        int pawnIndex = 0;
+        int pawnIndex = 1;
         char firstChar = line.charAt(0);
-        if (firstChar == 'K') {
+        if (firstChar == 'K' || firstChar == 'k') {
             if (model.getIdPlayer() != 0) return false;
         } else {
             pawnIndex = (int) (line.charAt(0) - '1');
@@ -109,17 +109,28 @@ public class BRBController extends Controller {
         if ((col<0)||(col>6)) return false;
         // check if the pawn is still in its pot
 
-        int[] coords = gameStage.getBoard().getCoords(pawnIndex+1, model.getIdPlayer());
+        int[] coords = gameStage.getBoard().getCoords(pawnIndex+1, model.getIdPlayer(), firstChar);
+        System.out.println("coords[0]: "+coords[0]+" coords[1]: "+coords[1]);
         System.out.println("row: "+ (row) +" col: "+col);
         System.out.println("gamestage.getBoard().getElement(row,col): "+gameStage.getBoard().getElement(coords[0],coords[1]));
         GameElement pawn = gameStage.getBoard().getElement(coords[0],coords[1]);
         // GameElement pawn = pot.getElement(pawnIndex,0);
         // compute valid cells for the chosen pawn
-        gameStage.getBoard().setValidCells(coords[0], coords[1]);
-        if (!gameStage.getBoard().canReachCell(row,col)) return false;
 
+        if (firstChar == 'K' || firstChar == 'k') {
+            gameStage.getBoard().setValidCells(coords[0], coords[1], true);
+        } else {
+            gameStage.getBoard().setValidCells(coords[0], coords[1], false);
+        }
+
+
+        System.out.println("Got HERE : " + gameStage.getBoard().canReachCell(row,col));
+        if (!gameStage.getBoard().canReachCell(row,col)) return false;
+        System.out.println("Got HERE 2");
         ActionList actions = new ActionList(true);
+        System.out.println("Got HERE 3");
         GameAction move = new MoveAction(model, pawn, "BRBboard", row, col);
+        System.out.println("Got HERE 4");
         // add the action to the action list.
         actions.addSingleAction(move);
         ActionPlayer play = new ActionPlayer(model, this, actions);

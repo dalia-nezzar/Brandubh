@@ -84,20 +84,12 @@ public class BRBStageModel extends GameStageModel {
             // just check when pawns are put in 3x3 board
             if (gridDest != board) return;
             Pawn p = (Pawn) element;
-            if (p.getColor() == 0 || p.getColor() == 2) {
-                blackPawnsToPlay--;
-                blackKingPawnsToPlay--;
-            }
-            else {
-                redPawnsToPlay--;
-            }
-            if ((blackPawnsToPlay == 0 || blackKingPawnsToPlay == 0) && (redPawnsToPlay == 0)) {
-                computePartyResult();
-            }
+            computePartyResult();
         });
     }
 
     private void computePartyResult() {
+        System.out.println("Computing party result...");
         //TODO Ici on peut tester si la partie est fini ou non
         int idWinner = -1;
         // SI le king est dans un coin alors le joueur noir gagne
@@ -170,10 +162,16 @@ public class BRBStageModel extends GameStageModel {
             }
         }
          */
-        // set the winner
-        model.setIdWinner(idWinner);
-        // stop de the game
-        model.stopStage();
+        if (idWinner != -1) {
+            System.out.println("The winner is player "+idWinner);
+            // set the winner
+            model.setIdWinner(idWinner);
+            // stop de the game
+            model.stopStage();
+        }
+        else {
+            System.out.println("No winner yet");
+        }
     }
 
     @Override

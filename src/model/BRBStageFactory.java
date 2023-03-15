@@ -36,7 +36,7 @@ public class BRBStageFactory extends StageElementsFactory {
         stageModel.setRedPawns(redPawns);
 
         Pawn[] blackPawnsKing = new Pawn[1];
-        blackPawnsKing[0] = new Pawn(1, Pawn.PAWN_BLACK_KING, stageModel);
+        blackPawnsKing[0] = new Pawn(1, Pawn.PAWN_BLACK_KING, stageModel, true);
         stageModel.setBlackKingPawns(blackPawnsKing);
 
         // assign pawns to their pot : they will be put at the center

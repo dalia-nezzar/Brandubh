@@ -14,10 +14,10 @@ public class BRBBoard extends GridElement {
         resetReachableCells(false);
     }
 
-    public void setValidCells(int row, int col) {
+    public void setValidCells(int row, int col, boolean isKing) {
         resetReachableCells(false);
 
-        List<Point> valid = computeValidCells(row, col);
+        List<Point> valid = computeValidCells(row, col, isKing);
         //System.out.println("row: " + row + " col: " + col);
         // if the list is not empty, set the reachable cells to true
         if (valid != null) {
@@ -26,7 +26,7 @@ public class BRBBoard extends GridElement {
             }
         }
     }
-    public List<Point> computeValidCells(int row, int col) {
+    public List<Point> computeValidCells(int row, int col, boolean isKing) {
         //TODO La faut tout refaire, les murs tt ça
         List<Point> lst = new ArrayList<>();
         Pawn p = null;
@@ -68,10 +68,12 @@ public class BRBBoard extends GridElement {
         }
 
         // remove the corner points from the list
-        lst.remove(new Point(0,0));
-        lst.remove(new Point(0,6));
-        lst.remove(new Point(6,0));
-        lst.remove(new Point(6,6));
+        if (!isKing) {
+            lst.remove(new Point(0,0));
+            lst.remove(new Point(0,6));
+            lst.remove(new Point(6,0));
+            lst.remove(new Point(6,6));
+        }
         // remove center point
         lst.remove(new Point(3,3));
 
