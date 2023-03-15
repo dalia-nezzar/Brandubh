@@ -86,11 +86,12 @@ public class BRBController extends Controller {
     private boolean analyseAndPlay(String line) {
         BRBStageModel gameStage = (BRBStageModel) model.getGameStage();
         // get the pawn value from the first char
+        int pawnIndex = 0;
         char firstChar = line.charAt(0);
         if (firstChar == 'K') {
             if (model.getIdPlayer() != 0) return false;
         } else {
-            int pawnIndex = (int) (line.charAt(0) - '1');
+            pawnIndex = (int) (line.charAt(0) - '1');
             // Check pawn color (red or black)
             if (model.getIdPlayer() == 0) {
                 if ((pawnIndex<0)||(pawnIndex>3)) return false;
