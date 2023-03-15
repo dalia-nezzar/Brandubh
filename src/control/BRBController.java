@@ -86,32 +86,28 @@ public class BRBController extends Controller {
     private boolean analyseAndPlay(String line) {
         BRBStageModel gameStage = (BRBStageModel) model.getGameStage();
         // get the pawn value from the first char
-        int pawnIndex = (int) (line.charAt(0) - '1');
-        // Check pawn color (red or black)
-        if (model.getIdPlayer() == 0) {
-            if ((pawnIndex<0)||(pawnIndex>3)) return false;
-            // get the cords in the board
+        char firstChar = line.charAt(0);
+        if (firstChar == 'K') {
+            if (model.getIdPlayer() != 0) return false;
         } else {
-            if ((pawnIndex<0)||(pawnIndex>7)) return false;
-            // get the cords in the board
+            int pawnIndex = (int) (line.charAt(0) - '1');
+            // Check pawn color (red or black)
+            if (model.getIdPlayer() == 0) {
+                if ((pawnIndex<0)||(pawnIndex>3)) return false;
+                // get the cords in the board
+            } else {
+                if ((pawnIndex<0)||(pawnIndex>7)) return false;
+                // get the cords in the board
+            }
         }
+
         int col = (int) (line.charAt(1) - 'A');
         int row = (int) (line.charAt(2) - '1');
         // check coords validity
         if ((row<0)||(row>6)) return false;
         if ((col<0)||(col>6)) return false;
         // check if the pawn is still in its pot
-        /*
-        GridElement pot = null;
-        if (model.getIdPlayer() == 0) {
-            pot = gameStage.getBlackPot();
-        }
-        else {
-            pot = gameStage.getRedPot();
-        }
-        if (pot.isEmptyAt(pawnIndex,0)) return false;
-        GameElement pawn = pot.getElement(pawnIndex,0);
-         */
+
         int[] coords = gameStage.getBoard().getCoords(pawnIndex+1, model.getIdPlayer());
         System.out.println("row: "+ (row) +" col: "+col);
         System.out.println("gamestage.getBoard().getElement(row,col): "+gameStage.getBoard().getElement(coords[0],coords[1]));

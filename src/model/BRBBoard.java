@@ -30,17 +30,43 @@ public class BRBBoard extends GridElement {
         //TODO La faut tout refaire, les murs tt ça
         List<Point> lst = new ArrayList<>();
         Pawn p = null;
-        // Check the row and col of the actual pawn, if a cell is empty on the same row or col, it is valid
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 7; j++) {
-                if (isEmptyAt(i,j)) {
-                    // check if the cell is on the same row or col
-                    if (i == row || j == col) {
-                        lst.add(new Point(j,i));
-                    }
-                }
+        // While the cell above row, col is empty add it to the list
+        for(int i=row-1;i>=0;i--) {
+            if (isEmptyAt(i,col)) {
+                lst.add(new Point(col,i));
+            }
+            else {
+                break;
             }
         }
+        // While the cell under row, col is empty add it to the list
+        for(int i=row+1;i<7;i++) {
+            if (isEmptyAt(i,col)) {
+                lst.add(new Point(col,i));
+            }
+            else {
+                break;
+            }
+        }
+        // While the cell on the left of row, col is empty add it to the list
+        for(int i=col-1;i>=0;i--) {
+            if (isEmptyAt(row,i)) {
+                lst.add(new Point(i,row));
+            }
+            else {
+                break;
+            }
+        }
+        // While the cell on the right of row, col is empty add it to the list
+        for(int i=col+1;i<7;i++) {
+            if (isEmptyAt(row,i)) {
+                lst.add(new Point(i,row));
+            }
+            else {
+                break;
+            }
+        }
+
         // remove the corner points from the list
         lst.remove(new Point(0,0));
         lst.remove(new Point(0,6));
