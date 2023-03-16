@@ -429,11 +429,14 @@ public abstract class GameElement {
         return -1;
     }
 
-    protected int getColor() {
+    public int getColor() {
         return -1;
     }
 
     protected char getKing() {
         return ' ';
+    }
+
+    public void setCaptured(boolean b) {
     }
 }
