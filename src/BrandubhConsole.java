@@ -8,6 +8,7 @@ import control.BRBDecider;
 public class BrandubhConsole {
     public static void main(String[] args) {
         System.out.println("Hello world!");
+        // rien
 
         int mode = 0;
         if (args.length == 1) {
