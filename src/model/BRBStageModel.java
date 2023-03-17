@@ -85,11 +85,33 @@ public class BRBStageModel extends GameStageModel {
             // just check when pawns are put in 3x3 board
             if (gridDest != board) return;
             Pawn p = (Pawn) element;
-
+            //removeEliminatedPawns();
             computePartyResult();
         });
     }
-
+    private void removeEliminatedPawns() {
+        // Check every cell, if there is a pawn, check if it is eliminated
+        for (int row=0;row<7;row++) {
+            for (int col=0;col<7;col++) {
+                Pawn p = (Pawn) board.getElement(row, col);
+                if (p != null) {
+                    if (p.isCaptured()) {
+                        // remove the pawn
+                        board.removeElement(p);
+                        // put it in the pot
+                        if (p.getColor() == Pawn.PAWN_BLACK) {
+                            //blackPot.putElement(p, 0,0);
+                            blackPawnsToPlay--;
+                        }
+                        else {
+                            //redPot.putElement(p, 0,0);
+                            redPawnsToPlay--;
+                        }
+                    }
+                }
+            }
+        }
+    }
     private void computePartyResult() {
         System.out.println("Computing party result...");
         //TODO Ici on peut tester si la partie est fini ou non

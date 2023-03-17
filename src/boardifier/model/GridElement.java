@@ -159,7 +159,6 @@ public class GridElement extends StaticElement {
     public int[] getElementCell(GameElement element) {
         for (int i = 0; i < nbRows; i++) {
             for (int j = 0; j < nbCols; j++) {
-                System.out.println("print element in grid : " + grid[i][j].toString() + " " + i + " " + j);
                 if (grid[i][j].contains(element)) {
                     int[] tab = {i, j};
                     return tab;

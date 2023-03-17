@@ -16,6 +16,8 @@ import model.BRBStageModel;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BRBController extends Controller {
 
@@ -157,73 +159,109 @@ public class BRBController extends Controller {
         GameElement pawn4 = null;
         GameElement pawn4_1 = null;
 
-        if (row - 1 >= 0) {
-            pawn1 = board.getElement(row - 1, col);
-        }
-        if (row - 2 >= 0) {
-            pawn1_1 = board.getElement(row - 2, col);
-        }
+        if (row - 1 >= 0) pawn1 = board.getElement(row - 1, col);
+        if (row - 2 >= 0) pawn1_1 = board.getElement(row - 2, col);
 
-        if (row + 1 <= 6) {
-            pawn2 = board.getElement(row + 1, col);
-        }
-        if (row + 2 <= 6) {
-            pawn2_1 = board.getElement(row + 2, col);
-        }
+        if (row + 1 <= 6) pawn2 = board.getElement(row + 1, col);
+        if (row + 2 <= 6) pawn2_1 = board.getElement(row + 2, col);
 
-        if (col - 1 >= 0) {
-            pawn3 = board.getElement(row, col - 1);
-        }
-        if (col - 2 >= 0) {
-            pawn3_1 = board.getElement(row, col - 2);
-        }
+        if (col - 1 >= 0) pawn3 = board.getElement(row, col - 1);
+        if (col - 2 >= 0) pawn3_1 = board.getElement(row, col - 2);
 
-        if (col + 1 <= 6) {
-            pawn4 = board.getElement(row, col + 1);
-        }
-        if (col + 2 <= 6) {
-            pawn4_1 = board.getElement(row, col + 2);
-        }
+        if (col + 1 <= 6) pawn4 = board.getElement(row, col + 1);
+        if (col + 2 <= 6) pawn4_1 = board.getElement(row, col + 2);
+
+        GameElement king = board.getElement(3, 3);
 
         System.out.println("pawn1: " + pawn1 + " pawn2: " + pawn2 + " pawn3: " + pawn3 + " pawn4: " + pawn4);
         switch (idPlayer) {
             case 0: {
-                if ((pawn1 != null && pawn1.getColor() == 1) && (pawn1_1 != null && pawn1_1.getColor() == idPlayer)) {
+                // If pawn above is a black pawn
+                // AND (pawn above is a red pawn OR coords is in the list of corners)
+                if ((pawn1 != null && pawn1.getColor() == 1)
+                        && ((pawn1_1 != null && pawn1_1.getColor() == idPlayer)
+                        || (row-2==0 && ((col==0) || (col==6))) ) ) {
                     System.out.println("PAWN GETTING CAPTURED");
                     pawn1.setCaptured(true);
+                    //board.removeElement(pawn1);
+                    // remove the pawn from the board
+                    //board.removeElement(board.getElement(row-1, col));
                 }
-                if ((pawn2 != null && pawn2.getColor() == 1) && (pawn2_1 != null && pawn2_1.getColor() == idPlayer)) {
+                // If pawn under is a black pawn
+                // AND (pawn under is a red pawn OR coords is in the list of corners)
+                if ((pawn2 != null && pawn2.getColor() == 1)
+                        && ((pawn2_1 != null && pawn2_1.getColor() == idPlayer)
+                        || (row+2==6 && ((col==0) || (col==6))) )) {
                     System.out.println("PAWN GETTING CAPTURED");
                     pawn2.setCaptured(true);
+                    //board.removeElement(pawn2);
+                    //board.removeElement(board.getElement(row+1, col));
                 }
-                if ((pawn3 != null && pawn3.getColor() == 1) && (pawn3_1 != null && pawn3_1.getColor() == idPlayer)) {
+                if ((pawn3 != null && pawn3.getColor() == 1)
+                        && ((pawn3_1 != null && pawn3_1.getColor() == idPlayer)
+                        || (col-2==0 && ((row==0) || (row==6))) )) {
                     System.out.println("PAWN GETTING CAPTURED");
                     pawn3.setCaptured(true);
+                    //board.removeElement(pawn3);
+                    //board.removeElement(board.getElement(row, col-1));
                 }
-                if ((pawn4 != null && pawn4.getColor() == 1) && (pawn4_1 != null && pawn4_1.getColor() == idPlayer)) {
+                if ((pawn4 != null && pawn4.getColor() == 1)
+                        && ((pawn4_1 != null && pawn4_1.getColor() == idPlayer)
+                        || (col+2==6 && ((row==0) || (row==6))))) {
                     System.out.println("PAWN GETTING CAPTURED");
                     pawn4.setCaptured(true);
+                    //board.removeElement(pawn4);
+                    //board.removeElement(board.getElement(row, col+1));
                 }
                 break;
             }
             case 1: {
-                if ((pawn1 != null && pawn1.getColor() == 0 && pawn1_1 != null && pawn1_1.getColor() == idPlayer)) {
+                // Get coords of the case at row-2, col
+                if ((pawn1 != null && (pawn1.getColor() == 0 || (pawn1 != king)))
+                        && ((pawn1_1 != null && pawn1_1.getColor() == idPlayer)
+                        || (row-2==0 && ((col==0) || (col==6))) )) {
                     System.out.println("PAWN GETTING CAPTURED");
                     pawn1.setCaptured(true);
+                    //board.removeElement(pawn1);
+                    //board.removeElement(board.getElement(row-1, col));
                 }
-                if ((pawn2 != null && pawn2.getColor() == 0) && (pawn2_1 != null && pawn2_1.getColor() == idPlayer)) {
+                if ((pawn2 != null && (pawn2.getColor() == 0 || (pawn2 != king)))
+                        && ((pawn2_1 != null && pawn2_1.getColor() == idPlayer)
+                        || (row+2==6 && ((col==0) || (col==6))) )) {
                     System.out.println("PAWN GETTING CAPTURED");
                     pawn2.setCaptured(true);
+                    //board.removeElement(pawn2);
+                    //board.removeElement(board.getElement(row+1, col));
                 }
-                if ((pawn3 != null && pawn3.getColor() == 0) && (pawn3_1 != null && pawn3_1.getColor() == idPlayer)) {
+                // Get coords of the case at row, col-2
+                if ((pawn3 != null && (pawn3.getColor() == 0 || (pawn3 != king)))
+                        && ((pawn3_1 != null && pawn3_1.getColor() == idPlayer)
+                        || (col-2==0 && ((row==0) || (row==6))) )) {
                     System.out.println("PAWN GETTING CAPTURED");
                     pawn3.setCaptured(true);
+                    //board.removeElement(pawn3);
+                    //board.removeElement(board.getElement(row, col-1));
                 }
-                if ((pawn4 != null && pawn4.getColor() == 0) && (pawn4_1 != null && pawn4_1.getColor() == idPlayer)){
+                if ((pawn4 != null && (pawn4.getColor() == 0 || (pawn4 != king)))
+                        && ((pawn4_1 != null && pawn4_1.getColor() == idPlayer)
+                        || (col+2==6 && ((row==0) || (row==6))))) {
                     System.out.println("PAWN GETTING CAPTURED");
                     pawn4.setCaptured(true);
+                    //board.removeElement(pawn4);
+                    //board.removeElement(board.getElement(row, col+1));
                 }
                 break;
+            }
+        }
+        // if the king is on 3,3, and is surrounded by 4 red pawns, then the king is captured
+        if (king != null && king.getColor() == 2) {
+            if (board.getElement(2, 3) != null && board.getElement(2, 3).getColor() == 1
+                    && board.getElement(4,3) != null && board.getElement(4, 3).getColor() == 1
+                    && board.getElement(3, 2) != null && board.getElement(3, 2).getColor() == 1
+                    && board.getElement(3, 4) != null && board.getElement(3, 4).getColor() == 1) {
+                System.out.println("KING GETTING CAPTURED");
+                board.getElement(3, 3).setCaptured(true);
+                // board.getElement(3, 3).removeFromStage();
             }
         }
     }
