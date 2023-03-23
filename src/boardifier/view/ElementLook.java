@@ -102,5 +102,4 @@ public abstract class ElementLook {
        but only if the attribute lookChanged of the element is true (cf. update() in GameStageView)
      */
     public abstract void onLookChange();
-
 }

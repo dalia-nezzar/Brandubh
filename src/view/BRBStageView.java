@@ -1,5 +1,6 @@
 package view;
 
+import boardifier.model.GameElement;
 import boardifier.model.GameStageModel;
 import boardifier.view.ElementLook;
 import boardifier.view.GameStageView;

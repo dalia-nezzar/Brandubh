@@ -29,36 +29,36 @@ public class BRBBoard extends GridElement {
     public List<Point> computeValidCells(int row, int col, boolean isKing) {
         List<Point> lst = new ArrayList<>();
         Pawn p = null;
-        // While the cell above row, col is empty add it to the list
+        // While the cell above row, col is empty and cell coordinates is not 3, 3 : add it to the list
         for(int i=row-1;i>=0;i--) {
-            if (isEmptyAt(i,col)) {
+            if (isEmptyAt(i,col) && !(i == 3 && col == 3)) {
                 lst.add(new Point(col,i));
             }
             else {
                 break;
             }
         }
-        // While the cell under row, col is empty add it to the list
+        // While the cell under row, col is empty and cell coordinates is not 3, 3 : add it to the list
         for(int i=row+1;i<7;i++) {
-            if (isEmptyAt(i,col)) {
+            if (isEmptyAt(i,col) && !(i == 3 && col == 3)) {
                 lst.add(new Point(col,i));
             }
             else {
                 break;
             }
         }
-        // While the cell on the left of row, col is empty add it to the list
+        // While the cell on the left of row, col and cell coordinates is not 3, 3 : is empty add it to the list
         for(int i=col-1;i>=0;i--) {
-            if (isEmptyAt(row,i)) {
+            if (isEmptyAt(row,i) && !(row == 3 && i == 3)) {
                 lst.add(new Point(i,row));
             }
             else {
                 break;
             }
         }
-        // While the cell on the right of row, col is empty add it to the list
+        // While the cell on the right of row, col and cell coordinates is not 3, 3 : is empty add it to the list
         for(int i=col+1;i<7;i++) {
-            if (isEmptyAt(row,i)) {
+            if (isEmptyAt(row,i) && !(row == 3 && i == 3)) {
                 lst.add(new Point(i,row));
             }
             else {

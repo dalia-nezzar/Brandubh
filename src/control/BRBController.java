@@ -85,10 +85,10 @@ public class BRBController extends Controller {
                             line = consoleIn.readLine();
                         }
                         if (line.toLowerCase().contains("yes")
-                                || line.toLowerCase().contains("ok") ||
-                                line.toLowerCase().contains("accept") ||
-                                line.toLowerCase().contains("oui") ||
-                                line.toLowerCase().contains("draw")) {
+                                || line.toLowerCase().contains("ok")
+                                || line.toLowerCase().contains("accept")
+                                || line.toLowerCase().contains("oui")
+                                || line.toLowerCase().contains("draw")) {
                             System.out.println("Draw accepted");
                             stopStage();
                             endGame();
@@ -137,9 +137,6 @@ public class BRBController extends Controller {
         // check if the pawn is still in its pot
 
         int[] coords = gameStage.getBoard().getCoords(pawnIndex + 1, model.getIdPlayer(), firstChar);
-        // System.out.println("coords[0]: " + coords[0] + " coords[1]: " + coords[1]);
-        // System.out.println("row: " + (row) + " col: " + col);
-        // System.out.println("gamestage.getBoard().getElement(row,col): " + gameStage.getBoard().getElement(coords[0], coords[1]));
         if (coords == null) return false;
         GameElement pawn = gameStage.getBoard().getElement(coords[0], coords[1]);
         // compute valid cells for the chosen pawn
@@ -149,15 +146,10 @@ public class BRBController extends Controller {
         } else {
             gameStage.getBoard().setValidCells(coords[0], coords[1], false);
         }
-
-
-        // System.out.println("Got HERE : " + gameStage.getBoard().canReachCell(row, col));
+        // check if the cell is valid
         if (!gameStage.getBoard().canReachCell(row, col)) return false;
-        // System.out.println("Got HERE 2");
         ActionList actions = new ActionList(true);
-        // System.out.println("Got HERE 3");
         GameAction move = new MoveAction(model, pawn, "BRBboard", row, col);
-        // System.out.println("Got HERE 4");
         // add the action to the action list.
         actions.addSingleAction(move);
         ActionPlayer play = new ActionPlayer(model, this, actions);
@@ -200,7 +192,6 @@ public class BRBController extends Controller {
 
         GameElement king = board.getElement(3, 3);
 
-        // System.out.println("pawn1: " + pawn1 + " pawn2: " + pawn2 + " pawn3: " + pawn3 + " pawn4: " + pawn4);
         switch (idPlayer) {
             case 0: {
                 // If pawn above is a black pawn

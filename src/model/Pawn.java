@@ -56,7 +56,7 @@ public class Pawn extends GameElement {
         return captured;
     }
 
-    public void captured() {
+    public void capture() {
         this.captured = true;
     }
 

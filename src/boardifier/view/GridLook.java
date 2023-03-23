@@ -82,6 +82,31 @@ public class GridLook extends ElementLook {
                 shape[nbRows * cellHeight + 1][(int) ((j + 0.5) * cellWidth)] = String.valueOf(c);
             }
         }
+        // change the color of the corners to green
+        for(int i=0;i<shape.length;i++) {
+            for(int j=0;j<shape[i].length;j++) {
+                // Select only the corners
+                if ((i < 2 &&  j < 4)
+                        || (i < 2 && j > 24 && j < 29)
+                        || (i > 12 && i < 15 && j < 4)
+                        || (i > 12 && i < 15 && j > 24 && j < 29)) {
+                    shape[i][j] = "\u001B[32m" + shape[i][j] + "\u001B[0m";
+                }
+            }
+        }
+        // change the color of ONLY the central border to yellow
+        for(int i=0;i<shape.length;i++) {
+            for(int j=0;j<shape[i].length;j++) {
+                // Select only the middle cell
+                if ((i > 5 && i < 9)
+                        && (j > 11 && j < 17)
+                        && i != 7
+                        && j != 13 && j != 14 && j != 15) {
+                    shape[i][j] = "\u001B[33m" + shape[i][j] + "\u001B[0m";
+                }
+            }
+        }
+
     }
 
     public int getCellWidth() {

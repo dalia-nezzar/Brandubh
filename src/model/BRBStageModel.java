@@ -5,22 +5,13 @@ import boardifier.model.*;
 public class BRBStageModel extends GameStageModel {
 
     private BRBBoard board;
-    //private BRBPawnPot blackPot;
-    //private BRBPawnPot redPot;
     private Pawn[] blackPawns;
     private Pawn[] redPawns;
     private Pawn[] blackKingPawns;
-    private int blackPawnsToPlay;
-    private int redPawnsToPlay;
-    private int blackKingPawnsToPlay;
 
     public BRBStageModel(String name, Model model) {
         super(name, model);
-        blackPawnsToPlay = 4;
-        blackKingPawnsToPlay = 1;
-        redPawnsToPlay = 8;
         setupCallbacks();
-        //computePartyResult();
     }
 
     public BRBBoard getBoard() {
@@ -30,24 +21,6 @@ public class BRBStageModel extends GameStageModel {
         this.board = board;
         addGrid(board);
     }
-
-    /*
-    public BRBPawnPot getBlackPot() {
-        return blackPot;
-    }
-    public void setBlackPot(BRBPawnPot blackPot) {
-        this.blackPot = blackPot;
-        addGrid(blackPot);
-
-
-    public BRBPawnPot getRedPot() {
-        return redPot;
-    }
-    public void setRedPot(BRBPawnPot redPot) {
-        this.redPot = redPot;
-        addGrid(redPot);
-    }
-     */
 
     public Pawn[] getBlackPawns() {
         return blackPawns;
@@ -94,39 +67,13 @@ public class BRBStageModel extends GameStageModel {
             computePartyResult();
         });
     }
-    private void removeEliminatedPawns() {
-        // Check every cell, if there is a pawn, check if it is eliminated
-        for (int row=0;row<7;row++) {
-            for (int col=0;col<7;col++) {
-                Pawn p = (Pawn) board.getElement(row, col);
-                System.out.println("PRINT PAWN "+p);
-                if (p != null) {
-                    if (p.isCaptured()) {
-                        // remove the pawn
-                        board.removeElement(p);
-                        System.out.println("Removing pawn "+p.getNumber()+" from the board...");
-                        // put it in the pot
-                        if (p.getColor() == Pawn.PAWN_BLACK) {
-                            //blackPot.putElement(p, 0,0);
-                            blackPawnsToPlay--;
-                        }
-                        else {
-                            //redPot.putElement(p, 0,0);
-                            redPawnsToPlay--;
-                        }
-                    }
-                }
-            }
-        }
-    }
     private void computeKingCorner() {
-        int idWinner = -1;
         // SI le king est dans un coin alors le joueur noir gagne
         if (board.getElement(0, 0) == blackKingPawns[0]
                 || board.getElement(0, 6) == blackKingPawns[0]
                 || board.getElement(6, 0) == blackKingPawns[0]
                 || board.getElement(6, 6) == blackKingPawns[0]) {
-            idWinner = 0;
+            int idWinner = 0;
             System.out.println("The winner is player "+idWinner);
             // set the winner
             model.setIdWinner(idWinner);
@@ -175,10 +122,6 @@ public class BRBStageModel extends GameStageModel {
     }
 
     private void computePartyDraw() {
-        int idWinner = -1;
-        //System.out.println("The winner is player "+idWinner);
-        // set the winner
-        //model.setIdWinner(idWinner);
         // stop the game
         model.stopStage();
     }
