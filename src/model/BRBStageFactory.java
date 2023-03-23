@@ -65,6 +65,7 @@ public class BRBStageFactory extends StageElementsFactory {
         stageModel.getBoard().putElement(redPawns[7], 6, 3);
 
 
+
         stageModel.getBoard().putElement(blackPawnsKing[0], 3, 3);
     }
 }
