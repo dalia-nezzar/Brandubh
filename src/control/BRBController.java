@@ -74,12 +74,16 @@ public class BRBController extends Controller {
                         System.out.println(p.getName() + " offers a draw, accept ?");
                         // store players
                         List<Player> players = model.getPlayers();
-                        if (players.get(0) == p) {
+                        if (players.get(0).getType() == Player.COMPUTER || players.get(1).getType() == Player.COMPUTER) {
+                            System.out.print("Computer > Beep boop (he said no)");
+                            line = "L(° O °L)";
+                        } else if (players.get(0) == p) {
                             System.out.print(players.get(1).getName()+ " > ");
+                            line = consoleIn.readLine();
                         } else {
                             System.out.print(players.get(0).getName()+ " > ");
+                            line = consoleIn.readLine();
                         }
-                        line = consoleIn.readLine();
                         if (line.toLowerCase().contains("yes")
                                 || line.toLowerCase().contains("ok") ||
                                 line.toLowerCase().contains("accept") ||
