@@ -174,7 +174,6 @@ public class Model {
         return state == STATE_ENDSTAGE;
     }
 
-
     public boolean isEndGame() {
         return state == STATE_ENDGAME;
     }

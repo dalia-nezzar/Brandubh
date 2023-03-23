@@ -45,4 +45,8 @@ public class View {
         root.udpate(gameStageView);
         root.print();
     }
+
+    public Object getView() {
+        return gameStageView;
+    }
 }

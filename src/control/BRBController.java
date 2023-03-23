@@ -56,6 +56,7 @@ public class BRBController extends Controller {
         }
         // get the new player
         Player p = model.getCurrentPlayer();
+        // System.out.println("Player " + p.getName() + " plays");
         if (p.getType() == Player.COMPUTER) {
             System.out.println("COMPUTER PLAYS");
             BRBDecider decider = new BRBDecider(model, this);
@@ -69,6 +70,28 @@ public class BRBController extends Controller {
                     String line = consoleIn.readLine();
                     if (line.length() == 3) {
                         ok = analyseAndPlay(line);
+                    } else if (line.toLowerCase().contains("draw")) {
+                        System.out.println(p.getName() + " offers a draw, accept ?");
+                        // store players
+                        List<Player> players = model.getPlayers();
+                        if (players.get(0) == p) {
+                            System.out.print(players.get(1).getName()+ " > ");
+                        } else {
+                            System.out.print(players.get(0).getName()+ " > ");
+                        }
+                        line = consoleIn.readLine();
+                        if (line.toLowerCase().contains("yes")
+                                || line.toLowerCase().contains("ok") ||
+                                line.toLowerCase().contains("accept") ||
+                                line.toLowerCase().contains("oui") ||
+                                line.toLowerCase().contains("draw")) {
+                            System.out.println("Draw accepted");
+                            stopStage();
+                            endGame();
+                            return;
+                        } else {
+                            System.out.println("Draw refused");
+                        }
                     }
                     if (!ok) {
                         System.out.println("incorrect instruction. retry !");
@@ -110,11 +133,11 @@ public class BRBController extends Controller {
         // check if the pawn is still in its pot
 
         int[] coords = gameStage.getBoard().getCoords(pawnIndex + 1, model.getIdPlayer(), firstChar);
-        System.out.println("coords[0]: " + coords[0] + " coords[1]: " + coords[1]);
-        System.out.println("row: " + (row) + " col: " + col);
-        System.out.println("gamestage.getBoard().getElement(row,col): " + gameStage.getBoard().getElement(coords[0], coords[1]));
+        // System.out.println("coords[0]: " + coords[0] + " coords[1]: " + coords[1]);
+        // System.out.println("row: " + (row) + " col: " + col);
+        // System.out.println("gamestage.getBoard().getElement(row,col): " + gameStage.getBoard().getElement(coords[0], coords[1]));
+        if (coords == null) return false;
         GameElement pawn = gameStage.getBoard().getElement(coords[0], coords[1]);
-        // GameElement pawn = pot.getElement(pawnIndex,0);
         // compute valid cells for the chosen pawn
 
         if (firstChar == 'K' || firstChar == 'k') {
@@ -124,13 +147,13 @@ public class BRBController extends Controller {
         }
 
 
-        System.out.println("Got HERE : " + gameStage.getBoard().canReachCell(row, col));
+        // System.out.println("Got HERE : " + gameStage.getBoard().canReachCell(row, col));
         if (!gameStage.getBoard().canReachCell(row, col)) return false;
-        System.out.println("Got HERE 2");
+        // System.out.println("Got HERE 2");
         ActionList actions = new ActionList(true);
-        System.out.println("Got HERE 3");
+        // System.out.println("Got HERE 3");
         GameAction move = new MoveAction(model, pawn, "BRBboard", row, col);
-        System.out.println("Got HERE 4");
+        // System.out.println("Got HERE 4");
         // add the action to the action list.
         actions.addSingleAction(move);
         ActionPlayer play = new ActionPlayer(model, this, actions);
@@ -173,7 +196,7 @@ public class BRBController extends Controller {
 
         GameElement king = board.getElement(3, 3);
 
-        System.out.println("pawn1: " + pawn1 + " pawn2: " + pawn2 + " pawn3: " + pawn3 + " pawn4: " + pawn4);
+        // System.out.println("pawn1: " + pawn1 + " pawn2: " + pawn2 + " pawn3: " + pawn3 + " pawn4: " + pawn4);
         switch (idPlayer) {
             case 0: {
                 // If pawn above is a black pawn
@@ -181,9 +204,9 @@ public class BRBController extends Controller {
                 if ((pawn1 != null && pawn1.getColor() == 1)
                         && ((pawn1_1 != null && pawn1_1.getColor() == idPlayer)
                         || (row-2==0 && ((col==0) || (col==6))) ) ) {
-                    System.out.println("PAWN GETTING CAPTURED");
+                    // System.out.println("PAWN GETTING CAPTURED");
                     pawn1.setCaptured(true);
-                    //board.removeElement(pawn1);
+                    board.removeElement(pawn1);
                     // remove the pawn from the board
                     //board.removeElement(board.getElement(row-1, col));
                 }
@@ -192,25 +215,25 @@ public class BRBController extends Controller {
                 if ((pawn2 != null && pawn2.getColor() == 1)
                         && ((pawn2_1 != null && pawn2_1.getColor() == idPlayer)
                         || (row+2==6 && ((col==0) || (col==6))) )) {
-                    System.out.println("PAWN GETTING CAPTURED");
+                    // System.out.println("PAWN GETTING CAPTURED");
                     pawn2.setCaptured(true);
-                    //board.removeElement(pawn2);
+                    board.removeElement(pawn2);
                     //board.removeElement(board.getElement(row+1, col));
                 }
                 if ((pawn3 != null && pawn3.getColor() == 1)
                         && ((pawn3_1 != null && pawn3_1.getColor() == idPlayer)
                         || (col-2==0 && ((row==0) || (row==6))) )) {
-                    System.out.println("PAWN GETTING CAPTURED");
+                    // System.out.println("PAWN GETTING CAPTURED");
                     pawn3.setCaptured(true);
-                    //board.removeElement(pawn3);
+                    board.removeElement(pawn3);
                     //board.removeElement(board.getElement(row, col-1));
                 }
                 if ((pawn4 != null && pawn4.getColor() == 1)
                         && ((pawn4_1 != null && pawn4_1.getColor() == idPlayer)
                         || (col+2==6 && ((row==0) || (row==6))))) {
-                    System.out.println("PAWN GETTING CAPTURED");
+                    // System.out.println("PAWN GETTING CAPTURED");
                     pawn4.setCaptured(true);
-                    //board.removeElement(pawn4);
+                    board.removeElement(pawn4);
                     //board.removeElement(board.getElement(row, col+1));
                 }
                 break;
@@ -220,34 +243,34 @@ public class BRBController extends Controller {
                 if ((pawn1 != null && (pawn1.getColor() == 0 || (pawn1 != king)))
                         && ((pawn1_1 != null && pawn1_1.getColor() == idPlayer)
                         || (row-2==0 && ((col==0) || (col==6))) )) {
-                    System.out.println("PAWN GETTING CAPTURED");
+                    // System.out.println("PAWN GETTING CAPTURED");
                     pawn1.setCaptured(true);
-                    //board.removeElement(pawn1);
+                    board.removeElement(pawn1);
                     //board.removeElement(board.getElement(row-1, col));
                 }
                 if ((pawn2 != null && (pawn2.getColor() == 0 || (pawn2 != king)))
                         && ((pawn2_1 != null && pawn2_1.getColor() == idPlayer)
                         || (row+2==6 && ((col==0) || (col==6))) )) {
-                    System.out.println("PAWN GETTING CAPTURED");
+                    // System.out.println("PAWN GETTING CAPTURED");
                     pawn2.setCaptured(true);
-                    //board.removeElement(pawn2);
+                    board.removeElement(pawn2);
                     //board.removeElement(board.getElement(row+1, col));
                 }
                 // Get coords of the case at row, col-2
                 if ((pawn3 != null && (pawn3.getColor() == 0 || (pawn3 != king)))
                         && ((pawn3_1 != null && pawn3_1.getColor() == idPlayer)
                         || (col-2==0 && ((row==0) || (row==6))) )) {
-                    System.out.println("PAWN GETTING CAPTURED");
+                    // System.out.println("PAWN GETTING CAPTURED");
                     pawn3.setCaptured(true);
-                    //board.removeElement(pawn3);
+                    board.removeElement(pawn3);
                     //board.removeElement(board.getElement(row, col-1));
                 }
                 if ((pawn4 != null && (pawn4.getColor() == 0 || (pawn4 != king)))
                         && ((pawn4_1 != null && pawn4_1.getColor() == idPlayer)
                         || (col+2==6 && ((row==0) || (row==6))))) {
-                    System.out.println("PAWN GETTING CAPTURED");
+                    // System.out.println("PAWN GETTING CAPTURED");
                     pawn4.setCaptured(true);
-                    //board.removeElement(pawn4);
+                    board.removeElement(pawn4);
                     //board.removeElement(board.getElement(row, col+1));
                 }
                 break;
@@ -259,9 +282,10 @@ public class BRBController extends Controller {
                     && board.getElement(4,3) != null && board.getElement(4, 3).getColor() == 1
                     && board.getElement(3, 2) != null && board.getElement(3, 2).getColor() == 1
                     && board.getElement(3, 4) != null && board.getElement(3, 4).getColor() == 1) {
-                System.out.println("KING GETTING CAPTURED");
+                // System.out.println("KING GETTING CAPTURED");
                 board.getElement(3, 3).setCaptured(true);
-                // board.getElement(3, 3).removeFromStage();
+                king.setCaptured(true);
+                board.removeElement(king);
             }
         }
     }

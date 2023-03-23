@@ -1,9 +1,12 @@
 package view;
 
 import boardifier.model.GameStageModel;
+import boardifier.view.ElementLook;
 import boardifier.view.GameStageView;
 import boardifier.view.GridLook;
 import model.BRBStageModel;
+
+import javax.lang.model.element.Element;
 
 public class BRBStageView extends GameStageView {
     public BRBStageView(String name, GameStageModel gameStageModel) {
@@ -15,8 +18,6 @@ public class BRBStageView extends GameStageView {
         BRBStageModel model = (BRBStageModel)gameStageModel;
 
         addLook(new GridLook(4, 2, model.getBoard(), -4, true));
-        //addLook(new PawnPotLook(4,2, model.getBlackPot()));
-        //addLook(new PawnPotLook(4, 2, model.getRedPot()));
 
         for(int i=0;i<4;i++) {
             addLook(new PawnLook(model.getBlackPawns()[i]));

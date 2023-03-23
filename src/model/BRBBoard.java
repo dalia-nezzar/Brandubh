@@ -27,7 +27,6 @@ public class BRBBoard extends GridElement {
         }
     }
     public List<Point> computeValidCells(int row, int col, boolean isKing) {
-        //TODO La faut tout refaire, les murs tt ça
         List<Point> lst = new ArrayList<>();
         Pawn p = null;
         // While the cell above row, col is empty add it to the list

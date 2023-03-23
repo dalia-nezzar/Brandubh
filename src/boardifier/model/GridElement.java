@@ -103,7 +103,7 @@ public class GridElement extends StaticElement {
         grid[row][col].add(element);
         element.setGrid(this);
         if (autoLoc) element.setAutoLocChanged(true);
-        // signal the stage model that element is put in grid so that callback can be exectued
+        // signal the stage model that element is put in grid so that callback can be executed
         gameStageModel.putInGrid(element, this, row, col);
     }
 
@@ -117,7 +117,7 @@ public class GridElement extends StaticElement {
     private void removeElement(GameElement element, int row, int col) {
         grid[row][col].remove(element);
         element.setGrid(null);
-        // signal the stage model that element is removed from grid so that callback can be exectued
+        // signal the stage model that element is removed from grid so that callback can be executed
         gameStageModel.removedFromGrid(element, this, row, col);
     }
 
@@ -138,7 +138,6 @@ public class GridElement extends StaticElement {
         coords = getElementCell(element);
         if (coords == null) {
             System.out.println("NO CELL FOR MOVE");
-            // TODO : NO CELL FOR MOVE PROBLEM
         }
         // if the element is in the grid, and not already in rowDest,colDest cell: move it.
         if ((coords != null) && ((rowDest != coords[0]) || (colDest != coords[1]))) {
@@ -182,7 +181,7 @@ public class GridElement extends StaticElement {
      */
     public GameElement getFirstElement(int row, int col) {
         // print grid element
-        System.out.println("get first element size " + grid[row][col].size() + " " + row + " " + col);
+        // System.out.println("get first element size " + grid[row][col].size() + " " + row + " " + col);
         if (grid[row][col].size() > 0) {
             return grid[row][col].get(0);
         }
@@ -244,7 +243,7 @@ public class GridElement extends StaticElement {
                 for (int j = 0; j < nbCols; j++) {
                     if (grid[i][j].size() > 0) {
                         if ((king == 'K' || king == 'k') && grid[i][j].get(0).getKing() == 'K') {
-                            System.out.println("get coords King " + i + " " + j);
+                            // System.out.println("get coords King " + i + " " + j);
                             int[] tab = {i, j};
                             return tab;
                         }
@@ -256,7 +255,7 @@ public class GridElement extends StaticElement {
                 for (int j = 0; j < nbCols; j++) {
                     if (grid[i][j].size() > 0) {
                         if (grid[i][j].get(0).getNumber() == number && grid[i][j].get(0).getColor() == color) {
-                            System.out.println("get coords Other " + i + " " + j);
+                            // System.out.println("get coords Other " + i + " " + j);
                             int[] tab = {i, j};
                             return tab;
                         }

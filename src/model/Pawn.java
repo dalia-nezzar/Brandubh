@@ -59,4 +59,8 @@ public class Pawn extends GameElement {
     public void captured() {
         this.captured = true;
     }
+
+    public boolean isKing() {
+        return king == 'K';
+    }
 }

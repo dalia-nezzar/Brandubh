@@ -47,13 +47,18 @@ public class RootPane {
             clearViewPort();
         }
         // now put looks on the pane
-        for  (ElementLook look : looks) {
-            for(int i=0;i<look.height;i++) {
-                for(int j=0;j<look.width;j++) {
-                    viewPort[(int)(look.getElement().getY()+i)][(int)(look.getElement().getX()+j)] = look.getShapePoint(j,i);
+        for (ElementLook look : looks) {
+            for(int i=0; i<look.height; i++) {
+                for(int j=0; j<look.width; j++) {
+                    int x = (int) (look.getElement().getX() + j);
+                    int y = (int) (look.getElement().getY() + i);
+                    if (x >= 0 && x < viewPort[0].length && y >= 0 && y < viewPort.length) {
+                        viewPort[y][x] = look.getShapePoint(j, i);
+                    }
                 }
             }
         }
+
     }
 
     public void print() {

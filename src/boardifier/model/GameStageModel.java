@@ -173,6 +173,8 @@ public abstract class GameStageModel {
     }
     public void removedFromGrid(GameElement element, GridElement grid, int row, int col) {
         onRemoveFromGridCallback.execute(element, grid, row, col);
+        // remove the element view
+        removeElement(element);
     }
 
     // by default removing = hide the element and move it outside the current scope of the view
@@ -208,5 +210,4 @@ public abstract class GameStageModel {
         }
         return list;
     }
-
 }

@@ -1,6 +1,7 @@
 package boardifier.view;
 
 import boardifier.model.*;
+import model.Pawn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +77,26 @@ public abstract class GameStageView {
 
     public void addLook(ElementLook look) {
         looks.add(look);
+    }
+
+    public void removeLook(ElementLook look) {
+        // try to remove the same element for test
+        GameElement element = look.getElement();
+        for (ElementLook look2 : looks) {
+            if (look2.getElement() == element) {
+                looks.remove(look2);
+                break;
+            }
+        }
+    }
+
+    public void removeLook(GameElement element) {
+        for (ElementLook look : looks) {
+            if (look.getElement() == element) {
+                looks.remove(look);
+                break;
+            }
+        }
     }
 
     public abstract void createLooks() throws GameException;
