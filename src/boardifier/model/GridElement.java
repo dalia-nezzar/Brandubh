@@ -1,6 +1,7 @@
 package boardifier.model;
 
 import model.BRBBoard;
+import model.Pawn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -214,6 +215,23 @@ public class GridElement extends StaticElement {
      */
     public GameElement getElement(int row, int col) {
         return getFirstElement(row, col);
+    }
+
+    public GameElement getElement(int pawnId, int color, boolean isPawn) {
+        for (int i = 0; i < nbRows; i++) {
+            for (int j = 0; j < nbCols; j++) {
+                if (grid[i][j].size() > 0) {
+                    GameElement element = grid[i][j].get(0);
+                    if (element instanceof Pawn) {
+                        Pawn pawn = (Pawn) element;
+                        if (pawn.getNumber() == pawnId && pawn.getColor() == color) {
+                            return pawn;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     /**

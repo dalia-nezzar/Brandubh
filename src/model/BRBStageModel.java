@@ -130,4 +130,58 @@ public class BRBStageModel extends GameStageModel {
     public StageElementsFactory getDefaultElementFactory() {
         return new BRBStageFactory(this);
     }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int row=0;row<7;row++) {
+            for (int col=0;col<7;col++) {
+                Pawn p = (Pawn) board.getElement(row, col);
+                if (p != null) {
+                    if (p.isKing()) {
+                        sb.append("K");
+                    }
+                    else if (p.getColor() == Pawn.PAWN_RED) {
+                        sb.append("A");
+                    }
+                    else {
+                        sb.append("D");
+                    }
+                }
+                else {
+                    sb.append("-");
+                }
+            }
+            sb.append(" ");
+        }
+        return sb.toString();
+    }
+
+    public double[] getInputs(int currentPlayer) {
+        // Return the board in a 2D array
+        double[] inputs = new double[50];
+        int i=0;
+        for (int row=0;row<7;row++) {
+            for (int col=0;col<7;col++) {
+                Pawn p = (Pawn) board.getElement(row, col);
+                if (p != null) {
+                    if (p.isKing()) {
+                        inputs[i] = -1;
+                    }
+                    else if (p.getColor() == Pawn.PAWN_RED) {
+                        inputs[i] = -0.5;
+                    }
+                    else {
+                        inputs[i] = 0.5;
+                    }
+                }
+                else {
+                    inputs[i] = 0;
+                }
+                i++;
+            }
+        }
+        // Add the current player to the input vector
+        inputs[49] = currentPlayer;
+        return inputs;
+    }
 }
