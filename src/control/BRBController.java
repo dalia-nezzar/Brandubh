@@ -152,6 +152,9 @@ public class BRBController extends Controller {
         GameAction move = new MoveAction(model, pawn, "BRBboard", row, col);
         // add the action to the action list.
         actions.addSingleAction(move);
+
+        System.out.println("Player " + model.getCurrentPlayer().getName() + " plays " + line);
+
         ActionPlayer play = new ActionPlayer(model, this, actions);
         play.start();
         setPawnCaptured(row, col, model.getIdPlayer());

@@ -7,7 +7,7 @@ import control.BRBDecider;
 
 public class BrandubhConsole {
     public static void main(String[] args) {
-        int mode = 0;
+        int mode = 1;
         if (args.length == 1) {
             try {
                 mode = Integer.parseInt(args[0]);
@@ -19,8 +19,8 @@ public class BrandubhConsole {
         }
         Model model = new Model();
         if (mode == 0) {
-            model.addHumanPlayer("player2");
             model.addHumanPlayer("player1");
+            model.addHumanPlayer("player2");
         }
         else if (mode == 1) {
             model.addHumanPlayer("player");

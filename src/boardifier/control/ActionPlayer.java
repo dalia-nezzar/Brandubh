@@ -3,6 +3,8 @@ package boardifier.control;
 import boardifier.model.*;
 import boardifier.model.action.ActionList;
 import boardifier.model.action.GameAction;
+import org.encog.neural.networks.BasicNetwork;
+
 import java.util.List;
 
 
@@ -39,10 +41,13 @@ public class ActionPlayer {
         }
         // if there is a decider, decide what to do
         if (decider != null) {
-            actions = decider.decide();
+            // create neural network
+            BasicNetwork neuralNetwork = decider.createNeuralNetwork();
+            actions = decider.decide(neuralNetwork);
         }
-
         playActions(actions);
+        // transfer the actions to the model
+        System.out.println(this);
 
         model.setCaptureEvents(true);
 
@@ -60,5 +65,11 @@ public class ActionPlayer {
             // last enable event capture
             idPack++;
         }
+    }
+
+    public String toString() {
+        int player = model.getIdPlayer();
+       // String move = 
+        return "ActionPlayer: player="+player+" move=";//+move;
     }
 }
