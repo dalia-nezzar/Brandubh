@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b19e153a-b93b-43b7-bbc2-43394a293a12" name="Changes" comment="Test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/model/GridElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/model/GridElement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/BRBStageFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BRBStageFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/BRBStageModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BRBStageModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,6 +88,12 @@
       <workItem from="1679057034094" duration="562000" />
       <workItem from="1679070001853" duration="172000" />
       <workItem from="1679070643100" duration="1322000" />
+      <workItem from="1679580544342" duration="1002000" />
+      <workItem from="1679581587685" duration="12485000" />
+      <workItem from="1679594498748" duration="36000" />
+      <workItem from="1679600356570" duration="1188000" />
+      <workItem from="1679610364381" duration="2984000" />
+      <workItem from="1679614892770" duration="117000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>
@@ -120,6 +122,17 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Test" />
     <option name="LAST_COMMIT_MESSAGE" value="Test" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/model/BRBStageModel.java</url>
+          <line>124</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
