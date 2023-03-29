@@ -66,10 +66,4 @@ public class ActionPlayer {
             idPack++;
         }
     }
-
-    public String toString() {
-        int player = model.getIdPlayer();
-       // String move = 
-        return "ActionPlayer: player="+player+" move=";//+move;
-    }
 }

@@ -9,11 +9,7 @@
       <change beforePath="$PROJECT_DIR$/Brandubh.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Brandubh.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BrandubhConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BrandubhConsole.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/boardifier/control/ActionPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/control/ActionPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/control/Decider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/control/Decider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/model/GridElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/model/GridElement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/control/BRBDecider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBDecider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/BRBStageModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BRBStageModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/BRBBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BRBBoard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,14 +43,14 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/noahe/IdeaProjects/Pendu&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/noahe/Documents/javafx-sdk-20/lib&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -108,6 +104,9 @@
       <workItem from="1679614892770" duration="117000" />
       <workItem from="1679753202735" duration="2889000" />
       <workItem from="1679834891284" duration="9143000" />
+      <workItem from="1679925862434" duration="614000" />
+      <workItem from="1679994571365" duration="164000" />
+      <workItem from="1680075615598" duration="860000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>

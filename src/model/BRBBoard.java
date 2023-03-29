@@ -77,7 +77,10 @@ public class BRBBoard extends GridElement {
         lst.remove(new Point(3,3));
 
         // making it so a pawn can't jump over another pawn
-
+        // print the list
+        System.out.println("List before: " + lst);
+        // print length of list
+        System.out.println("Length of list: " + lst.size());
         return lst;
     }
 }

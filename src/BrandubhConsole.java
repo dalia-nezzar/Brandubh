@@ -7,7 +7,7 @@ import control.BRBDecider;
 
 public class BrandubhConsole {
     public static void main(String[] args) {
-        int mode = 1;
+        int mode = 0;
         if (args.length == 1) {
             try {
                 mode = Integer.parseInt(args[0]);
