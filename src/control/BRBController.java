@@ -181,26 +181,29 @@ public class BRBController extends Controller {
         GameElement pawn4 = null;
         GameElement pawn4_1 = null;
 
+        // Check above
         if (row - 1 >= 0) pawn1 = board.getElement(row - 1, col);
         if (row - 2 >= 0) pawn1_1 = board.getElement(row - 2, col);
 
+        // Check below
         if (row + 1 <= 6) pawn2 = board.getElement(row + 1, col);
         if (row + 2 <= 6) pawn2_1 = board.getElement(row + 2, col);
 
+        // Check left
         if (col - 1 >= 0) pawn3 = board.getElement(row, col - 1);
         if (col - 2 >= 0) pawn3_1 = board.getElement(row, col - 2);
 
+        // Check right
         if (col + 1 <= 6) pawn4 = board.getElement(row, col + 1);
         if (col + 2 <= 6) pawn4_1 = board.getElement(row, col + 2);
 
         GameElement king = board.getElement(3, 3);
-
         switch (idPlayer) {
             case 0: {
                 // If pawn above is a black pawn
                 // AND (pawn above is a red pawn OR coords is in the list of corners)
                 if ((pawn1 != null && pawn1.getColor() == 1)
-                        && ((pawn1_1 != null && pawn1_1.getColor() == idPlayer)
+                        && ((pawn1_1 != null && (pawn1_1.getColor() == idPlayer || pawn1_1.getColor() == 2))
                         || (row-2==0 && ((col==0) || (col==6))) ) ) {
                     // System.out.println("PAWN GETTING CAPTURED");
                     pawn1.setCaptured(true);
@@ -211,7 +214,7 @@ public class BRBController extends Controller {
                 // If pawn under is a black pawn
                 // AND (pawn under is a red pawn OR coords is in the list of corners)
                 if ((pawn2 != null && pawn2.getColor() == 1)
-                        && ((pawn2_1 != null && pawn2_1.getColor() == idPlayer)
+                        && ((pawn2_1 != null && (pawn2_1.getColor() == idPlayer || pawn2_1.getColor() == 2))
                         || (row+2==6 && ((col==0) || (col==6))) )) {
                     // System.out.println("PAWN GETTING CAPTURED");
                     pawn2.setCaptured(true);
@@ -219,7 +222,7 @@ public class BRBController extends Controller {
                     //board.removeElement(board.getElement(row+1, col));
                 }
                 if ((pawn3 != null && pawn3.getColor() == 1)
-                        && ((pawn3_1 != null && pawn3_1.getColor() == idPlayer)
+                        && ((pawn3_1 != null && (pawn3_1.getColor() == idPlayer || pawn3_1.getColor() == 2))
                         || (col-2==0 && ((row==0) || (row==6))) )) {
                     // System.out.println("PAWN GETTING CAPTURED");
                     pawn3.setCaptured(true);
@@ -227,7 +230,7 @@ public class BRBController extends Controller {
                     //board.removeElement(board.getElement(row, col-1));
                 }
                 if ((pawn4 != null && pawn4.getColor() == 1)
-                        && ((pawn4_1 != null && pawn4_1.getColor() == idPlayer)
+                        && ((pawn4_1 != null && (pawn4_1.getColor() == idPlayer || pawn4_1.getColor() == 2))
                         || (col+2==6 && ((row==0) || (row==6))))) {
                     // System.out.println("PAWN GETTING CAPTURED");
                     pawn4.setCaptured(true);

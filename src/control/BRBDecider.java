@@ -129,4 +129,20 @@ public class BRBDecider extends Decider {
         BasicMLDataSet trainingSet = new BasicMLDataSet();
         return network;
     }
+
+    //@Override
+    public ActionList decideAleatoire() {
+        BRBStageModel stage = (BRBStageModel)model.getGameStage();
+        BRBBoard board = stage.getBoard(); // get the board
+        GameElement pawn = null; // the pawn that is moved
+        int rowDest = 0; // the dest. row in board
+        int colDest = 0; // the dest. col in board
+
+        // create action list. After the last action, it is next player's turn.
+        ActionList actions = new ActionList(true);
+        // create the move action, without animation => the pawn will be put at the center of dest cell
+        GameAction move = new MoveAction(model, pawn, "BRBboard", rowDest, colDest);
+        actions.addSingleAction(move);
+        return actions;
+    }
 }
