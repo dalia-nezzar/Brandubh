@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b19e153a-b93b-43b7-bbc2-43394a293a12" name="Changes" comment="Test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Brandubh.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Brandubh.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BrandubhConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BrandubhConsole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/control/ActionPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/control/ActionPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/BRBBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BRBBoard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +39,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/noahe/Documents/javafx-sdk-20/lib&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -107,6 +104,11 @@
       <workItem from="1679925862434" duration="614000" />
       <workItem from="1679994571365" duration="164000" />
       <workItem from="1680075615598" duration="860000" />
+      <workItem from="1680250415180" duration="36000" />
+      <workItem from="1682344387322" duration="213000" />
+      <workItem from="1682413451184" duration="274000" />
+      <workItem from="1682420110585" duration="111000" />
+      <workItem from="1682492704341" duration="327000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>
