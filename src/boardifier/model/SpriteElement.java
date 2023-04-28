@@ -194,6 +194,4 @@ public class SpriteElement extends GameElement {
             frameCounter = 0;
         }
     }
-
-
 }

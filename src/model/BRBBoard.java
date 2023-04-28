@@ -1,5 +1,6 @@
 package model;
 
+import boardifier.model.GameElement;
 import boardifier.model.GameStageModel;
 import boardifier.model.GridElement;
 
@@ -81,6 +82,21 @@ public class BRBBoard extends GridElement {
         System.out.println("List before: " + lst);
         // print length of list
         System.out.println("Length of list: " + lst.size());
+        return lst;
+    }
+
+    public List<GameElement> getPawns(int idPlayer) {
+        List<GameElement> lst = new ArrayList<>();
+        for (int i=0;i<7;i++) {
+            for (int j=0;j<7;j++) {
+                if (getElement(i,j) != null && getElement(i,j).getColor() == idPlayer) {
+                    lst.add(getElement(i,j));
+                } else if (getElement(i,j) != null && getElement(i,j).getColor() == idPlayer+2) {
+                    // if the pawn is a king, add it to the list too
+                    lst.add(getElement(i,j));
+                }
+            }
+        }
         return lst;
     }
 }

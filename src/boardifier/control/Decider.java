@@ -16,4 +16,6 @@ public abstract class Decider {
     public abstract ActionList decide(BasicNetwork neuralNetwork);
 
     public abstract BasicNetwork createNeuralNetwork();
+
+    public abstract ActionList decideAleatoire();
 }

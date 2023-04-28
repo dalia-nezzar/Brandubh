@@ -84,7 +84,7 @@ public class BRBDecider extends Decider {
         actions.addSingleAction(move);
         return actions;
     }
-    @Override
+    //@Override
     public ActionList decide(BasicNetwork neuralNetwork) {
         // Create an environment object to represent the current game state
         BRBStageModel stage = (BRBStageModel)model.getGameStage();
@@ -130,7 +130,7 @@ public class BRBDecider extends Decider {
         return network;
     }
 
-    //@Override
+    @Override
     public ActionList decideAleatoire() {
         BRBStageModel stage = (BRBStageModel)model.getGameStage();
         BRBBoard board = stage.getBoard(); // get the board
@@ -138,6 +138,21 @@ public class BRBDecider extends Decider {
         int rowDest = 0; // the dest. row in board
         int colDest = 0; // the dest. col in board
 
+        // get list of the pawns of the current player
+        List<GameElement> pawns = board.getPawns(model.getIdPlayer());
+        // Select a pawn at random
+        int id = loto.nextInt(pawns.size());
+        pawn = pawns.get(id);
+        // if isKing(), then char is 'K', else ' '
+        char isKing = pawn.isKing() ? 'K' : ' ';
+        // get the coords of the given pawn
+        int[] coords = board.getCoords(pawn.getNumber(), pawn.getColor(), isKing);
+        // get list of valid cells for the given pawn
+        List<Point> valid = board.computeValidCells(coords[0], coords[1], pawn.isKing());
+        // choose at random one of the valid cells
+        id = loto.nextInt(valid.size());
+        rowDest = valid.get(id).y;
+        colDest = valid.get(id).x;
         // create action list. After the last action, it is next player's turn.
         ActionList actions = new ActionList(true);
         // create the move action, without animation => the pawn will be put at the center of dest cell

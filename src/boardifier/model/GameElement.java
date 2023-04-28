@@ -425,7 +425,7 @@ public abstract class GameElement {
         return gameStageModel.getModel();
     }
 
-    protected int getNumber() {
+    public int getNumber() {
         return -1;
     }
 
@@ -438,5 +438,9 @@ public abstract class GameElement {
     }
 
     public void setCaptured(boolean b) {
+    }
+
+    public boolean isKing() {
+        return false;
     }
 }

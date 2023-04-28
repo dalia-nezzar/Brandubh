@@ -14,6 +14,7 @@ import model.BRBBoard;
 import model.BRBStageModel;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -21,12 +22,24 @@ import java.util.List;
 
 public class BRBController extends Controller {
 
-    BufferedReader consoleIn;
+    BufferedReader in;
     boolean firstPlayer;
 
     public BRBController(Model model, View view) {
         super(model, view);
         firstPlayer = true;
+        in = new BufferedReader(new InputStreamReader(System.in));
+    }
+
+    public BRBController(Model model, View view, String fileName) {
+        super(model, view);
+        firstPlayer = true;
+        try {
+            in = new BufferedReader(new FileReader(fileName));
+        } catch (IOException e) {
+            System.out.println("Cannot open file " + fileName);
+            in = new BufferedReader(new InputStreamReader(System.in));
+        }
     }
 
     /**
@@ -34,7 +47,6 @@ public class BRBController extends Controller {
      * It is pretty straight forward to write :
      */
     public void stageLoop() {
-        consoleIn = new BufferedReader(new InputStreamReader(System.in));
         update();
         while (!model.isEndStage()) {
             nextPlayer();
@@ -67,9 +79,13 @@ public class BRBController extends Controller {
             while (!ok) {
                 System.out.print(p.getName() + " > ");
                 try {
-                    String line = consoleIn.readLine();
+                    String line = in.readLine();
                     if (line.length() == 3) {
                         ok = analyseAndPlay(line);
+                    } else if(line.toLowerCase().contains("stop")) {
+                        stopStage();
+                        endGame();
+                        return;
                     } else if (line.toLowerCase().contains("draw")) {
                         System.out.println(p.getName() + " offers a draw, accept ?");
                         // store players
@@ -79,10 +95,10 @@ public class BRBController extends Controller {
                             line = "L(° O °L)";
                         } else if (players.get(0) == p) {
                             System.out.print(players.get(1).getName()+ " > ");
-                            line = consoleIn.readLine();
+                            line = in.readLine();
                         } else {
                             System.out.print(players.get(0).getName()+ " > ");
-                            line = consoleIn.readLine();
+                            line = in.readLine();
                         }
                         if (line.toLowerCase().contains("yes")
                                 || line.toLowerCase().contains("ok")
@@ -101,6 +117,7 @@ public class BRBController extends Controller {
                         System.out.println("incorrect instruction. retry !");
                     }
                 } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         }

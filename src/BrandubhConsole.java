@@ -4,10 +4,19 @@ import boardifier.model.Model;
 import boardifier.view.View;
 import control.BRBController;
 import control.BRBDecider;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class BrandubhConsole {
     public static void main(String[] args) {
-        int mode = 0;
+        int mode = 1;
+        try {
+            System.out.println("args : "+args[0]);
+        }
+        catch(Exception e) {
+            System.out.println("No args");
+        }
         if (args.length == 1) {
             try {
                 mode = Integer.parseInt(args[0]);
