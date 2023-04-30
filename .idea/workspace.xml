@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b19e153a-b93b-43b7-bbc2-43394a293a12" name="Changes" comment="Test">
-      <change afterPath="$PROJECT_DIR$/src/in.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BrandubhConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BrandubhConsole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/control/ActionPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/control/ActionPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/control/Decider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/control/Decider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/model/GameElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/model/GameElement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/model/SpriteElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/model/SpriteElement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/control/BRBDecider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBDecider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/BRBBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BRBBoard.java" afterDir="false" />
     </list>
@@ -140,7 +134,9 @@
       <workItem from="1682576121248" duration="2697000" />
       <workItem from="1682579053027" duration="4893000" />
       <workItem from="1682584885579" duration="132000" />
-      <workItem from="1682687421636" duration="2635000" />
+      <workItem from="1682687421636" duration="2931000" />
+      <workItem from="1682708844890" duration="593000" />
+      <workItem from="1682712271945" duration="1258000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>

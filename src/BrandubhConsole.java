@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 
 public class BrandubhConsole {
     public static void main(String[] args) {
-        int mode = 1;
+        int mode = 2;
         try {
             System.out.println("args : "+args[0]);
         }

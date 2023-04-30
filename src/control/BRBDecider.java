@@ -140,15 +140,20 @@ public class BRBDecider extends Decider {
 
         // get list of the pawns of the current player
         List<GameElement> pawns = board.getPawns(model.getIdPlayer());
-        // Select a pawn at random
-        int id = loto.nextInt(pawns.size());
-        pawn = pawns.get(id);
-        // if isKing(), then char is 'K', else ' '
-        char isKing = pawn.isKing() ? 'K' : ' ';
-        // get the coords of the given pawn
-        int[] coords = board.getCoords(pawn.getNumber(), pawn.getColor(), isKing);
-        // get list of valid cells for the given pawn
-        List<Point> valid = board.computeValidCells(coords[0], coords[1], pawn.isKing());
+        List<Point> valid = null;
+        int id = 0;
+        do {
+            // Select a pawn at random
+            id = loto.nextInt(pawns.size());
+            // get the selected pawn
+            pawn = pawns.get(id);
+            // if isKing(), then char is 'K', else ' '
+            char isKing = pawn.isKing() ? 'K' : ' ';
+            // get the coords of the given pawn
+            int[] coords = board.getCoords(pawn.getNumber(), pawn.getColor(), isKing);
+            // get list of valid cells for the given pawn
+            valid = board.computeValidCells(coords[0], coords[1], pawn.isKing());
+        } while (valid.size() == 0);
         // choose at random one of the valid cells
         id = loto.nextInt(valid.size());
         rowDest = valid.get(id).y;
