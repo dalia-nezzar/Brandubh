@@ -8,9 +8,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+
+
 public class BrandubhConsole {
     public static void main(String[] args) {
-        int mode = 2;
+        int mode = 0;
         try {
             System.out.println("args : "+args[0]);
         }
@@ -45,8 +47,10 @@ public class BrandubhConsole {
         BRBController control = new BRBController(model,BRBView);
         control.setFirstStageName("BRB");
         try {
-            control.startGame();
-            control.stageLoop();
+            for (int i=0;i<1000;i++) {
+                control.startGame();
+                control.stageLoop();
+            }
         }
         catch(GameException e) {
             System.out.println("Cannot start the game. Abort");

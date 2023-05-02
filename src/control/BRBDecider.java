@@ -10,8 +10,10 @@ import boardifier.model.action.MoveAction;
 import model.BRBBoard;
 import model.BRBStageModel;
 import model.Pawn;
+import control.BRBController;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
@@ -134,6 +136,8 @@ public class BRBDecider extends Decider {
     public ActionList decideAleatoire() {
         BRBStageModel stage = (BRBStageModel)model.getGameStage();
         BRBBoard board = stage.getBoard(); // get the board
+        // print the board
+        //System.out.println(board);
         GameElement pawn = null; // the pawn that is moved
         int rowDest = 0; // the dest. row in board
         int colDest = 0; // the dest. col in board
@@ -158,11 +162,34 @@ public class BRBDecider extends Decider {
         id = loto.nextInt(valid.size());
         rowDest = valid.get(id).y;
         colDest = valid.get(id).x;
+        System.out.println("pawn: " + pawn.getNumber() + " rowDest: " + rowDest + " colDest: " + colDest);
+        // get pawns to remove
+        List<GameElement> toRemove = board.getPawnsToRemove(rowDest, colDest, pawn.getColor());
+        // remove them
+        board.removePawns(toRemove);
+
         // create action list. After the last action, it is next player's turn.
         ActionList actions = new ActionList(true);
         // create the move action, without animation => the pawn will be put at the center of dest cell
         GameAction move = new MoveAction(model, pawn, "BRBboard", rowDest, colDest);
         actions.addSingleAction(move);
         return actions;
+    }
+
+    public ActionList decideSmart() {
+        BRBStageModel stage = (BRBStageModel) model.getGameStage();
+        BRBBoard board = stage.getBoard(); // get the board
+        GameElement pawn = null; // the pawn that is moved
+        int rowDest = 0; // the dest. row in board
+        int colDest = 0; // the dest. col in board
+
+        // get list of the pawns of the current player
+        List<GameElement> pawns = board.getPawns(model.getIdPlayer());
+        List<Point> valid = null;
+        int id = 0;
+
+        // For EVERY pawn, check EVERY possible move and put them into an arrayList
+
+        return null;
     }
 }

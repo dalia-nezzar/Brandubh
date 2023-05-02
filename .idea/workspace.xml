@@ -5,10 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b19e153a-b93b-43b7-bbc2-43394a293a12" name="Changes" comment="Test">
+      <change afterPath="$PROJECT_DIR$/src/control/Data.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BrandubhConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BrandubhConsole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boardifier/model/GridElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/model/GridElement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/control/BRBDecider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBDecider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/BRBBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BRBBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/BRBStageModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BRBStageModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +26,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectId" id="2MRr2Zxn3AIur33UPHY1tdNASYt" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -62,11 +66,19 @@
       <recent name="C:\Users\noahe\IdeaProjects\Brandubh\src" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Brandubh">
+  <component name="RunManager" selected="Application.Brandubh in.txt">
+    <configuration name="Brandubh AI vs AI" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
+      <module name="Brandubh" />
+      <option name="PROGRAM_PARAMETERS" value="2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Brandubh in.txt" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
       <module name="Brandubh" />
-      <option name="PROGRAM_PARAMETERS" value="&lt; C:\\Users\\noahe\\IdeaProjects\\Brandubh\\out\\production\\Brandubh\\in.txt" />
+      <option name="PROGRAM_PARAMETERS" value="1 &lt; C:\Users\noahe\IdeaProjects\Brandubh\out\production\Brandubh\in.txt" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -80,6 +92,7 @@
     </configuration>
     <list>
       <item itemvalue="Application.Brandubh" />
+      <item itemvalue="Application.Brandubh AI vs AI" />
       <item itemvalue="Application.Brandubh in.txt" />
     </list>
   </component>
@@ -136,7 +149,11 @@
       <workItem from="1682584885579" duration="132000" />
       <workItem from="1682687421636" duration="2931000" />
       <workItem from="1682708844890" duration="593000" />
-      <workItem from="1682712271945" duration="1258000" />
+      <workItem from="1682712271945" duration="7034000" />
+      <workItem from="1682878760116" duration="2734000" />
+      <workItem from="1682882206911" duration="2949000" />
+      <workItem from="1682942258556" duration="12058000" />
+      <workItem from="1683031882816" duration="423000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>
@@ -171,7 +188,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/model/BRBStageModel.java</url>
-          <line>124</line>
+          <line>153</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

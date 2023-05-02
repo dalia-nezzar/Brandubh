@@ -13,17 +13,24 @@ import boardifier.view.View;
 import model.BRBBoard;
 import model.BRBStageModel;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BRBController extends Controller {
 
     BufferedReader in;
     boolean firstPlayer;
+
+    ArrayList<String> storedData = new ArrayList<>(10);
+    ArrayList<Character> storedDataColor = new ArrayList<>(10);
+
+    public static HashMap<String, Data> dataMapRed = new HashMap<>();
+    public static HashMap<String, Data> dataMapBlack = new HashMap<>();
 
     public BRBController(Model model, View view) {
         super(model, view);
@@ -51,9 +58,171 @@ public class BRBController extends Controller {
         while (!model.isEndStage()) {
             nextPlayer();
             update();
+            // get the color of the current player
+            int hasPlayedPlayer = model.getIdPlayer();
+            // if hasPlayedPlayer == 0, the current player is 'R', else it is 'B'
+            char pastPlayer = (hasPlayedPlayer == 0) ? 'R' : 'B';
+            storeData(pastPlayer);
         }
+        // get the color of the winner
+        int winner = model.getIdPlayer();
+        // if winner == 0, the winner is 'R', else it is 'B'
+        char winnerColor = (winner == 0) ? 'R' : 'B';
+        takeData(winnerColor);
+        // Print the number of wins for each player
+        int[] score = BRBStageModel.getScore();
+        System.out.println("Score : BLACK " + score[0] + " - RED " + score[1]);
         stopStage();
         endGame();
+        // save the data into the files
+        savingFiles("dataRed.bin", dataMapRed);
+        savingFiles("dataBlack.bin", dataMapBlack);
+    }
+
+    /**
+     *
+     * Store the data of the current stage
+     *
+     * @param curPlayer the current player ('R' ou 'B')
+     */
+    public void storeData(char curPlayer) {
+        BRBStageModel stage = (BRBStageModel)model.getGameStage();
+        BRBBoard board = stage.getBoard(); // get the board
+        String result = board.toString();
+        storedData.add(result);
+        storedDataColor.add(curPlayer);
+    }
+
+    public void takeData(char winner) {
+        int i = 0;
+        // Pour chaque set de données récupéré par storeData
+        for (String stateString : storedData) {
+            switch (storedDataColor.get(i)) {
+                case 'R':
+                    if (dataMapRed.containsKey(stateString)) {
+                        Data data = dataMapRed.get(stateString);
+                        int WCountB = data.getWCountB();
+                        int WCountR = data.getWCountR();
+                        if (winner == 'R') {
+                            data.setWCountR(WCountR + 1);
+                            data.setWCountB(WCountB);
+                        } else { // winner is equal to B
+                            data.setWCountR(WCountR);
+                            data.setWCountB(WCountB + 1);
+                        }
+                        dataMapRed.put(stateString, data);
+                    } else { // first time situation
+                        if (winner == 'R') { // red win count to 1
+                            dataMapRed.put(stateString, new Data<>(1, 0));
+                        } else { // blue win count to 1
+                            dataMapRed.put(stateString, new Data<>(0, 1));
+                        }
+                    }
+                    break;
+                case 'B':
+                    if (dataMapBlack.containsKey(stateString)) {
+                        Data data = dataMapBlack.get(stateString);
+                        int WCountB = data.getWCountB();
+                        int WCountR = data.getWCountR();
+                        if (winner == 'R') {
+                            data.setWCountR(WCountR + 1);
+                            data.setWCountB(WCountB);
+                        } else { // winner is equal to B
+                            data.setWCountR(WCountR);
+                            data.setWCountB(WCountB + 1);
+                        }
+                        dataMapBlack.put(stateString, data);
+                    } else { // first time situation
+                        if (winner == 'R') { // red win count to 1
+                            dataMapBlack.put(stateString, new Data<>(1, 0));
+                        } else { // blue win count to 1
+                            dataMapBlack.put(stateString, new Data<>(0, 1));
+                        }
+                    }
+                    break;
+                default:
+                    // Throw error for now
+                    System.out.println("Error in takeData");
+                    break;
+            }
+            i++;
+        }
+        storedData.clear();
+        storedDataColor.clear();
+    }
+
+    /**
+     * Permet de sauvegarder les données des parties dans un fichier
+     *
+     * @param namefile nom du fichier dans lequel on souhaite chercher une valeur
+     * @param hashMap valeurs que l'on souhaite ajouter au fichier
+     */
+    public void savingFiles(String namefile, HashMap<String, Data> hashMap){
+        long numberOfKeys = hashMap.size();
+        int bufferSize = (int) Math.min(500 * numberOfKeys + 1024, Integer.MAX_VALUE*0.75);
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(namefile, true);
+            FileChannel fc = fos.getChannel();
+
+            // Create a byte buffer and write the map to it
+            ByteBuffer bb = ByteBuffer.allocate(bufferSize);
+            for (Map.Entry<String, Data> entry : hashMap.entrySet()) {
+                // Compress the key
+                String compressedKeyStr = compressData(entry.getKey());
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ObjectOutputStream oos = new ObjectOutputStream(baos);
+                oos.writeObject(entry.getValue());
+                oos.close();
+                byte[] dataBytes = baos.toByteArray();
+                bb.putInt(compressedKeyStr.length());
+                bb.put(compressedKeyStr.getBytes());
+                bb.putInt(dataBytes.length);
+                bb.put(dataBytes);
+            }
+            bb.flip();
+            fc.write(bb);
+
+            // Close the file
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static String compressData(String someData) {
+        StringBuilder compressed = new StringBuilder();
+        int count = 1;
+        char last = someData.charAt(0);
+
+        for (int i = 1; i < someData.length(); i++) {
+            if (someData.charAt(i) == last) {
+                count++;
+            } else {
+                if (count > 1) {
+                    compressed.append(count);
+                }
+                compressed.append(last);
+                last = someData.charAt(i);
+                count = 1;
+            }
+        }
+        if (count > 1) {
+            compressed.append(count);
+        }
+        compressed.append(last);
+
+        return compressed.toString();
     }
 
     /**
@@ -128,6 +297,7 @@ public class BRBController extends Controller {
      * @return true if the line is correct and the action has been played
      */
     private boolean analyseAndPlay(String line) {
+        System.out.println("Analyse and play " + line);
         BRBStageModel gameStage = (BRBStageModel) model.getGameStage();
         // get the pawn value from the first char
         int pawnIndex = 1;
@@ -174,137 +344,13 @@ public class BRBController extends Controller {
 
         ActionPlayer play = new ActionPlayer(model, this, actions);
         play.start();
-        setPawnCaptured(row, col, model.getIdPlayer());
+        //setPawnCaptured(row, col, model.getIdPlayer());
+        // get the pawns to remove
+        BRBStageModel stage = (BRBStageModel)model.getGameStage();
+        BRBBoard board = stage.getBoard(); // get the board
+        List<GameElement> pawnsToRemove = board.getPawnsToRemove(row, col, model.getIdPlayer());
+        // remove the pawns
+        board.removePawns(pawnsToRemove);
         return true;
-    }
-
-    /**
-     * Set pawn captured
-     */
-    public void setPawnCaptured(int row, int col, int idPlayer) {
-        BRBStageModel gameStage = (BRBStageModel) model.getGameStage();
-        BRBBoard board = gameStage.getBoard();
-        // Check for the pawn above, under, left and right from row col
-        // Also check if the row and col is valid before calling
-        GameElement pawn1 = null;
-        GameElement pawn1_1 = null;
-
-        GameElement pawn2 = null;
-        GameElement pawn2_1 = null;
-
-        GameElement pawn3 = null;
-        GameElement pawn3_1 = null;
-
-        GameElement pawn4 = null;
-        GameElement pawn4_1 = null;
-
-        // Check above
-        if (row - 1 >= 0) pawn1 = board.getElement(row - 1, col);
-        if (row - 2 >= 0) pawn1_1 = board.getElement(row - 2, col);
-
-        // Check below
-        if (row + 1 <= 6) pawn2 = board.getElement(row + 1, col);
-        if (row + 2 <= 6) pawn2_1 = board.getElement(row + 2, col);
-
-        // Check left
-        if (col - 1 >= 0) pawn3 = board.getElement(row, col - 1);
-        if (col - 2 >= 0) pawn3_1 = board.getElement(row, col - 2);
-
-        // Check right
-        if (col + 1 <= 6) pawn4 = board.getElement(row, col + 1);
-        if (col + 2 <= 6) pawn4_1 = board.getElement(row, col + 2);
-
-        GameElement king = board.getElement(3, 3);
-        switch (idPlayer) {
-            case 0: {
-                // If pawn above is a black pawn
-                // AND (pawn above is a red pawn OR coords is in the list of corners)
-                if ((pawn1 != null && pawn1.getColor() == 1)
-                        && ((pawn1_1 != null && (pawn1_1.getColor() == idPlayer || pawn1_1.getColor() == 2))
-                        || (row-2==0 && ((col==0) || (col==6))) ) ) {
-                    // System.out.println("PAWN GETTING CAPTURED");
-                    pawn1.setCaptured(true);
-                    board.removeElement(pawn1);
-                    // remove the pawn from the board
-                    //board.removeElement(board.getElement(row-1, col));
-                }
-                // If pawn under is a black pawn
-                // AND (pawn under is a red pawn OR coords is in the list of corners)
-                if ((pawn2 != null && pawn2.getColor() == 1)
-                        && ((pawn2_1 != null && (pawn2_1.getColor() == idPlayer || pawn2_1.getColor() == 2))
-                        || (row+2==6 && ((col==0) || (col==6))) )) {
-                    // System.out.println("PAWN GETTING CAPTURED");
-                    pawn2.setCaptured(true);
-                    board.removeElement(pawn2);
-                    //board.removeElement(board.getElement(row+1, col));
-                }
-                if ((pawn3 != null && pawn3.getColor() == 1)
-                        && ((pawn3_1 != null && (pawn3_1.getColor() == idPlayer || pawn3_1.getColor() == 2))
-                        || (col-2==0 && ((row==0) || (row==6))) )) {
-                    // System.out.println("PAWN GETTING CAPTURED");
-                    pawn3.setCaptured(true);
-                    board.removeElement(pawn3);
-                    //board.removeElement(board.getElement(row, col-1));
-                }
-                if ((pawn4 != null && pawn4.getColor() == 1)
-                        && ((pawn4_1 != null && (pawn4_1.getColor() == idPlayer || pawn4_1.getColor() == 2))
-                        || (col+2==6 && ((row==0) || (row==6))))) {
-                    // System.out.println("PAWN GETTING CAPTURED");
-                    pawn4.setCaptured(true);
-                    board.removeElement(pawn4);
-                    //board.removeElement(board.getElement(row, col+1));
-                }
-                break;
-            }
-            case 1: {
-                // Get coords of the case at row-2, col
-                if ((pawn1 != null && (pawn1.getColor() == 0 || (pawn1 != king)))
-                        && ((pawn1_1 != null && pawn1_1.getColor() == idPlayer)
-                        || (row-2==0 && ((col==0) || (col==6))) )) {
-                    // System.out.println("PAWN GETTING CAPTURED");
-                    pawn1.setCaptured(true);
-                    board.removeElement(pawn1);
-                    //board.removeElement(board.getElement(row-1, col));
-                }
-                if ((pawn2 != null && (pawn2.getColor() == 0 || (pawn2 != king)))
-                        && ((pawn2_1 != null && pawn2_1.getColor() == idPlayer)
-                        || (row+2==6 && ((col==0) || (col==6))) )) {
-                    // System.out.println("PAWN GETTING CAPTURED");
-                    pawn2.setCaptured(true);
-                    board.removeElement(pawn2);
-                    //board.removeElement(board.getElement(row+1, col));
-                }
-                // Get coords of the case at row, col-2
-                if ((pawn3 != null && (pawn3.getColor() == 0 || (pawn3 != king)))
-                        && ((pawn3_1 != null && pawn3_1.getColor() == idPlayer)
-                        || (col-2==0 && ((row==0) || (row==6))) )) {
-                    // System.out.println("PAWN GETTING CAPTURED");
-                    pawn3.setCaptured(true);
-                    board.removeElement(pawn3);
-                    //board.removeElement(board.getElement(row, col-1));
-                }
-                if ((pawn4 != null && (pawn4.getColor() == 0 || (pawn4 != king)))
-                        && ((pawn4_1 != null && pawn4_1.getColor() == idPlayer)
-                        || (col+2==6 && ((row==0) || (row==6))))) {
-                    // System.out.println("PAWN GETTING CAPTURED");
-                    pawn4.setCaptured(true);
-                    board.removeElement(pawn4);
-                    //board.removeElement(board.getElement(row, col+1));
-                }
-                break;
-            }
-        }
-        // if the king is on 3,3, and is surrounded by 4 red pawns, then the king is captured
-        if (king != null && king.getColor() == 2) {
-            if (board.getElement(2, 3) != null && board.getElement(2, 3).getColor() == 1
-                    && board.getElement(4,3) != null && board.getElement(4, 3).getColor() == 1
-                    && board.getElement(3, 2) != null && board.getElement(3, 2).getColor() == 1
-                    && board.getElement(3, 4) != null && board.getElement(3, 4).getColor() == 1) {
-                // System.out.println("KING GETTING CAPTURED");
-                board.getElement(3, 3).setCaptured(true);
-                king.setCaptured(true);
-                board.removeElement(king);
-            }
-        }
     }
 }

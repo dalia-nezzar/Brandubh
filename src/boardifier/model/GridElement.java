@@ -4,6 +4,7 @@ import model.BRBBoard;
 import model.Pawn;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GridElement extends StaticElement {
@@ -51,9 +52,7 @@ public class GridElement extends StaticElement {
 
     public void resetReachableCells(boolean state) {
         for (int i = 0; i < nbRows; i++) {
-            for (int j = 0; j < nbCols; j++) {
-                reachableCells[i][j] = state;
-            }
+            Arrays.fill(reachableCells[i], state);
         }
         // in some games, changing the reachable state has an impact on the grid look
         lookChanged = true;
@@ -160,8 +159,7 @@ public class GridElement extends StaticElement {
         for (int i = 0; i < nbRows; i++) {
             for (int j = 0; j < nbCols; j++) {
                 if (grid[i][j].contains(element)) {
-                    int[] tab = {i, j};
-                    return tab;
+                    return new int[]{i, j};
                 }
             }
         }
@@ -222,8 +220,7 @@ public class GridElement extends StaticElement {
             for (int j = 0; j < nbCols; j++) {
                 if (grid[i][j].size() > 0) {
                     GameElement element = grid[i][j].get(0);
-                    if (element instanceof Pawn) {
-                        Pawn pawn = (Pawn) element;
+                    if (element instanceof Pawn pawn) {
                         if (pawn.getNumber() == pawnId && pawn.getColor() == color) {
                             return pawn;
                         }
@@ -260,10 +257,9 @@ public class GridElement extends StaticElement {
             for (int i = 0; i < nbRows; i++) {
                 for (int j = 0; j < nbCols; j++) {
                     if (grid[i][j].size() > 0) {
-                        if ((king == 'K' || king == 'k') && grid[i][j].get(0).getKing() == 'K') {
+                        if (grid[i][j].get(0).getKing() == 'K') {
                             // System.out.println("get coords King " + i + " " + j);
-                            int[] tab = {i, j};
-                            return tab;
+                            return new int[]{i, j};
                         }
                     }
                 }
@@ -274,8 +270,7 @@ public class GridElement extends StaticElement {
                     if (grid[i][j].size() > 0) {
                         if (grid[i][j].get(0).getNumber() == number && grid[i][j].get(0).getColor() == color) {
                             // System.out.println("get coords Other " + i + " " + j);
-                            int[] tab = {i, j};
-                            return tab;
+                            return new int[]{i, j};
                         }
                     }
                 }
@@ -292,8 +287,7 @@ public class GridElement extends StaticElement {
      * @return true if there is at least one element, otherwise false
      */
     public boolean isElementAt(int row, int col) {
-        if (grid[row][col].size() > 0) return true;
-        return false;
+        return grid[row][col].size() > 0;
     }
 
     /**
@@ -319,8 +313,7 @@ public class GridElement extends StaticElement {
      * @return true if there is no element, otherwise false
      */
     public boolean isEmptyAt(int row, int col) {
-        if (grid[row][col].isEmpty()) return true;
-        return false;
+        return grid[row][col].isEmpty();
     }
 
     // test if element is within this grid
@@ -333,5 +326,26 @@ public class GridElement extends StaticElement {
             }
         }
         return false;
+    }
+
+    // Turns the board into a String
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < nbRows; i++) {
+            for (int j = 0; j < nbCols; j++) {
+                if (grid[i][j].size() > 0) {
+                    Pawn pawn = (Pawn) grid[i][j].get(0);
+                    switch (pawn.getColor()) {
+                        case 0 -> str.append("B");
+                        case 1 -> str.append("R");
+                        case 2 -> str.append("K");
+                        default -> throw new IllegalArgumentException("Invalid color");
+                    }
+                } else {
+                    str.append("_");
+                }
+            }
+        }
+        return str.toString();
     }
 }

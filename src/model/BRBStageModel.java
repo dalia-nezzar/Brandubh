@@ -8,7 +8,9 @@ public class BRBStageModel extends GameStageModel {
     private Pawn[] blackPawns;
     private Pawn[] redPawns;
     private Pawn[] blackKingPawns;
-
+    static int nbWinBlack = 0;
+    static int nbWinRed = 0;
+    static int pastScore = 0;
     public BRBStageModel(String name, Model model) {
         super(name, model);
         setupCallbacks();
@@ -16,6 +18,29 @@ public class BRBStageModel extends GameStageModel {
 
     public BRBBoard getBoard() {
         return board;
+    }
+
+    public static int[] getScore() {
+        int[] score = new int[2];
+        score[0] = nbWinBlack;
+        score[1] = nbWinRed;
+        int currScore = nbWinBlack+nbWinRed;
+        // Fix score if needed
+        int nbToRemove = currScore - pastScore - 1;
+        nbWinRed -= nbToRemove;
+        /*
+        if (pastScore+1 != currScore) {
+            // When a king is captured and another pawn is captured at the same time, the score is incremented by 2
+            // Why ? : Because when a pawn is removed it triggers computePartyResult() which increments the score by 1
+            // Solution : Just remove 1 from the score of red
+            System.out.println("Error in score... Fixing the score...");
+            int nbToRemove = currScore - pastScore - 1;
+            nbWinRed -= nbToRemove;
+            throw new RuntimeException("Error in score");
+        }
+        */
+        pastScore = currScore;
+        return score;
     }
     public void setBoard(BRBBoard board) {
         this.board = board;
@@ -75,6 +100,7 @@ public class BRBStageModel extends GameStageModel {
                 || board.getElement(6, 6) == blackKingPawns[0]) {
             int idWinner = 0;
             System.out.println("The winner is player "+idWinner);
+            nbWinBlack++;
             // set the winner
             model.setIdWinner(idWinner);
             // stop de the game
@@ -113,6 +139,9 @@ public class BRBStageModel extends GameStageModel {
             //System.out.println("The winner is player "+idWinner);
             // set the winner
             model.setIdWinner(idWinner);
+            // if idWinner == 0, then black wins
+            if (idWinner == 0) nbWinBlack++;
+            else if (idWinner == 1) nbWinRed++;
             // stop de the game
             model.stopStage();
         }
