@@ -75,8 +75,8 @@ public class BRBController extends Controller {
         stopStage();
         endGame();
         // save the data into the files
-        savingFiles("dataRed.bin", dataMapRed);
-        savingFiles("dataBlack.bin", dataMapBlack);
+        //savingFiles("dataRed.bin", dataMapRed);
+        //savingFiles("dataBlack.bin", dataMapBlack);
     }
 
     /**
@@ -149,6 +149,16 @@ public class BRBController extends Controller {
         }
         storedData.clear();
         storedDataColor.clear();
+    }
+
+    public void saveAllFiles() {
+        // remove the files if they exist first
+        File file = new File("dataRed.bin");
+        file.delete();
+        file = new File("dataBlack.bin");
+        file.delete();
+        savingFiles("dataRed.bin", dataMapRed);
+        savingFiles("dataBlack.bin", dataMapBlack);
     }
 
     /**

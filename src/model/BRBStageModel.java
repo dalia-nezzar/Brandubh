@@ -28,17 +28,16 @@ public class BRBStageModel extends GameStageModel {
         // Fix score if needed
         int nbToRemove = currScore - pastScore - 1;
         nbWinRed -= nbToRemove;
-        /*
+        currScore = nbWinBlack+nbWinRed;
         if (pastScore+1 != currScore) {
             // When a king is captured and another pawn is captured at the same time, the score is incremented by 2
             // Why ? : Because when a pawn is removed it triggers computePartyResult() which increments the score by 1
             // Solution : Just remove 1 from the score of red
-            System.out.println("Error in score... Fixing the score...");
-            int nbToRemove = currScore - pastScore - 1;
-            nbWinRed -= nbToRemove;
+            // System.out.println("Error in score... Fixing the score...");
+            // int nbToRemove = currScore - pastScore - 1;
+            // nbWinRed -= nbToRemove;
             throw new RuntimeException("Error in score");
         }
-        */
         pastScore = currScore;
         return score;
     }

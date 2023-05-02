@@ -13,6 +13,8 @@ import model.Pawn;
 import control.BRBController;
 
 import java.awt.*;
+import java.io.*;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -132,7 +134,7 @@ public class BRBDecider extends Decider {
         return network;
     }
 
-    @Override
+    //@Override
     public ActionList decideAleatoire() {
         BRBStageModel stage = (BRBStageModel)model.getGameStage();
         BRBBoard board = stage.getBoard(); // get the board
@@ -176,6 +178,7 @@ public class BRBDecider extends Decider {
         return actions;
     }
 
+    //@Override
     public ActionList decideSmart() {
         BRBStageModel stage = (BRBStageModel) model.getGameStage();
         BRBBoard board = stage.getBoard(); // get the board
@@ -188,8 +191,136 @@ public class BRBDecider extends Decider {
         List<Point> valid = null;
         int id = 0;
 
-        // For EVERY pawn, check EVERY possible move and put them into an arrayList
-
+        // Get all the pawns for the given player
+        for (int i = 0; i < pawns.size(); i++) {
+            // get the selected pawn
+            pawn = pawns.get(i);
+            // if isKing(), then char is 'K', else ' '
+            char isKing = pawn.isKing() ? 'K' : ' ';
+            // get the coords of the given pawn
+            int[] coords = board.getCoords(pawn.getNumber(), pawn.getColor(), isKing);
+            // print the coords
+            System.out.println("pawn: " + pawn.getNumber() + " row: " + coords[0] + " col: " + coords[1]);
+            // get list of valid cells for the given pawn
+            valid = board.computeValidCells(coords[0], coords[1], pawn.isKing());
+            // print the valid cells one by one
+            for (int j = 0; j < valid.size(); j++) {
+                System.out.println("valid: " + valid.get(j).y + " " + valid.get(j).x);
+                // create a representation of the move in String format
+                String combinationToSearch = translator(coords[1], coords[0], valid.get(j).x, valid.get(j).y);
+                String combinationToSearchCompressed = BRBController.compressData(combinationToSearch);
+                System.out.println(combinationToSearchCompressed);
+                // if player is red then search in dataRed.bin, else in dataBlack.bin
+                Data data = null;
+                if (model.getIdPlayer() == 0) {
+                    data = searchValue("dataBlack.bin", combinationToSearchCompressed);
+                } else {
+                    data = searchValue("dataRed.bin", combinationToSearchCompressed);
+                }
+                // print data info
+                System.out.println(data);
+            }
+        }
         return null;
+    }
+
+    public String translator(int startX, int startY, int destX, int destY) {
+        BRBStageModel stage = (BRBStageModel)model.getGameStage();
+        BRBBoard board = stage.getBoard(); // get the board
+        int startID = startY * 7 + startX;
+        int destID = destY * 7 + destX;
+        String actualBoard = board.toString();
+
+        char startChar = actualBoard.charAt(startID);
+        char destChar = actualBoard.charAt(destID);
+
+        StringBuilder sb = new StringBuilder(actualBoard);
+        sb.setCharAt(startID, destChar);
+        sb.setCharAt(destID, startChar);
+
+        String translatedBoard = sb.toString();
+        //System.out.println(actualBoard);
+        //System.out.println(translatedBoard);
+        return translatedBoard;
+    }
+
+    public static Data searchValue(String namefile, String key) {
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(namefile);
+            File file = new File(namefile);
+            long fileSize = file.length();
+            int bufferSize = (int) Math.min(fileSize, Integer.MAX_VALUE * 0.75);
+            byte[] buffer = new byte[bufferSize];
+            int bytesRead;
+            Data value;
+
+            while ((bytesRead = fis.read(buffer)) != -1) {
+                ByteBuffer bb = ByteBuffer.wrap(buffer, 0, bytesRead);
+                while (bb.hasRemaining()) {
+                    if (bb.remaining() < 4) {
+                        System.out.println("Error: Not enough data in buffer to read the key length");
+                        return null;
+                    }
+                    int keyLength = bb.getInt();
+                    byte[] keyBytes = null;
+                    if (keyLength <= bb.remaining()) {
+                        keyBytes = new byte[keyLength];
+                        bb.get(keyBytes);
+                    } else {
+                        System.out.println("Error: Not enough data in buffer to read the key");
+                        return null;
+                    }
+                    String readKey = new String(keyBytes);
+                    if (readKey.equals(key)) {
+                        if (bb.remaining() < 4) {
+                            System.out.println("Error: Not enough data in buffer to read the value length");
+                            return null;
+                        }
+                        int valueLength = bb.getInt();
+                        byte[] valueBytes = null;
+                        if (valueLength <= bb.remaining()) {
+                            valueBytes = new byte[valueLength];
+                            bb.get(valueBytes);
+                        } else {
+                            System.out.println("Error: Not enough data in buffer to read the value");
+                            return null;
+                        }
+                        ByteArrayInputStream bais = new ByteArrayInputStream(valueBytes);
+                        ObjectInputStream ois = new ObjectInputStream(bais);
+                        value = (Data) ois.readObject();
+                        ois.close();
+                        System.out.println("Value found !");
+                        return value;
+                        // Value found !
+                    }
+                    if (bb.remaining() < 4) {
+                        System.out.println("Error: Not enough data in buffer to skip the value");
+                        return null;
+                    }
+                    int valueLength = bb.getInt();
+                    if (valueLength <= bb.remaining()) {
+                        bb.position(bb.position() + valueLength);
+                    } else {
+                        System.out.println("Error: Not enough data in buffer to skip the value");
+                        return null;
+                    }
+                }
+            }
+            System.out.println("Key not found in map");
+            // Key not found in map
+            return null;
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

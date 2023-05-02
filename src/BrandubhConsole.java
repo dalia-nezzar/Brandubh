@@ -55,5 +55,6 @@ public class BrandubhConsole {
         catch(GameException e) {
             System.out.println("Cannot start the game. Abort");
         }
+        control.saveAllFiles();
     }
 }

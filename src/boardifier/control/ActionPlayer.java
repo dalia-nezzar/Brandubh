@@ -44,7 +44,7 @@ public class ActionPlayer {
             // create neural network
             BasicNetwork neuralNetwork = decider.createNeuralNetwork();
             //actions = decider.decide(neuralNetwork);
-            actions = decider.decideAleatoire();
+            actions = decider.decideSmart();
         }
         playActions(actions);
         // transfer the actions to the model
