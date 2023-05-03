@@ -14,6 +14,8 @@ public abstract class Controller {
     protected View view;
     protected String firstStageName;
     protected Map<GameElement, ElementLook> mapElementLook;
+    protected int typeDefenseur = 0;
+    protected int typeAttaquant = 1;
 
     public Controller(Model model, View view) {
         this.model = model;
@@ -89,12 +91,12 @@ public abstract class Controller {
      * winner and that proposes to start a new game or to quit.
      */
     public void endGame() {
-        System.out.println("END THE GAME");
+        System.out.println("END OF THE GAME");
         if (model.getIdWinner() != -1) {
             System.out.println(model.getPlayers().get(model.getIdWinner()).getName() + " wins");
         }
         else {
-            System.out.println("Draw game");
+            System.out.println("Game has been drawn! No victory, nor loss. Just a draw.");
         }
 
     }

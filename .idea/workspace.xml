@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b19e153a-b93b-43b7-bbc2-43394a293a12" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BrandubhConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BrandubhConsole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boardifier/control/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/control/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

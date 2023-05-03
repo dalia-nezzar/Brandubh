@@ -74,6 +74,7 @@ public class BRBController extends Controller {
         // Print the number of wins for each player
         int[] score = BRBStageModel.getScore();
         System.out.println("Score : BLACK " + score[0] + " - RED " + score[1]);
+        firstPlayer= true;
         stopStage();
         endGame();
         // save the data into the files
@@ -272,11 +273,11 @@ public class BRBController extends Controller {
                         endGame();
                         return;
                     } else if (line.toLowerCase().contains("draw")) {
-                        System.out.println(p.getName() + " offers a draw, do you accept ?");
+                        System.out.println(p.getName() + ", this coward, offers a draw, do you accept ?");
                         // store players
                         List<Player> players = model.getPlayers();
                         if (players.get(0).getType() == Player.COMPUTER || players.get(1).getType() == Player.COMPUTER) {
-                            System.out.print("Computer > Beep boop (he said no)");
+                            System.out.print("God [Computer] > Beep boop (he said no)");
                             line = "L(° O °L)";
                         } else if (players.get(0) == p) {
                             System.out.print(players.get(1).getName()+ " > ");
@@ -291,18 +292,20 @@ public class BRBController extends Controller {
                                 || line.toLowerCase().contains("oui")
                                 || line.toLowerCase().contains("draw")
                                 || line.toLowerCase().contains("y")) {
-                            System.out.println("Draw accepted");
+                            System.out.println("Haizz, the draw was accepted.");
+                            firstPlayer= true;
                             stopStage();
                             endGame();
                             return;
                         } else {
-                            System.out.println("Draw refused");
+                            System.out.println("The draw is refused ! Now is not the time to yield, son !");
                         }
                     }
                     if (!ok) {
-                        System.out.println("incorrect instruction. retry !");
+                        System.out.println("Incorrect instruction. Retry, son !");
                     }
                 } catch (IOException e) {
+                    firstPlayer= true;
                     e.printStackTrace();
                 }
             }

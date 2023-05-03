@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import static boardifier.view.ConsoleColor.*;
 
 
 public class BrandubhConsole {
@@ -18,13 +19,13 @@ public class BrandubhConsole {
         int mode = chooseGameMode();
         switch (mode) {
             case HUMAN_VS_HUMAN:
-                System.out.println("You chose a brother (human) vs brother (human) game!");
+                System.out.println("You chose a"+ BLACK_BOLD +" brother (human) vs brother (human) "+ BLACK +"game!");
                 break;
             case HUMAN_VS_COMPUTER:
-                System.out.println("You chose a brother (human) vs God (computer) game!");
+                System.out.println("You chose a"+ BLACK_BOLD +" brother (human) vs God (computer) "+ BLACK +"game!");
                 break;
             case COMPUTER_VS_COMPUTER:
-                System.out.println("You chose a God (computer) vs God (computer) game!");
+                System.out.println("You chose a"+ BLACK_BOLD +" God (computer) vs God (computer) "+ BLACK +"game!");
                 break;
         }
         Model model = new Model();
@@ -80,9 +81,9 @@ public class BrandubhConsole {
     public static int chooseGameMode() {
         System.out.println("Welcome, warrior, to Brandubh!");
         System.out.println("Say, son, what kind of game would you like to play?");
-        System.out.println("Write " + HUMAN_VS_HUMAN + " for a brother (human) vs brother (human) game,");
-        System.out.println("or, write " + HUMAN_VS_COMPUTER + " for a brother (human) vs God (computer) game!");
-        System.out.println("or, write " + COMPUTER_VS_COMPUTER + " for a God (computer) vs God (computer) game!");
+        System.out.println("Write " + RED_BOLD +HUMAN_VS_HUMAN + BLACK+" for a brother (human) vs brother (human) game,");
+        System.out.println("or, write "+ RED_BOLD + HUMAN_VS_COMPUTER + BLACK+" for a brother (human) vs God (computer) game!");
+        System.out.println("or, write " + RED_BOLD + COMPUTER_VS_COMPUTER + BLACK+" for a God (computer) vs God (computer) game!");
 
         BufferedReader stringReader = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
