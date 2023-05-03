@@ -13,10 +13,6 @@ public abstract class Decider {
         this.control = control;
     }
 
-    public abstract ActionList decide(BasicNetwork neuralNetwork);
-
-    public abstract BasicNetwork createNeuralNetwork();
-
     public abstract ActionList decideAleatoire();
 
     public abstract ActionList decideSmart();
