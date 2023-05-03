@@ -3,7 +3,6 @@ package boardifier.control;
 import boardifier.model.*;
 import boardifier.model.action.ActionList;
 import boardifier.model.action.GameAction;
-import org.encog.neural.networks.BasicNetwork;
 
 import java.util.List;
 

@@ -2,7 +2,6 @@ package boardifier.control;
 
 import boardifier.model.action.ActionList;
 import boardifier.model.Model;
-import org.encog.neural.networks.BasicNetwork;
 
 public abstract class Decider {
     protected Model model;
