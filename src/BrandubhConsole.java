@@ -30,16 +30,19 @@ public class BrandubhConsole {
         }
         Model model = new Model();
         if (mode == 0) {
-            model.addHumanPlayer("player1");
-            model.addHumanPlayer("player2");
+            String player1 = getName();
+            model.addHumanPlayer(player1);
+            String player2 = getName();
+            model.addHumanPlayer(player2);
         }
         else if (mode == 1) {
-            model.addHumanPlayer("player");
-            model.addComputerPlayer("computer");
+            String playerAI = getName();
+            model.addHumanPlayer(playerAI);
+            model.addComputerPlayer("Computer");
         }
         else if (mode == 2) {
-            model.addComputerPlayer("computer2");
-            model.addComputerPlayer("computer1");
+            model.addComputerPlayer("Computer1");
+            model.addComputerPlayer("Computer2");
         }
 
         StageFactory.registerModelAndView("BRB", "model.BRBStageModel", "view.BRBStageView");
@@ -56,5 +59,22 @@ public class BrandubhConsole {
             System.out.println("Cannot start the game. Abort");
         }
         control.saveAllFiles();
+    }
+
+    /**
+     * Get the name of the player from the standard input
+     * @return
+     **/
+    static String getName() {
+        String name = "";
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Enter your name: ");
+        try {
+            name = br.readLine();
+        }
+        catch(IOException e) {
+            System.out.println("Error reading name. Abort.");
+        }
+        return name;
     }
 }

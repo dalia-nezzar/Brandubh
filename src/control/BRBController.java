@@ -21,6 +21,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static boardifier.view.ConsoleColor.BLACK_BOLD;
+import static boardifier.view.ConsoleColor.RED_BOLD;
+
 public class BRBController extends Controller {
 
     BufferedReader in;
@@ -256,6 +259,11 @@ public class BRBController extends Controller {
         } else {
             boolean ok = false;
             while (!ok) {
+                /*if (p.get == Player.RED) {
+                    System.out.print(RED_BOLD + p.getName() + " > ");
+                } else {
+                    System.out.print(BLACK_BOLD + p.getName() + " > ");
+                }*/
                 System.out.print(p.getName() + " > ");
                 try {
                     String line = in.readLine();
