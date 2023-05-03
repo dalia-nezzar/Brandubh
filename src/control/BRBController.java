@@ -21,8 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static boardifier.view.ConsoleColor.BLACK_BOLD;
-import static boardifier.view.ConsoleColor.RED_BOLD;
+import static boardifier.view.ConsoleColor.*;
 
 public class BRBController extends Controller {
 
@@ -252,19 +251,18 @@ public class BRBController extends Controller {
         Player p = model.getCurrentPlayer();
         // System.out.println("Player " + p.getName() + " plays");
         if (p.getType() == Player.COMPUTER) {
-            System.out.println("COMPUTER PLAYS");
+            System.out.println("GOD [COMPUTER] PLAYS");
             BRBDecider decider = new BRBDecider(model, this);
             ActionPlayer play = new ActionPlayer(model, this, decider, null);
             play.start();
         } else {
             boolean ok = false;
             while (!ok) {
-                /*if (p.get == Player.RED) {
-                    System.out.print(RED_BOLD + p.getName() + " > ");
+                if (model.getIdPlayer()==1) {
+                    System.out.print(RED_BOLD + p.getName() + BLACK + " > ");
                 } else {
-                    System.out.print(BLACK_BOLD + p.getName() + " > ");
-                }*/
-                System.out.print(p.getName() + " > ");
+                    System.out.print(BLACK_BOLD + p.getName() + BLACK + " > ");
+                }
                 try {
                     String line = in.readLine();
                     if (line.length() == 3) {

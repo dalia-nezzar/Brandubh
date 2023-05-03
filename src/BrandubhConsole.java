@@ -79,7 +79,7 @@ public class BrandubhConsole {
 
     public static int chooseGameMode() {
         System.out.println("Welcome, warrior, to Brandubh!");
-        System.out.println("Say, brother, what kind of game would you like to play?");
+        System.out.println("Say, son, what kind of game would you like to play?");
         System.out.println("Write " + HUMAN_VS_HUMAN + " for a brother (human) vs brother (human) game,");
         System.out.println("or, write " + HUMAN_VS_COMPUTER + " for a brother (human) vs God (computer) game!");
         System.out.println("or, write " + COMPUTER_VS_COMPUTER + " for a God (computer) vs God (computer) game!");
@@ -91,7 +91,7 @@ public class BrandubhConsole {
                 if (mode >= HUMAN_VS_HUMAN && mode <= COMPUTER_VS_COMPUTER) {
                     return mode;
                 } else {
-                    System.out.println("Arf. You've got to try again son ! Invalid game mode. Please enter a number between " + HUMAN_VS_HUMAN + " and " + COMPUTER_VS_COMPUTER + ".");
+                    System.out.println("Arf. You've got to try again, son ! Invalid game mode. Please enter a number between " + HUMAN_VS_HUMAN + " and " + COMPUTER_VS_COMPUTER + ".");
                 }
             } catch (IOException e) {
                 System.out.println("There was an error reading your answer (mode). Try again, son.");
