@@ -9,6 +9,8 @@ import boardifier.view.View;
 import java.util.HashMap;
 import java.util.Map;
 
+import static boardifier.view.ConsoleColor.*;
+
 public abstract class Controller {
     protected Model model;
     protected View view;
@@ -29,7 +31,9 @@ public abstract class Controller {
 
     public void startGame() throws GameException {
         if (firstStageName.isEmpty()) throw new GameException("The name of the first stage have not been set. Abort");
-        System.out.println("START THE GAME");
+        System.out.println("======================");
+        System.out.println(BLUE_BOLD + "THE WAR HAS STARTED" + BLACK);
+        System.out.println("======================");
         startStage(firstStageName);
         // Make the second player play first
         model.setNextPlayer();
@@ -51,7 +55,7 @@ public abstract class Controller {
             stopStage();
         }
         model.reset();
-        System.out.println("START STAGE "+stageName);
+        //System.out.println("START STAGE "+stageName);
         // create the model of the stage by using the StageFactory
         GameStageModel gameStageModel = StageFactory.createStageModel(stageName, model);
         // create the elements of the stage by getting the default factory of this stage and giving it to createElements()
@@ -91,9 +95,11 @@ public abstract class Controller {
      * winner and that proposes to start a new game or to quit.
      */
     public void endGame() {
-        System.out.println("END OF THE GAME");
+        System.out.println("======================");
+        System.out.println(RED_BOLD + "THE WAR HAS ENDED" +BLACK);
+        System.out.println("======================");
         if (model.getIdWinner() != -1) {
-            System.out.println(model.getPlayers().get(model.getIdWinner()).getName() + " wins");
+            System.out.println(model.getPlayers().get(model.getIdWinner()).getName() + " wins! Shall the land of the defeated be in the hands of the true warrior !");
         }
         else {
             System.out.println("Game has been drawn! No victory, nor loss. Just a draw.");

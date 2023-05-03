@@ -73,7 +73,9 @@ public class BRBController extends Controller {
         takeData(winnerColor);
         // Print the number of wins for each player
         int[] score = BRBStageModel.getScore();
-        System.out.println("Score : BLACK " + score[0] + " - RED " + score[1]);
+        System.out.println("========================================");
+        System.out.println("Score : "+ BLACK_BOLD+"BLACK " + score[0] + BLUE+ " - "+ RED_BOLD +"RED " + score[1] + BLACK);
+        System.out.println("========================================");
         firstPlayer= true;
         stopStage();
         endGame();
