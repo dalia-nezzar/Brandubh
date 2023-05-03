@@ -36,16 +36,24 @@ public class BrandubhConsole {
             String player1 = getName();
             model.addHumanPlayer(player1);
             String player2 = getName();
+            if (player1.equals(player2)) {
+                System.out.println(RED_BOLD+"You can't have two warriors with the same name!"+BLACK);
+                do{
+                    System.out.println("Enter a new name for the second player, son! Else... The war will never start! ");
+                    player2 = getName();
+                }
+                while (player1.equals(player2));
+            }
             model.addHumanPlayer(player2);
         }
         else if (mode == 1) {
             String playerAI = getName();
             model.addHumanPlayer(playerAI);
-            model.addComputerPlayer("Computer");
+            model.addComputerPlayer("God Odin");
         }
         else if (mode == 2) {
-            model.addComputerPlayer("Computer1");
-            model.addComputerPlayer("Computer2");
+            model.addComputerPlayer("God Odin");
+            model.addComputerPlayer("God Loki");
         }
 
         StageFactory.registerModelAndView("BRB", "model.BRBStageModel", "view.BRBStageView");
@@ -66,7 +74,7 @@ public class BrandubhConsole {
 
     /**
      * Get the name of the player from the standard input
-     * @return
+     * @return The name of the player
      **/
     static String getName() {
         String name = "";
@@ -97,7 +105,7 @@ public class BrandubhConsole {
                 || answer.equals("ye")
                 || answer.equals("yee")
                 || answer.equals("oui")) {
-                    System.out.println("Fair. Let's head to the warzone, son!");
+                    System.out.println("Fair. Let's head to the warzone, ey!");
                     break;
                 } else if (answer.equals("no")
                 || answer.equals("n")
