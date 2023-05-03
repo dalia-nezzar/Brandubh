@@ -11,22 +11,21 @@ import java.io.InputStreamReader;
 
 
 public class BrandubhConsole {
+    public static final int HUMAN_VS_HUMAN = 0;
+    public static final int HUMAN_VS_COMPUTER = 1;
+    public static final int COMPUTER_VS_COMPUTER = 2;
     public static void main(String[] args) {
-        int mode = 0;
-        try {
-            System.out.println("args : "+args[0]);
-        }
-        catch(Exception e) {
-            System.out.println("No args");
-        }
-        if (args.length == 1) {
-            try {
-                mode = Integer.parseInt(args[0]);
-                if ((mode <0) || (mode>2)) mode = 0;
-            }
-            catch(NumberFormatException e) {
-                mode = 0;
-            }
+        int mode = chooseGameMode();
+        switch (mode) {
+            case HUMAN_VS_HUMAN:
+                System.out.println("You chose a brother (human) vs brother (human) game!");
+                break;
+            case HUMAN_VS_COMPUTER:
+                System.out.println("You chose a brother (human) vs God (computer) game!");
+                break;
+            case COMPUTER_VS_COMPUTER:
+                System.out.println("You chose a God (computer) vs God (computer) game!");
+                break;
         }
         Model model = new Model();
         if (mode == 0) {
@@ -68,13 +67,37 @@ public class BrandubhConsole {
     static String getName() {
         String name = "";
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Enter your name: ");
+        System.out.println("Enter your name, warrior ! ");
         try {
             name = br.readLine();
         }
         catch(IOException e) {
-            System.out.println("Error reading name. Abort.");
+            System.out.println("Don't take me for a fool, son. That's not your real name ye! Abort.");
         }
         return name;
+    }
+
+    public static int chooseGameMode() {
+        System.out.println("Welcome, warrior, to Brandubh!");
+        System.out.println("Say, brother, what kind of game would you like to play?");
+        System.out.println("Write " + HUMAN_VS_HUMAN + " for a brother (human) vs brother (human) game,");
+        System.out.println("or, write " + HUMAN_VS_COMPUTER + " for a brother (human) vs God (computer) game!");
+        System.out.println("or, write " + COMPUTER_VS_COMPUTER + " for a God (computer) vs God (computer) game!");
+
+        BufferedReader stringReader = new BufferedReader(new InputStreamReader(System.in));
+        while (true) {
+            try {
+                int mode = Integer.parseInt(stringReader.readLine());
+                if (mode >= HUMAN_VS_HUMAN && mode <= COMPUTER_VS_COMPUTER) {
+                    return mode;
+                } else {
+                    System.out.println("Arf. You've got to try again son ! Invalid game mode. Please enter a number between " + HUMAN_VS_HUMAN + " and " + COMPUTER_VS_COMPUTER + ".");
+                }
+            } catch (IOException e) {
+                System.out.println("There was an error reading your answer (mode). Try again, son.");
+            } catch (NumberFormatException e) {
+                System.out.println("Arf, that's an invalid input. Please enter a number, son.");
+            }
+        }
     }
 }

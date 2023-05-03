@@ -274,7 +274,7 @@ public class BRBController extends Controller {
                         endGame();
                         return;
                     } else if (line.toLowerCase().contains("draw")) {
-                        System.out.println(p.getName() + " offers a draw, accept ?");
+                        System.out.println(p.getName() + " offers a draw, do you accept ?");
                         // store players
                         List<Player> players = model.getPlayers();
                         if (players.get(0).getType() == Player.COMPUTER || players.get(1).getType() == Player.COMPUTER) {
@@ -291,7 +291,8 @@ public class BRBController extends Controller {
                                 || line.toLowerCase().contains("ok")
                                 || line.toLowerCase().contains("accept")
                                 || line.toLowerCase().contains("oui")
-                                || line.toLowerCase().contains("draw")) {
+                                || line.toLowerCase().contains("draw")
+                                || line.toLowerCase().contains("y")) {
                             System.out.println("Draw accepted");
                             stopStage();
                             endGame();
