@@ -42,8 +42,6 @@ public class ActionPlayer {
         // if there is a decider, decide what to do
         if (decider != null) {
             // create neural network
-            BasicNetwork neuralNetwork = decider.createNeuralNetwork();
-            //actions = decider.decide(neuralNetwork);
             actions = decider.decideSmart();
         }
         playActions(actions);
