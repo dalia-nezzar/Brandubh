@@ -1,6 +1,7 @@
 package model;
 
 import boardifier.model.*;
+import control.BRBController;
 
 import java.awt.*;
 import java.util.List;
@@ -31,6 +32,14 @@ public class BRBStageModel extends GameStageModel {
         // Fix score if needed
         int nbToRemove = currScore - pastScore - 1;
         nbWinRed -= nbToRemove;
+        System.out.println(BRBController.countDraw+" "+BRBController.drawRequested);
+        if (BRBController.countDraw== 1 || BRBController.drawRequested) {
+            nbWinRed-=1;
+            pastScore--;
+        }
+        BRBController.countDraw = 0;
+        System.out.println(pastScore+" "+currScore);
+        BRBController.drawRequested = false;
         currScore = nbWinBlack+nbWinRed;
         if (pastScore+1 != currScore) {
             // When a king is captured and another pawn is captured at the same time, the score is incremented by 2
@@ -44,6 +53,8 @@ public class BRBStageModel extends GameStageModel {
         pastScore = currScore;
         return score;
     }
+
+
     public void setBoard(BRBBoard board) {
         this.board = board;
         addGrid(board);
@@ -95,13 +106,13 @@ public class BRBStageModel extends GameStageModel {
         });
     }
     private void computeKingCorner() {
-        // SI le king est dans un coin alors le joueur noir gagne
+        // If the king is in a corner, then the black player wins
         if (board.getElement(0, 0) == blackKingPawns[0]
                 || board.getElement(0, 6) == blackKingPawns[0]
                 || board.getElement(6, 0) == blackKingPawns[0]
                 || board.getElement(6, 6) == blackKingPawns[0]) {
             int idWinner = 0;
-            System.out.println("The winner is player "+idWinner);
+            System.out.println("The winner of the war is player "+idWinner);
             nbWinBlack++;
             // set the winner
             model.setIdWinner(idWinner);
@@ -113,27 +124,27 @@ public class BRBStageModel extends GameStageModel {
         // System.out.println("Computing party result...");
         int idWinner = -1;
         // Parcourir le board et compter le nombre de pions
-        int nbRouge = 0;
-        int nbRoiNoir = 0;
+        int nbRed = 0;
+        int nbBlackKing = 0;
         for (int row=0;row<7;row++) {
             for (int col=0;col<7;col++) {
                 Pawn p = (Pawn) board.getElement(row, col);
                 if (p != null) {
                     if (p.isKing()) {
-                        nbRoiNoir++;
+                        nbBlackKing++;
                     }
                     else if (p.getColor() == Pawn.PAWN_RED) {
-                        nbRouge++;
+                        nbRed++;
                     }
                 }
             }
         }
-        //System.out.println("nbRoiNoir="+nbRoiNoir);
-        //System.out.println("nbRouge="+nbRouge);
-        if (nbRoiNoir == 0) {
+        //System.out.println("nbBlackKing="+nbBlackKing);
+        //System.out.println("nbRed="+nbRed);
+        if (nbBlackKing == 0) {
             idWinner = 1;
         }
-        if (nbRouge == 0) {
+        if (nbRed == 0) {
             idWinner = 0;
         }
 

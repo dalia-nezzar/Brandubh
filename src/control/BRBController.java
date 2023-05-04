@@ -28,6 +28,9 @@ public class BRBController extends Controller {
     BufferedReader in;
     boolean firstPlayer;
 
+    public static boolean drawRequested;
+    public static int countDraw;
+
     ArrayList<String> storedData = new ArrayList<>(10);
     ArrayList<Character> storedDataColor = new ArrayList<>(10);
 
@@ -269,6 +272,8 @@ public class BRBController extends Controller {
                                 || line.toLowerCase().contains("draw")
                                 || line.toLowerCase().contains("y")) {
                             System.out.println("Haizz, the draw was accepted.");
+                            drawRequested=true;
+                            countDraw++;
                             firstPlayer= true;
                             stopStage();
                             endGame();
@@ -293,7 +298,7 @@ public class BRBController extends Controller {
      * @return true if the line is correct and the action has been played
      */
     private boolean analyseAndPlay(String line) {
-        System.out.println("Analyse and play " + line);
+        System.out.println("The army verifies if " + line + " is a correct order.");
         BRBStageModel gameStage = (BRBStageModel) model.getGameStage();
         // get the pawn value from the first char
         int pawnIndex = 1;

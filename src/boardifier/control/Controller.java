@@ -101,7 +101,7 @@ public abstract class Controller {
         System.out.println(RED_BOLD + "THE WAR HAS ENDED" +BLACK);
         System.out.println("======================");
         if (model.getIdWinner() != -1) {
-            System.out.println(model.getPlayers().get(model.getIdWinner()).getName() + " wins! Shall the land of the defeated be in the hands of the true warrior !");
+            System.out.println(model.getPlayers().get(model.getIdWinner()).getName() + " wins! Shall the land of the defeated be in the hands of the true warrior!");
         }
         else {
             System.out.println("Game has been drawn! No victory, nor loss. Just a draw.");

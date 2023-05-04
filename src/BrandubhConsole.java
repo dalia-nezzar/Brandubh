@@ -102,7 +102,7 @@ public class BrandubhConsole {
             }
         }
         catch(GameException e) {
-            System.out.println("Cannot start the game. Abort");
+            System.out.println("Cannot start the war. Abort");
         }
         if (mode == 2) control.saveAllFiles();
     }
