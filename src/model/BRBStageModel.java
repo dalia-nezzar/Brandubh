@@ -2,6 +2,9 @@ package model;
 
 import boardifier.model.*;
 
+import java.awt.*;
+import java.util.List;
+
 public class BRBStageModel extends GameStageModel {
 
     private BRBBoard board;
@@ -133,6 +136,32 @@ public class BRBStageModel extends GameStageModel {
         if (nbRouge == 0) {
             idWinner = 0;
         }
+
+        //test if the current player can move
+        BRBStageModel stage = (BRBStageModel) model.getGameStage();
+        BRBBoard board = stage.getBoard(); // get the board
+        // get list of the pawns of the current player
+        List<GameElement> pawns = board.getPawns(model.getIdPlayer());
+        List<Point> valid = null;
+        Pawn pawn = null;
+        int totalValid = 0;
+        for (int i = 0; i < pawns.size(); i++) {
+            // get the selected pawn
+            pawn = (Pawn) pawns.get(i);
+            // if isKing(), then char is 'K', else ' '
+            char isKing = pawn.isKing() ? 'K' : ' ';
+            // get the coords of the given pawn
+            int[] coords = board.getCoords(pawn.getNumber(), pawn.getColor(), isKing);
+            // print the coords
+            System.out.println("pawn: " + pawn.getNumber() + " row: " + coords[0] + " col: " + coords[1]);
+            // get list of valid cells for the given pawn
+            valid = board.computeValidCells(coords[0], coords[1], pawn.isKing());
+            totalValid += valid.size();
+        }
+        if (totalValid == 0) {
+            idWinner = 1 - model.getIdPlayer();
+        }
+
 
         if (idWinner != -1) {
             //System.out.println("The winner is player "+idWinner);

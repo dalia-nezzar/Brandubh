@@ -75,6 +75,7 @@ public class BRBController extends Controller {
         System.out.println("Score : BLACK " + score[0] + " - RED " + score[1]);
         System.out.println("NB of RDM moves : " + BRBDecider.nbRDM);
         System.out.println("NB of Smart moves : " + BRBDecider.nbSmart);
+        System.out.println("NB of pawns eaten : " + BRBDecider.nbOfRemovedPawns);
         stopStage();
         endGame();
         // save the data into the files

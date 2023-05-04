@@ -6,10 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="b19e153a-b93b-43b7-bbc2-43394a293a12" name="Changes" comment="Test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataMapPawns.bin" beforeDir="false" afterPath="$PROJECT_DIR$/dataMapPawns.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BrandubhConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BrandubhConsole.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/boardifier/control/ActionPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/control/ActionPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boardifier/control/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/control/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/control/BRBDecider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBDecider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/BRBStageModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BRBStageModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +159,8 @@
       <workItem from="1683066241909" duration="1403000" />
       <workItem from="1683098742903" duration="750000" />
       <workItem from="1683099574548" duration="4884000" />
-      <workItem from="1683180679719" duration="3556000" />
+      <workItem from="1683180679719" duration="4159000" />
+      <workItem from="1683191129707" duration="4036000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>
@@ -191,7 +195,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/model/BRBStageModel.java</url>
-          <line>152</line>
+          <line>181</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

@@ -38,7 +38,7 @@ public class BrandubhConsole {
     }
     public static void main(String[] args) {
         // Suppress output
-        toggleOutput();
+        //toggleOutput();
         int mode = 0;
         try {
             System.out.println("args : "+args[0]);
@@ -74,7 +74,7 @@ public class BrandubhConsole {
         BRBController control = new BRBController(model,BRBView);
         control.setFirstStageName("BRB");
         try {
-            for (int i=0;i<100000;i++) {
+            for (int i=0;i<1000;i++) {
                 control.startGame();
                 control.stageLoop();
             }
