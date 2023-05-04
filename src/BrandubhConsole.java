@@ -47,7 +47,7 @@ public class BrandubhConsole {
         BRBController control = new BRBController(model,BRBView);
         control.setFirstStageName("BRB");
         try {
-            for (int i=0;i<1000;i++) {
+            for (int i=0;i<1;i++) {
                 control.startGame();
                 control.stageLoop();
             }

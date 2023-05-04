@@ -41,7 +41,7 @@ public class ActionPlayer {
         // if there is a decider, decide what to do
         if (decider != null) {
             // create neural network
-            actions = decider.decideSmart();
+            actions = decider.decider(2);
         }
         playActions(actions);
         // transfer the actions to the model

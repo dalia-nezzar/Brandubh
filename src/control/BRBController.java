@@ -72,6 +72,8 @@ public class BRBController extends Controller {
         // Print the number of wins for each player
         int[] score = BRBStageModel.getScore();
         System.out.println("Score : BLACK " + score[0] + " - RED " + score[1]);
+        System.out.println("NB of RDM moves : " + BRBDecider.nbRDM);
+        System.out.println("NB of Smart moves : " + BRBDecider.nbSmart);
         stopStage();
         endGame();
         // save the data into the files
