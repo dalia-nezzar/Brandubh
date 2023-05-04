@@ -270,10 +270,11 @@ public class BRBController extends Controller {
                     String line = in.readLine();
                     if (line.length() == 3) {
                         ok = analyseAndPlay(line);
-                    } else if(line.toLowerCase().contains("stop")) {
+                    } else if(line.toLowerCase().contains("stop")
+                    || (line.toLowerCase().contains("exit"))) {
                         stopStage();
                         endGame();
-                        return;
+                        break;
                     } else if (line.toLowerCase().contains("draw")) {
                         System.out.println(p.getName() + ", this coward, offers a draw, do you accept ?");
                         // store players

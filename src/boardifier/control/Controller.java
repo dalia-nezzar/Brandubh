@@ -6,6 +6,8 @@ import boardifier.view.GameStageView;
 import boardifier.view.GridLook;
 import boardifier.view.View;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -104,7 +106,6 @@ public abstract class Controller {
         else {
             System.out.println("Game has been drawn! No victory, nor loss. Just a draw.");
         }
-
     }
 
     public void update() {

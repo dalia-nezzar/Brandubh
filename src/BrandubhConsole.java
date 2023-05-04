@@ -60,8 +60,10 @@ public class BrandubhConsole {
         View BRBView = new View(model);
         BRBController control = new BRBController(model,BRBView);
         control.setFirstStageName("BRB");
+        int nbParties = 0;
+        nbParties=setNumberGame();
         try {
-            for (int i=0;i<1000;i++) {
+            for (int i=0;i<nbParties;i++) {
                 control.startGame();
                 control.stageLoop();
             }
@@ -166,5 +168,21 @@ public class BrandubhConsole {
         catch(InterruptedException e){
             System.out.println("There was an error reading the rules. Try again, son.");
         }
+    }
+
+    static int setNumberGame(){
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("How many wars will there be?");
+        try{
+            int numberGame = Integer.parseInt(br.readLine());
+            return numberGame;
+        }
+        catch(IOException e){
+            System.out.println("There was an error reading the number of games. Try again, son.");
+        }
+        catch(NumberFormatException e){
+            System.out.println("Arf, that's an invalid input. Please enter a number, son.");
+        }
+        return 0;
     }
 }
