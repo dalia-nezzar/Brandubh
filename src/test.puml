@@ -1,0 +1,56 @@
+@startuml
+start
+:BRBStageModel gameStage = (BRBStageModel) model.getGameStage();
+:int pawnIndex = 1;
+:char firstChar = line.charAt(0);
+
+if (firstChar == 'K' || firstChar == 'k') then (model.getIdPlayer() != 0)
+  :return false;
+else
+  :pawnIndex = (int) (line.charAt(0) - '1');
+  if (model.getIdPlayer() == 0) then (true)
+    if ((pawnIndex < 0) || (pawnIndex > 3)) then (true)
+      :return false;
+    endif
+  else
+    if ((pawnIndex < 0) || (pawnIndex > 7)) then (true)
+      :return false;
+    endif
+  endif
+endif
+
+:int col = (int) (line.charAt(1) - 'A');
+:int row = (int) (line.charAt(2) - '1');
+if ((row < 0) || (row > 6)) then (true)
+  :return false;
+endif
+if ((col < 0) || (col > 6)) then (true)
+  :return false;
+endif
+
+:int[] coords = gameStage.getBoard().getCoords(pawnIndex + 1, model.getIdPlayer(), firstChar);
+if (coords == null) then (true)
+  :return false;
+endif
+
+:GameElement pawn = gameStage.getBoard().getElement(coords[0], coords[1]);
+
+if (firstChar == 'K' || firstChar == 'k') then (true)
+  :gameStage.getBoard().setValidCells(coords[0], coords[1], true);
+else
+  :gameStage.getBoard().setValidCells(coords[0], coords[1], false);
+endif
+
+if (!gameStage.getBoard().canReachCell(row, col)) then (true)
+  :return false;
+endif
+
+:ActionList actions = new ActionList(true);
+:GameAction move = new MoveAction(model, pawn, "BRBboard", row, col);
+:actions.addSingleAction(move);
+:System.out.println("Player " + model.getCurrentPlayer().getName() + " plays " + line);
+:ActionPlayer play = new ActionPlayer(model, this, actions);
+:play.start();
+:setPawnCaptured(row, col, model.getIdPlayer());
+:return true;
+@enduml
