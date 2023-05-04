@@ -171,10 +171,10 @@ public class BRBDecider extends Decider {
                 Data data = null;
                 int score = 0;
                 if (model.getIdPlayer() == 0) {
-                    data = searchValue("dataBlack.bin", combinationToSearchCompressed);
+                    data = searchValue("dataMapPawns.bin", combinationToSearchCompressed);
                     if (data != null) score = score(data.getWCountB(), data.getWCountR());
                 } else {
-                    data = searchValue("dataRed.bin", combinationToSearchCompressed);
+                    data = searchValue("dataMapPawns.bin", combinationToSearchCompressed);
                     if (data != null) score = score(data.getWCountR(), data.getWCountB());
                 }
                 if (score == highestScore) {
@@ -197,11 +197,15 @@ public class BRBDecider extends Decider {
         // if there is more than one move with the same score, choose one at random
         if (moves.size() > 1) {
             System.out.println("---------------CHOOSING A MOVE AT RANDOM----------------");
-            nbRDM++;
             id = loto.nextInt(moves.size());
             rowDest = moves.get(id).y;
             colDest = moves.get(id).x;
             pawn = pawnsToMove.get(id);
+            if (highestScore == 0) {
+                nbRDM++;
+            } else {
+                nbSmart++;
+            }
         } else {
             System.out.println("---------------CHOOSING THE BEST MOVE----------------");
             nbSmart++;

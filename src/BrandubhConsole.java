@@ -4,14 +4,41 @@ import boardifier.model.Model;
 import boardifier.view.View;
 import control.BRBController;
 import control.BRBDecider;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
+import java.io.*;
 
 
 public class BrandubhConsole {
+    private static PrintStream originalOut = System.out;
+    private static boolean suppressOutput = true;
+    // Override the default print stream
+    private static class NullPrintStream extends PrintStream {
+        public NullPrintStream() {
+            super(new OutputStream() {
+                public void write(int b) {
+                    // Do nothing
+                }
+            });
+        }
+    }
+
+    // Override the standard output stream
+    private static void setOutputStream(PrintStream out) {
+        System.setOut(out);
+        System.setErr(out);
+    }
+
+    // Toggle output suppression
+    private static void toggleOutput() {
+        if (suppressOutput) {
+            setOutputStream(new NullPrintStream());
+        } else {
+            setOutputStream(originalOut);
+        }
+    }
     public static void main(String[] args) {
+        // Suppress output
+        toggleOutput();
         int mode = 0;
         try {
             System.out.println("args : "+args[0]);
@@ -47,7 +74,7 @@ public class BrandubhConsole {
         BRBController control = new BRBController(model,BRBView);
         control.setFirstStageName("BRB");
         try {
-            for (int i=0;i<1;i++) {
+            for (int i=0;i<100000;i++) {
                 control.startGame();
                 control.stageLoop();
             }
@@ -55,6 +82,6 @@ public class BrandubhConsole {
         catch(GameException e) {
             System.out.println("Cannot start the game. Abort");
         }
-        control.saveAllFiles();
+        if (mode == 2) control.saveAllFiles();
     }
 }
