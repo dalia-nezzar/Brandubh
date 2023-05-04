@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b19e153a-b93b-43b7-bbc2-43394a293a12" name="Changes" comment="Test">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BrandubhConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BrandubhConsole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/control/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/control/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/BRBStageModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BRBStageModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +164,7 @@
       <workItem from="1683180679719" duration="4159000" />
       <workItem from="1683191129707" duration="4036000" />
       <workItem from="1683180673711" duration="6622000" />
-      <workItem from="1683199351347" duration="1175000" />
+      <workItem from="1683199351347" duration="2633000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>
