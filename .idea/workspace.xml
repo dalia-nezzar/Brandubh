@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b19e153a-b93b-43b7-bbc2-43394a293a12" name="Changes" comment="Test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataMapPawns.bin" beforeDir="false" afterPath="$PROJECT_DIR$/dataMapPawns.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BrandubhConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BrandubhConsole.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/boardifier/control/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/control/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
@@ -54,7 +55,7 @@
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -75,7 +76,7 @@
     <configuration name="Brandubh in.txt" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
       <module name="Brandubh" />
-      <option name="PROGRAM_PARAMETERS" value="1 &lt; C:\Users\noahe\IdeaProjects\Brandubh\out\production\Brandubh\in.txt" />
+      <option name="PROGRAM_PARAMETERS" value="&lt; C:\Users\noahe\IdeaProjects\Brandubh\out\production\Brandubh\in.txt" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -154,6 +155,10 @@
       <workItem from="1683062636030" duration="2565000" />
       <workItem from="1683066241909" duration="1403000" />
       <workItem from="1683180673711" duration="1014000" />
+      <workItem from="1683098742903" duration="750000" />
+      <workItem from="1683099574548" duration="4884000" />
+      <workItem from="1683180679719" duration="4159000" />
+      <workItem from="1683191129707" duration="4036000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>
@@ -188,7 +193,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/model/BRBStageModel.java</url>
-          <line>152</line>
+          <line>181</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

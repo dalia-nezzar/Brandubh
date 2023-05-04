@@ -31,8 +31,9 @@ public class BRBController extends Controller {
     ArrayList<String> storedData = new ArrayList<>(10);
     ArrayList<Character> storedDataColor = new ArrayList<>(10);
 
-    public static HashMap<String, Data> dataMapRed = new HashMap<>();
-    public static HashMap<String, Data> dataMapBlack = new HashMap<>();
+    public static HashMap<String, Data> dataMapPawns = new HashMap<>();
+    //public static HashMap<String, Data> dataMapRed = new HashMap<>();
+    //public static HashMap<String, Data> dataMapBlack = new HashMap<>();
 
     public BRBController(Model model, View view) {
         super(model, view);
@@ -77,6 +78,10 @@ public class BRBController extends Controller {
         System.out.println("Score : "+ BLACK_BOLD+"BLACK " + score[0] + BLUE+ " - "+ RED_BOLD +"RED " + score[1] + BLACK);
         System.out.println("========================================");
         firstPlayer= true;
+        System.out.println("Score : BLACK " + score[0] + " - RED " + score[1]);
+        System.out.println("NB of RDM moves : " + BRBDecider.nbRDM);
+        System.out.println("NB of Smart moves : " + BRBDecider.nbSmart);
+        System.out.println("NB of pawns eaten : " + BRBDecider.nbOfRemovedPawns);
         stopStage();
         endGame();
         // save the data into the files
@@ -102,53 +107,24 @@ public class BRBController extends Controller {
         int i = 0;
         // Pour chaque set de données récupéré par storeData
         for (String stateString : storedData) {
-            switch (storedDataColor.get(i)) {
-                case 'R':
-                    if (dataMapRed.containsKey(stateString)) {
-                        Data data = dataMapRed.get(stateString);
-                        int WCountB = data.getWCountB();
-                        int WCountR = data.getWCountR();
-                        if (winner == 'R') {
-                            data.setWCountR(WCountR + 1);
-                            data.setWCountB(WCountB);
-                        } else { // winner is equal to B
-                            data.setWCountR(WCountR);
-                            data.setWCountB(WCountB + 1);
-                        }
-                        dataMapRed.put(stateString, data);
-                    } else { // first time situation
-                        if (winner == 'R') { // red win count to 1
-                            dataMapRed.put(stateString, new Data<>(1, 0));
-                        } else { // blue win count to 1
-                            dataMapRed.put(stateString, new Data<>(0, 1));
-                        }
-                    }
-                    break;
-                case 'B':
-                    if (dataMapBlack.containsKey(stateString)) {
-                        Data data = dataMapBlack.get(stateString);
-                        int WCountB = data.getWCountB();
-                        int WCountR = data.getWCountR();
-                        if (winner == 'R') {
-                            data.setWCountR(WCountR + 1);
-                            data.setWCountB(WCountB);
-                        } else { // winner is equal to B
-                            data.setWCountR(WCountR);
-                            data.setWCountB(WCountB + 1);
-                        }
-                        dataMapBlack.put(stateString, data);
-                    } else { // first time situation
-                        if (winner == 'R') { // red win count to 1
-                            dataMapBlack.put(stateString, new Data<>(1, 0));
-                        } else { // blue win count to 1
-                            dataMapBlack.put(stateString, new Data<>(0, 1));
-                        }
-                    }
-                    break;
-                default:
-                    // Throw error for now
-                    System.out.println("Error in takeData");
-                    break;
+            if (dataMapPawns.containsKey(stateString)) {
+                Data data = dataMapPawns.get(stateString);
+                int WCountB = data.getWCountB();
+                int WCountR = data.getWCountR();
+                if (winner == 'R') {
+                    data.setWCountR(WCountR + 1);
+                    data.setWCountB(WCountB);
+                } else { // winner is equal to B
+                    data.setWCountR(WCountR);
+                    data.setWCountB(WCountB + 1);
+                }
+                dataMapPawns.put(stateString, data);
+            } else { // first time situation
+                if (winner == 'R') { // red win count to 1
+                    dataMapPawns.put(stateString, new Data<>(1, 0));
+                } else { // black win count to 1
+                    dataMapPawns.put(stateString, new Data<>(0, 1));
+                }
             }
             i++;
         }
@@ -158,12 +134,9 @@ public class BRBController extends Controller {
 
     public void saveAllFiles() {
         // remove the files if they exist first
-        File file = new File("dataRed.bin");
+        File file = new File("dataMapPawns.bin");
         file.delete();
-        file = new File("dataBlack.bin");
-        file.delete();
-        savingFiles("dataRed.bin", dataMapRed);
-        savingFiles("dataBlack.bin", dataMapBlack);
+        savingFiles("dataMapPawns.bin", dataMapPawns);
     }
 
     /**

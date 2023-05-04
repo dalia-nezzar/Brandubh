@@ -9,8 +9,6 @@ import boardifier.model.action.GameAction;
 import boardifier.model.action.MoveAction;
 import model.BRBBoard;
 import model.BRBStageModel;
-import model.Pawn;
-import control.BRBController;
 
 import java.awt.*;
 import java.io.*;
@@ -26,6 +24,24 @@ public class BRBDecider extends Decider {
 
     public BRBDecider(Model model, Controller control) {
         super(model, control);
+    }
+    public static int nbRDM = 0;
+    public static int nbSmart = 0;
+    public static int nbOfRemovedPawns = 0;
+    @Override
+    public ActionList decider(int selected) {
+        switch (selected) {
+            case 1:
+                return decideAleatoire();
+            case 2:
+                return decideSmart();
+            case 3:
+                return decide2();
+            case 4:
+                return decideEAT();
+            default:
+                return null;
+        }
     }
 
     //@Override
@@ -87,6 +103,7 @@ public class BRBDecider extends Decider {
         List<GameElement> pawns = board.getPawns(model.getIdPlayer());
         List<Point> valid = null;
         int id = 0;
+        int counter = 0;
         do {
             // Select a pawn at random
             id = loto.nextInt(pawns.size());
@@ -98,6 +115,7 @@ public class BRBDecider extends Decider {
             int[] coords = board.getCoords(pawn.getNumber(), pawn.getColor(), isKing);
             // get list of valid cells for the given pawn
             valid = board.computeValidCells(coords[0], coords[1], pawn.isKing());
+            counter++;
         } while (valid.size() == 0);
         // choose at random one of the valid cells
         id = loto.nextInt(valid.size());
@@ -108,6 +126,10 @@ public class BRBDecider extends Decider {
         List<GameElement> toRemove = board.getPawnsToRemove(rowDest, colDest, pawn.getColor());
         // remove them
         board.removePawns(toRemove);
+        if (toRemove.size() != 0) {
+            // throw error
+            throw new RuntimeException("Error: pawns to remove");
+        }
 
         // create action list. After the last action, it is next player's turn.
         ActionList actions = new ActionList(true);
@@ -128,7 +150,12 @@ public class BRBDecider extends Decider {
         // get list of the pawns of the current player
         List<GameElement> pawns = board.getPawns(model.getIdPlayer());
         List<Point> valid = null;
+        // array list of possibles moves
+        ArrayList<Point> moves = new ArrayList<>();
+        // array list of possibles pawns
+        ArrayList<GameElement> pawnsToMove = new ArrayList<>();
         int id = 0;
+        int highestScore = -1;
 
         // Get all the pawns for the given player
         for (int i = 0; i < pawns.size(); i++) {
@@ -151,16 +178,56 @@ public class BRBDecider extends Decider {
                 System.out.println(combinationToSearchCompressed);
                 // if player is red then search in dataRed.bin, else in dataBlack.bin
                 Data data = null;
+                int score = 0;
                 if (model.getIdPlayer() == 0) {
-                    data = searchValue("dataBlack.bin", combinationToSearchCompressed);
+                    data = searchValue("dataMapPawns.bin", combinationToSearchCompressed);
+                    if (data != null) score = score(data.getWCountB(), data.getWCountR());
                 } else {
-                    data = searchValue("dataRed.bin", combinationToSearchCompressed);
+                    data = searchValue("dataMapPawns.bin", combinationToSearchCompressed);
+                    if (data != null) score = score(data.getWCountR(), data.getWCountB());
+                }
+                if (score == highestScore) {
+                    // if the score is the same, add the move to the list of possible moves
+                    moves.add(new Point(valid.get(j).x, valid.get(j).y));
+                    pawnsToMove.add(pawn);
+
+                }
+                if (score > highestScore) {
+                    pawnsToMove.clear();
+                    moves.clear();
+                    highestScore = score;
+                    rowDest = valid.get(j).y;
+                    colDest = valid.get(j).x;
                 }
                 // print data info
                 System.out.println(data);
             }
         }
-        return null;
+        // if there is more than one move with the same score, choose one at random
+        if (moves.size() > 1) {
+            System.out.println("---------------CHOOSING A MOVE AT RANDOM----------------");
+            id = loto.nextInt(moves.size());
+            rowDest = moves.get(id).y;
+            colDest = moves.get(id).x;
+            pawn = pawnsToMove.get(id);
+            if (highestScore == 0) {
+                nbRDM++;
+            } else {
+                nbSmart++;
+            }
+        } else {
+            System.out.println("---------------CHOOSING THE BEST MOVE----------------");
+            nbSmart++;
+        }
+        List<GameElement> toRemove = board.getPawnsToRemove(rowDest, colDest, pawn.getColor());
+        // remove them
+        board.removePawns(toRemove);
+        // create action list. After the last action, it is next player's turn.
+        ActionList actions = new ActionList(true);
+        // create the move action, without animation => the pawn will be put at the center of dest cell
+        GameAction move = new MoveAction(model, pawn, "BRBboard", rowDest, colDest);
+        actions.addSingleAction(move);
+        return actions;
     }
 
     public String translator(int startX, int startY, int destX, int destY) {
@@ -181,6 +248,15 @@ public class BRBDecider extends Decider {
         //System.out.println(actualBoard);
         //System.out.println(translatedBoard);
         return translatedBoard;
+    }
+
+    public int score(int currentPlayerWins, int enemyWins) {
+        int score = 0;
+        // Give a higher score for a larger lead
+        score += (currentPlayerWins - enemyWins) * 100;
+        // Give a higher score for a larger number of total wins
+        score += (currentPlayerWins + enemyWins) * 1.5;
+        return score;
     }
 
     public static Data searchValue(String namefile, String key) {
@@ -261,5 +337,79 @@ public class BRBDecider extends Decider {
                 }
             }
         }
+    }
+
+    public ActionList decideEAT() {
+        BRBStageModel stage = (BRBStageModel) model.getGameStage();
+        BRBBoard board = stage.getBoard(); // get the board
+        GameElement pawn = null; // the pawn that is moved
+        int rowDest = 0; // the dest. row in board
+        int colDest = 0; // the dest. col in board
+
+        // get list of the pawns of the current player
+        List<GameElement> pawns = board.getPawns(model.getIdPlayer());
+        List<Point> valid = null;
+        // array list of possibles moves
+        ArrayList<Point> moves = new ArrayList<>();
+        // array list of possibles pawns
+        ArrayList<GameElement> pawnsToMove = new ArrayList<>();
+        List<GameElement> toRemove = new ArrayList<>();
+        List<GameElement> toRemoveReal = new ArrayList<>();
+        int id = 0;
+        int highestScore = -1;
+
+        // Get all the pawns for the given player
+        for (int i = 0; i < pawns.size(); i++) {
+            // get the selected pawn
+            pawn = pawns.get(i);
+            // if isKing(), then char is 'K', else ' '
+            char isKing = pawn.isKing() ? 'K' : ' ';
+            // get the coords of the given pawn
+            int[] coords = board.getCoords(pawn.getNumber(), pawn.getColor(), isKing);
+            // print the coords
+            //System.out.println("pawn: " + pawn.getNumber() + " row: " + coords[0] + " col: " + coords[1]);
+            // get list of valid cells for the given pawn
+            valid = board.computeValidCells(coords[0], coords[1], pawn.isKing());
+            // print the valid cells one by one
+            for (int j = 0; j < valid.size(); j++) {
+                //System.out.println("valid: " + valid.get(j).y + " " + valid.get(j).x);
+                toRemove.clear();
+                toRemove = board.getPawnsToRemove(valid.get(j).y, valid.get(j).x, pawn.getColor());
+                int score = toRemove.size();
+                if (score >= highestScore) {
+                    toRemoveReal.clear();
+                    //Make a copy of toRemove into toRemoveReal
+                    toRemoveReal.addAll(toRemove);
+                    highestScore = score;
+                    pawn = pawns.get(i);
+                    rowDest = valid.get(j).y;
+                    colDest = valid.get(j).x;
+                } else {
+                    //System.out.println("score: " + score);
+                }
+                //System.out.println("highestscore: " + highestScore);
+                //print toRemoveReal
+                for (int k = 0; k < toRemoveReal.size(); k++) {
+                    //System.out.println("toRemoveReal: " + toRemoveReal.get(k).getNumber());
+                }
+                //print toRemoveReal.size
+                //System.out.println("toRemoveReal.size: " + toRemoveReal.size());
+            }
+        }
+        // if toRemove.size == 0, then no pawn can be eaten
+        // therefore, return execute decideAleatoire()
+        if (toRemoveReal.size() == 0) {
+            nbRDM++;
+            return decideAleatoire();
+        }
+        nbSmart++;
+        board.removePawns(toRemoveReal);
+        nbOfRemovedPawns += toRemoveReal.size();
+        // create action list. After the last action, it is next player's turn.
+        ActionList actions = new ActionList(true);
+        // create the move action, without animation => the pawn will be put at the center of dest cell
+        GameAction move = new MoveAction(model, pawn, "BRBboard", rowDest, colDest);
+        actions.addSingleAction(move);
+        return actions;
     }
 }

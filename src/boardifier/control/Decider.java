@@ -12,6 +12,8 @@ public abstract class Decider {
         this.control = control;
     }
 
+    public abstract ActionList decider(int selected);
+
     public abstract ActionList decideAleatoire();
 
     public abstract ActionList decideSmart();

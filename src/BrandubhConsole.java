@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 import java.util.Date;
+import java.io.*;
 
 import static boardifier.view.ConsoleColor.*;
 
@@ -18,7 +19,39 @@ public class BrandubhConsole {
     public static final int HUMAN_VS_COMPUTER = 1;
     public static final int COMPUTER_VS_COMPUTER = 2;
     Scanner input = new Scanner(System.in);
+
+
+
+    private static PrintStream originalOut = System.out;
+    private static boolean suppressOutput = true;
+    // Override the default print stream
+    private static class NullPrintStream extends PrintStream {
+        public NullPrintStream() {
+            super(new OutputStream() {
+                public void write(int b) {
+                    // Do nothing
+                }
+            });
+        }
+    }
+
+    // Override the standard output stream
+    private static void setOutputStream(PrintStream out) {
+        System.setOut(out);
+        System.setErr(out);
+    }
+
+    // Toggle output suppression
+    private static void toggleOutput() {
+        if (suppressOutput) {
+            setOutputStream(new NullPrintStream());
+        } else {
+            setOutputStream(originalOut);
+        }
+    }
     public static void main(String[] args) {
+        // Suppress output
+        //toggleOutput();
         int mode = chooseGameMode();
         switch (mode) {
             case HUMAN_VS_HUMAN:
@@ -71,7 +104,7 @@ public class BrandubhConsole {
         catch(GameException e) {
             System.out.println("Cannot start the game. Abort");
         }
-        control.saveAllFiles();
+        if (mode == 2) control.saveAllFiles();
     }
 
     /**

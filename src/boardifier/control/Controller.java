@@ -113,7 +113,7 @@ public abstract class Controller {
         mapElementLook.forEach((k,v) -> {
             // update the element if needed
             k.update();
-            // if the element was moved within the same grid)
+            // if the element was moved within the same grid
             if (k.isAutoLocChanged()) {
                 setElementLocationToCellCenter(k);
             }
