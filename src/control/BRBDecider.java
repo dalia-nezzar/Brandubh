@@ -115,6 +115,10 @@ public class BRBDecider extends Decider {
             int[] coords = board.getCoords(pawn.getNumber(), pawn.getColor(), isKing);
             // get list of valid cells for the given pawn
             valid = board.computeValidCells(coords[0], coords[1], pawn.isKing());
+            if (counter > 100) {
+                System.out.println("Error: no valid cells");
+                throw new RuntimeException("Error: no valid cells");
+            }
             counter++;
         } while (valid.size() == 0);
         // choose at random one of the valid cells

@@ -172,6 +172,7 @@ public class BRBStageModel extends GameStageModel {
         if (totalValid == 0) {
             idWinner = 1 - model.getIdPlayer();
         }
+        System.out.println("totalValid: " + totalValid);
 
 
         if (idWinner != -1) {
