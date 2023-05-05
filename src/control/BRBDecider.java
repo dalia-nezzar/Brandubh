@@ -130,10 +130,6 @@ public class BRBDecider extends Decider {
         List<GameElement> toRemove = board.getPawnsToRemove(rowDest, colDest, pawn.getColor());
         // remove them
         board.removePawns(toRemove);
-        if (toRemove.size() != 0) {
-            // throw error
-            throw new RuntimeException("Error: pawns to remove");
-        }
 
         // create action list. After the last action, it is next player's turn.
         ActionList actions = new ActionList(true);
