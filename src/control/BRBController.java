@@ -345,7 +345,6 @@ public class BRBController extends Controller {
 
         ActionPlayer play = new ActionPlayer(model, this, actions);
         play.start();
-        //setPawnCaptured(row, col, model.getIdPlayer());
         // get the pawns to remove
         BRBStageModel stage = (BRBStageModel)model.getGameStage();
         BRBBoard board = stage.getBoard(); // get the board

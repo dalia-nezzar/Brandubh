@@ -190,6 +190,18 @@ public class BRBStageModel extends GameStageModel {
         }
     }
 
+    public void giveUp(int player) {
+        //System.out.println("Player "+player+" gives up");
+        // set the winner
+        if (player == 0) model.setIdWinner(1);
+        else model.setIdWinner(0);
+
+        if (model.getIdWinner() == 0) nbWinBlack++;
+        else if (model.getIdWinner() == 1) nbWinRed++;
+        // stop de the game
+        model.stopStage();
+    }
+
     private void computePartyDraw() {
         // stop the game
         model.stopStage();

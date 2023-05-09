@@ -13,10 +13,8 @@ import model.BRBStageModel;
 import java.awt.*;
 import java.io.*;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
 
 public class BRBDecider extends Decider {
 
@@ -117,7 +115,9 @@ public class BRBDecider extends Decider {
             valid = board.computeValidCells(coords[0], coords[1], pawn.isKing());
             if (counter > 100) {
                 System.out.println("Error: no valid cells");
-                throw new RuntimeException("Error: no valid cells");
+                stage.giveUp(model.getIdPlayer());
+                return null;
+                //throw new RuntimeException("Error: no valid cells");
             }
             counter++;
         } while (valid.size() == 0);
@@ -198,6 +198,7 @@ public class BRBDecider extends Decider {
                     highestScore = score;
                     rowDest = valid.get(j).y;
                     colDest = valid.get(j).x;
+                    pawnsToMove.add(pawn);
                 }
                 // print data info
                 System.out.println(data);
@@ -343,6 +344,7 @@ public class BRBDecider extends Decider {
         BRBStageModel stage = (BRBStageModel) model.getGameStage();
         BRBBoard board = stage.getBoard(); // get the board
         GameElement pawn = null; // the pawn that is moved
+        GameElement selectedPawn = null; // the pawn pawn to move for now
         int rowDest = 0; // the dest. row in board
         int colDest = 0; // the dest. col in board
 
@@ -355,6 +357,16 @@ public class BRBDecider extends Decider {
         ArrayList<GameElement> pawnsToMove = new ArrayList<>();
         List<GameElement> toRemove = new ArrayList<>();
         List<GameElement> toRemoveReal = new ArrayList<>();
+        // get list of the possibles edges moves the king can do
+        List<Point> kingLimitsMoves = getKingLimitsMoves();
+        // create the list of corners in one line
+        List<Point> corners = Arrays.asList(
+                new Point(0, 0),
+                new Point(0, 6),
+                new Point(6, 0),
+                new Point(6, 6)
+        );
+
         int id = 0;
         int highestScore = -1;
 
@@ -372,16 +384,22 @@ public class BRBDecider extends Decider {
             valid = board.computeValidCells(coords[0], coords[1], pawn.isKing());
             // print the valid cells one by one
             for (int j = 0; j < valid.size(); j++) {
-                //System.out.println("valid: " + valid.get(j).y + " " + valid.get(j).x);
+                System.out.println("pawn " + pawn.getNumber() + " of color " + pawn.getColor() + " can move to row: " + valid.get(j).y + " col: " + valid.get(j).x);
                 toRemove.clear();
-                toRemove = board.getPawnsToRemove(valid.get(j).y, valid.get(j).x, pawn.getColor());
+                if (!pawn.isKing()) toRemove = board.getPawnsToRemove(valid.get(j).y, valid.get(j).x, pawn.getColor());
+                else toRemove = board.getPawnsToRemove(valid.get(j).y, valid.get(j).x, 2);
                 int score = toRemove.size();
+                // get the edges where the king can move
+                // for black that mean it has a chance to win
+                // for red it means it is a spot to defend
+                if (kingLimitsMoves.contains(valid.get(j))) score = 999; // if you can go to the edge, go to the edge
+                if (corners.contains(valid.get(j))) score = 9999; // MmmMMMMm ~even better~ (if corner available go to corner)
                 if (score >= highestScore) {
                     toRemoveReal.clear();
                     //Make a copy of toRemove into toRemoveReal
                     toRemoveReal.addAll(toRemove);
                     highestScore = score;
-                    pawn = pawns.get(i);
+                    selectedPawn = pawn;
                     rowDest = valid.get(j).y;
                     colDest = valid.get(j).x;
                 } else {
@@ -390,7 +408,7 @@ public class BRBDecider extends Decider {
                 //System.out.println("highestscore: " + highestScore);
                 //print toRemoveReal
                 for (int k = 0; k < toRemoveReal.size(); k++) {
-                    //System.out.println("toRemoveReal: " + toRemoveReal.get(k).getNumber());
+                    System.out.println("toRemoveReal: " + toRemoveReal.get(k).getNumber());
                 }
                 //print toRemoveReal.size
                 //System.out.println("toRemoveReal.size: " + toRemoveReal.size());
@@ -398,18 +416,120 @@ public class BRBDecider extends Decider {
         }
         // if toRemove.size == 0, then no pawn can be eaten
         // therefore, return execute decideAleatoire()
-        if (toRemoveReal.size() == 0) {
+        if (toRemoveReal.size() == 0 && highestScore < 100) { // Dirty way of saying that don't know what to do
             nbRDM++;
+            System.out.println("Random Move");
             return decideAleatoire();
         }
+        System.out.println("Smart Move");
         nbSmart++;
         board.removePawns(toRemoveReal);
         nbOfRemovedPawns += toRemoveReal.size();
         // create action list. After the last action, it is next player's turn.
         ActionList actions = new ActionList(true);
         // create the move action, without animation => the pawn will be put at the center of dest cell
-        GameAction move = new MoveAction(model, pawn, "BRBboard", rowDest, colDest);
+        GameAction move = new MoveAction(model, selectedPawn, "BRBboard", rowDest, colDest);
         actions.addSingleAction(move);
         return actions;
+    }
+
+    /**
+     * Get all the places the king can move to
+     * Why ? Because then the attacker can be in danger
+     *
+     * @return a list of the edges where the king can move to
+     */
+    public List<Point> getKingLimitsMoves() {
+        List<Point> moves = new ArrayList<>();
+        BRBStageModel stage = (BRBStageModel) model.getGameStage();
+        BRBBoard board = stage.getBoard(); // get the board
+        List<GameElement> redPawns = board.getPawns(1);
+
+        int[] coords = board.getCoords(9, 2, 'K'); // the 2 First parameters don't matter here
+        // if the king is already on the edge, then return an empty list
+        if (coords[0] == 0 || coords[0] == 7 || coords[1] == 0 || coords[1] == 7) return moves;
+        // get all the places the king can move to
+        moves = board.computeValidCells(coords[0], coords[1], true);
+        // keep only the edges
+        for (int i = 0; i < moves.size(); i++) {
+            if (moves.get(i).x == 0 || moves.get(i).x == 7 || moves.get(i).y == 0 || moves.get(i).y == 7) {
+                //System.out.println("King can move to: " + moves.get(i).y + " " + moves.get(i).x);
+            } else {
+                moves.remove(i);
+                i--;
+            }
+        }
+
+        // NORTH
+        // if there is a red pawn at (0,3), (0,4) or (0,5), then remove (0,1) from the list
+        for (int i = 0; i < redPawns.size(); i++) {
+            coords = board.getCoords(redPawns.get(i).getNumber(), redPawns.get(i).getColor(), ' ');
+            if (coords[0] == 0 && (coords[1] == 3 || coords[1] == 4 || coords[1] == 5)) {
+                moves.remove(new Point(0, 1));
+                System.out.println("removed 0,1");
+            }
+        }
+        // if there is a red pawn at (0,1), (0,2) or (0,3), then remove (0,5) from the list
+        for (int i = 0; i < redPawns.size(); i++) {
+            coords = board.getCoords(redPawns.get(i).getNumber(), redPawns.get(i).getColor(), ' ');
+            if (coords[0] == 0 && (coords[1] == 1 || coords[1] == 2 || coords[1] == 3)) {
+                moves.remove(new Point(0, 5));
+                System.out.println("removed 0,5");
+            }
+        }
+        // WEST
+        // if there is a red pawn at (3,0), (4,0) or (5,0), then remove (1,0) from the list
+        for (int i = 0; i < redPawns.size(); i++) {
+            coords = board.getCoords(redPawns.get(i).getNumber(), redPawns.get(i).getColor(), ' ');
+            if (coords[1] == 0 && (coords[0] == 3 || coords[0] == 4 || coords[0] == 5)) {
+                moves.remove(new Point(1, 0));
+                System.out.println("removed 1,0");
+            }
+        }
+        // if there is a red pawn at (1,0), (2,0) or (3,0), then remove (5,0) from the list
+        for (int i = 0; i < redPawns.size(); i++) {
+            coords = board.getCoords(redPawns.get(i).getNumber(), redPawns.get(i).getColor(), ' ');
+            if (coords[1] == 0 && (coords[0] == 1 || coords[0] == 2 || coords[0] == 3)) {
+                moves.remove(new Point(5, 0));
+                System.out.println("removed 5,0");
+            }
+        }
+
+        // SOUTH
+        // if there is a red pawn at (6,1), (6,2) or (6,3), then remove (6,5) from the list
+        for (int i = 0; i < redPawns.size(); i++) {
+            coords = board.getCoords(redPawns.get(i).getNumber(), redPawns.get(i).getColor(), ' ');
+            if (coords[0] == 6 && (coords[1] == 1 || coords[1] == 2 || coords[1] == 3)) {
+                moves.remove(new Point(6, 5));
+                System.out.println("removed 6,5");
+            }
+        }
+        // if there is a red pawn at (6,3), (6,4) or (6,5), then remove (6,1) from the list
+        for (int i = 0; i < redPawns.size(); i++) {
+            coords = board.getCoords(redPawns.get(i).getNumber(), redPawns.get(i).getColor(), ' ');
+            if (coords[0] == 6 && (coords[1] == 3 || coords[1] == 4 || coords[1] == 5)) {
+                moves.remove(new Point(6, 1));
+                System.out.println("removed 6,1");
+            }
+        }
+
+        // EAST
+        // if there is a red pawn at (1,6), (2,6) or (3,6), then remove (5,6) from the list
+        for (int i = 0; i < redPawns.size(); i++) {
+            coords = board.getCoords(redPawns.get(i).getNumber(), redPawns.get(i).getColor(), ' ');
+            if (coords[1] == 6 && (coords[0] == 1 || coords[0] == 2 || coords[0] == 3)) {
+                moves.remove(new Point(5, 6));
+                System.out.println("removed 5,6");
+            }
+        }
+        // if there is a red pawn at (3,6), (4,6) or (5,6), then remove (1,6) from the list
+        for (int i = 0; i < redPawns.size(); i++) {
+            coords = board.getCoords(redPawns.get(i).getNumber(), redPawns.get(i).getColor(), ' ');
+            if (coords[1] == 6 && (coords[0] == 3 || coords[0] == 4 || coords[0] == 5)) {
+                moves.remove(new Point(1, 6));
+                System.out.println("removed 1,6");
+            }
+        }
+        return moves;
     }
 }

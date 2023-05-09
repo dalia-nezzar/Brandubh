@@ -20,8 +20,6 @@ public class BrandubhConsole {
     public static final int COMPUTER_VS_COMPUTER = 2;
     Scanner input = new Scanner(System.in);
 
-
-
     private static PrintStream originalOut = System.out;
     private static boolean suppressOutput = true;
     // Override the default print stream
@@ -112,18 +110,18 @@ public class BrandubhConsole {
         control.setFirstStageName("BRB");
         int nbParties = 0;
         nbParties=setNumberGame();
+        //toggleOutput();
         try {
             for (int i=0;i<nbParties;i++) {
                 control.startGame();
                 control.stageLoop();
                 //every 1000 games, we save the files
-                if ((choice == 2 || mode==2) && i%1000 == 0) {
+                if ((choice == 2 || mode==2) && (i+1)%1000 == 0) {
                     control.saveAllFiles();
-                    toggleOutput();
+                    //toggleOutput();
                     System.out.println("Files saved");
-                    toggleOutput();
+                    //toggleOutput();
                 }
-
             }
         }
         catch(GameException e) {

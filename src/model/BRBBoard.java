@@ -79,11 +79,11 @@ public class BRBBoard extends GridElement {
 
         // making it so a pawn can't jump over another pawn
         // print the selected row, col
-        System.out.println("row: " + row + " col: " + col);
+        //System.out.println("row: " + row + " col: " + col);
         // print the list
-        System.out.println("List before: " + lst);
+        //System.out.println("List before: " + lst);
         // print length of list
-        System.out.println("Length of list: " + lst.size());
+        //System.out.println("Length of list: " + lst.size());
         return lst;
     }
 
