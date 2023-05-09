@@ -79,14 +79,18 @@ public class BrandubhConsole {
             }
             model.addHumanPlayer(player2);
         }
+        //TODO: only Strings regarding the AI's name have been added for now. Need to add the AIs now.
         else if (mode == 1) {
             String playerAI = getName();
             model.addHumanPlayer(playerAI);
-            model.addComputerPlayer("God Odin");
+            String AIMode1=setAI();
+            model.addComputerPlayer(AIMode1);
         }
         else if (mode == 2) {
-            model.addComputerPlayer("God Odin");
-            model.addComputerPlayer("God Loki");
+            String AI1Mode2=setAI();
+            model.addComputerPlayer(AI1Mode2);
+            String AI2Mode2=setAI();
+            model.addComputerPlayer(AI2Mode2);
         }
 
         StageFactory.registerModelAndView("BRB", "model.BRBStageModel", "view.BRBStageView");
@@ -122,6 +126,24 @@ public class BrandubhConsole {
             System.out.println("Don't take me for a fool, son. That's not your real name ye! Abort.");
         }
         return name;
+    }
+
+    public static String setAI() {
+        int ai = 0;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Choose your opponent, warrior! Will it be God Odin or God Loki?");
+        System.out.println(PURPLE_BOLD+"1. God Odin"+BLACK);
+        System.out.println(GREEN_BOLD+"2. God Loki"+BLACK);
+        try {
+            do {
+                ai = br.read();
+            } while (ai != 1 || ai != 2);
+        }
+        catch(IOException e) {
+            System.out.println("Don't take me for a fool, son. That's not a real God! Abort.");
+        }
+        if (ai==1) return "God Odin";
+        else return "God Loki";
     }
 
     public static int chooseGameMode() {
