@@ -52,45 +52,58 @@ public class BrandubhConsole {
     public static void main(String[] args) {
         // Suppress output
         //toggleOutput();
-        int mode = chooseGameMode();
-        switch (mode) {
-            case HUMAN_VS_HUMAN:
-                System.out.println("You chose a"+ BLACK_BOLD +" brother (human) vs brother (human) "+ BLACK +"game!");
-                break;
-            case HUMAN_VS_COMPUTER:
-                System.out.println("You chose a"+ BLACK_BOLD +" brother (human) vs God (computer) "+ BLACK +"game!");
-                break;
-            case COMPUTER_VS_COMPUTER:
-                System.out.println("You chose a"+ BLACK_BOLD +" God (computer) vs God (computer) "+ BLACK +"game!");
-                break;
-        }
-        Model model = new Model();
-        if (mode == 0) {
-            String player1 = getName();
-            model.addHumanPlayer(player1);
-            String player2 = getName();
-            if (player1.toLowerCase().equals(player2.toLowerCase())) {
-                System.out.println(RED_BOLD+"You can't have two warriors with the same name!"+BLACK);
-                do{
-                    System.out.println(BLACK_BOLD+"Enter a new name for the second player, son! Else... The war will never start! "+BLACK);
-                    player2 = getName();
-                }
-                while (player1.toLowerCase().equals(player2.toLowerCase()));
+        int choice=-1;
+        if (args.length == 1) {
+            try {
+                choice = Integer.parseInt(args[0]);
+                if ((choice <0) || (choice>2)) choice = 0;
             }
-            model.addHumanPlayer(player2);
+            catch(NumberFormatException e) {
+                choice = -1;
+            }
         }
-        //TODO: only Strings regarding the AI's name have been added for now. Need to add the AIs now.
-        else if (mode == 1) {
-            String playerAI = getName();
-            model.addHumanPlayer(playerAI);
-            String AIMode1=setAI();
-            model.addComputerPlayer(AIMode1);
-        }
-        else if (mode == 2) {
-            String AI1Mode2=setAI();
-            model.addComputerPlayer(AI1Mode2);
-            String AI2Mode2=setAI();
-            model.addComputerPlayer(AI2Mode2);
+        int mode=0;
+        Model model = new Model();
+        if (choice==-1){
+            mode=chooseGameMode();
+            switch (mode) {
+                case HUMAN_VS_HUMAN:
+                    System.out.println("You chose a"+ BLACK_BOLD +" brother (human) vs brother (human) "+ BLACK +"game!");
+                    break;
+                case HUMAN_VS_COMPUTER:
+                    System.out.println("You chose a"+ BLACK_BOLD +" brother (human) vs God (computer) "+ BLACK +"game!");
+                    break;
+                case COMPUTER_VS_COMPUTER:
+                    System.out.println("You chose a"+ BLACK_BOLD +" God (computer) vs God (computer) "+ BLACK +"game!");
+                    break;
+            }
+            if (mode == 0) {
+                String player1 = getName();
+                model.addHumanPlayer(player1);
+                String player2 = getName();
+                if (player1.toLowerCase().equals(player2.toLowerCase())) {
+                    System.out.println(RED_BOLD+"You can't have two warriors with the same name!"+BLACK);
+                    do{
+                        System.out.println(BLACK_BOLD+"Enter a new name for the second player, son! Else... The war will never start! "+BLACK);
+                        player2 = getName();
+                    }
+                    while (player1.toLowerCase().equals(player2.toLowerCase()));
+                }
+                model.addHumanPlayer(player2);
+            }
+            //TODO: only Strings regarding the AI's name have been added for now. Need to add the AIs now.
+            else if (mode == 1) {
+                String playerAI = getName();
+                model.addHumanPlayer(playerAI);
+                String AIMode1=setAI();
+                model.addComputerPlayer(AIMode1);
+            }
+            else if (mode == 2) {
+                String AI1Mode2=setAI();
+                model.addComputerPlayer(AI1Mode2);
+                String AI2Mode2=setAI();
+                model.addComputerPlayer(AI2Mode2);
+            }
         }
 
         StageFactory.registerModelAndView("BRB", "model.BRBStageModel", "view.BRBStageView");
@@ -104,7 +117,7 @@ public class BrandubhConsole {
                 control.startGame();
                 control.stageLoop();
                 //every 1000 games, we save the files
-                if (mode == 2 && i%1000 == 0) {
+                if ((choice == 2 || mode==2) && i%1000 == 0) {
                     control.saveAllFiles();
                     toggleOutput();
                     System.out.println("Files saved");
@@ -143,9 +156,7 @@ public class BrandubhConsole {
         System.out.println(PURPLE_BOLD+"1. God Odin"+BLACK);
         System.out.println(GREEN_BOLD+"2. God Loki"+BLACK);
         try {
-            do {
-                ai = br.read();
-            } while (ai != 1 || ai != 2);
+            ai= br.read();
         }
         catch(IOException e) {
             System.out.println("Don't take me for a fool, son. That's not a real God! Abort.");
