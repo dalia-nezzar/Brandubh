@@ -102,8 +102,15 @@ public class BRBBoard extends GridElement {
         return lst;
     }
 
+    /**
+     * Returns the list of pawns to remove
+     * @param row
+     * @param col
+     * @param idPlayer
+     * @return List<GameElement>
+     */
     public List<GameElement> getPawnsToRemove(int row, int col, int idPlayer) {
-        // TODO I have to make the capture append when the AI plays
+        // TODO UNIT TESTS
         BRBStageModel gameStage = (BRBStageModel) getGameStage();
         BRBBoard board = gameStage.getBoard();
         List<GameElement> pawnsToRemove = new ArrayList<>();

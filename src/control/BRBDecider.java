@@ -115,6 +115,10 @@ public class BRBDecider extends Decider {
             int[] coords = board.getCoords(pawn.getNumber(), pawn.getColor(), isKing);
             // get list of valid cells for the given pawn
             valid = board.computeValidCells(coords[0], coords[1], pawn.isKing());
+            if (counter > 100) {
+                System.out.println("Error: no valid cells");
+                throw new RuntimeException("Error: no valid cells");
+            }
             counter++;
         } while (valid.size() == 0);
         // choose at random one of the valid cells
@@ -126,10 +130,6 @@ public class BRBDecider extends Decider {
         List<GameElement> toRemove = board.getPawnsToRemove(rowDest, colDest, pawn.getColor());
         // remove them
         board.removePawns(toRemove);
-        if (toRemove.size() != 0) {
-            // throw error
-            throw new RuntimeException("Error: pawns to remove");
-        }
 
         // create action list. After the last action, it is next player's turn.
         ActionList actions = new ActionList(true);
