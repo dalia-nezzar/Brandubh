@@ -385,6 +385,21 @@ public class BRBDecider extends Decider {
             // print the valid cells one by one
             for (int j = 0; j < valid.size(); j++) {
                 System.out.println("pawn " + pawn.getNumber() + " of color " + pawn.getColor() + " can move to row: " + valid.get(j).y + " col: " + valid.get(j).x);
+                //TODO if a corner is available, take it
+                if (valid.get(j).y == 0 && valid.get(j).x == 0
+                || valid.get(j).y == 0 && valid.get(j).x == 7
+                || valid.get(j).y == 7 && valid.get(j).x == 0
+                || valid.get(j).y == 7 && valid.get(j).x == 7) {
+                    pawn = pawns.get(i);
+                    rowDest = valid.get(j).y;
+                    colDest = valid.get(j).x;
+                    ActionList actions = new ActionList(true);
+                    // create the move action, without animation => the pawn will be put at the center of dest cell
+                    GameAction move = new MoveAction(model, pawn, "BRBboard", rowDest, colDest);
+                    actions.addSingleAction(move);
+                    return actions;
+                }
+                //System.out.println("valid: " + valid.get(j).y + " " + valid.get(j).x);
                 toRemove.clear();
                 if (!pawn.isKing()) toRemove = board.getPawnsToRemove(valid.get(j).y, valid.get(j).x, pawn.getColor());
                 else toRemove = board.getPawnsToRemove(valid.get(j).y, valid.get(j).x, 2);
@@ -394,6 +409,10 @@ public class BRBDecider extends Decider {
                 // for red it means it is a spot to defend
                 if (kingLimitsMoves.contains(valid.get(j))) score = 999; // if you can go to the edge, go to the edge
                 if (corners.contains(valid.get(j))) score = 9999; // MmmMMMMm ~even better~ (if corner available go to corner)
+                //if the king is in the remove list, capture it
+                for (int k = 0; k < toRemove.size(); k++) {
+                    if (toRemove.get(k).isKing()) score = 99999;
+                }
                 if (score >= highestScore) {
                     toRemoveReal.clear();
                     //Make a copy of toRemove into toRemoveReal

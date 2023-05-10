@@ -5,17 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b19e153a-b93b-43b7-bbc2-43394a293a12" name="Changes" comment="Test">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataBlack.bin" beforeDir="false" afterPath="$PROJECT_DIR$/dataBlack.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dataMapPawns.bin" beforeDir="false" afterPath="$PROJECT_DIR$/dataMapPawns.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataRed.bin" beforeDir="false" afterPath="$PROJECT_DIR$/dataRed.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BrandubhConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BrandubhConsole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/control/ActionPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/control/ActionPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boardifier/control/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/control/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/control/BRBDecider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBDecider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/BRBBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BRBBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/BRBStageModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BRBStageModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,6 +176,11 @@
       <workItem from="1683643917226" duration="1275000" />
       <workItem from="1683652038860" duration="8689000" />
       <workItem from="1683665833951" duration="3938000" />
+      <workItem from="1683199351347" duration="2633000" />
+      <workItem from="1683199129531" duration="766000" />
+      <workItem from="1683273794066" duration="16000" />
+      <workItem from="1683295751319" duration="8000" />
+      <workItem from="1683702503736" duration="33000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>

@@ -43,8 +43,10 @@ public class BrandubhConsole {
     private static void toggleOutput() {
         if (suppressOutput) {
             setOutputStream(new NullPrintStream());
+            suppressOutput = false;
         } else {
             setOutputStream(originalOut);
+            suppressOutput = true;
         }
     }
     public static void main(String[] args) {
