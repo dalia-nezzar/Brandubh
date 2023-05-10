@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b19e153a-b93b-43b7-bbc2-43394a293a12" name="Changes" comment="Test">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/control/BRBDecider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBDecider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/BRBBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BRBBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/BRBStageModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BRBStageModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,7 +177,7 @@
       <workItem from="1683295751319" duration="8000" />
       <workItem from="1683702503736" duration="33000" />
       <workItem from="1683702893332" duration="6196000" />
-      <workItem from="1683749858320" duration="1159000" />
+      <workItem from="1683749858320" duration="1412000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>
