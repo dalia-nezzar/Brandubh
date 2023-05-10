@@ -144,6 +144,7 @@ public class BRBDecider extends Decider {
         BRBStageModel stage = (BRBStageModel) model.getGameStage();
         BRBBoard board = stage.getBoard(); // get the board
         GameElement pawn = null; // the pawn that is moved
+        GameElement selectedPawn = null;
         int rowDest = 0; // the dest. row in board
         int colDest = 0; // the dest. col in board
 
@@ -154,6 +155,8 @@ public class BRBDecider extends Decider {
         ArrayList<Point> moves = new ArrayList<>();
         // array list of possibles pawns
         ArrayList<GameElement> pawnsToMove = new ArrayList<>();
+        // toremove
+        List<GameElement> toRemove = new ArrayList<>();
         int id = 0;
         int highestScore = -1;
 
@@ -171,19 +174,41 @@ public class BRBDecider extends Decider {
             valid = board.computeValidCells(coords[0], coords[1], pawn.isKing());
             // print the valid cells one by one
             for (int j = 0; j < valid.size(); j++) {
+                // Can he eat something?
+                toRemove.clear();
+                if (!pawn.isKing()) toRemove = board.getPawnsToRemove(valid.get(j).y, valid.get(j).x, pawn.getColor());
+                else toRemove = board.getPawnsToRemove(valid.get(j).y, valid.get(j).x, 2);
+                if (toRemove.size() > 0) {
+                    // ignore the rest, return now
+                    rowDest = valid.get(j).y;
+                    colDest = valid.get(j).x;
+                    selectedPawn = pawn;
+                    // remove them
+                    board.removePawns(toRemove);
+                    // create action list. After the last action, it is next player's turn.
+                    ActionList actions = new ActionList(true);
+                    // create the move action, without animation => the pawn will be put at the center of dest cell
+                    GameAction move = new MoveAction(model, selectedPawn, "BRBboard", rowDest, colDest);
+                    actions.addSingleAction(move);
+                    return actions;
+                }
+
                 System.out.println("valid: " + valid.get(j).y + " " + valid.get(j).x);
                 // create a representation of the move in String format
                 String combinationToSearch = translator(coords[1], coords[0], valid.get(j).x, valid.get(j).y);
-                String combinationToSearchCompressed = BRBController.compressData(combinationToSearch);
+                char color;
+                if (model.getIdPlayer() == 0) color = 'B';
+                else color = 'R';
+                String combinationToSearchCompressed = BRBController.compressData(combinationToSearch, color);
                 System.out.println(combinationToSearchCompressed);
                 // if player is red then search in dataRed.bin, else in dataBlack.bin
                 Data data = null;
                 int score = 0;
                 if (model.getIdPlayer() == 0) {
-                    data = searchValue("dataMapPawns.bin", combinationToSearchCompressed);
+                    data = searchValue("dataMapBlack.bin", combinationToSearchCompressed);
                     if (data != null) score = score(data.getWCountB(), data.getWCountR());
                 } else {
-                    data = searchValue("dataMapPawns.bin", combinationToSearchCompressed);
+                    data = searchValue("dataMapRed.bin", combinationToSearchCompressed);
                     if (data != null) score = score(data.getWCountR(), data.getWCountB());
                 }
                 if (score == highestScore) {
@@ -199,6 +224,7 @@ public class BRBDecider extends Decider {
                     rowDest = valid.get(j).y;
                     colDest = valid.get(j).x;
                     pawnsToMove.add(pawn);
+                    selectedPawn = pawn;
                 }
                 // print data info
                 System.out.println(data);
@@ -210,7 +236,7 @@ public class BRBDecider extends Decider {
             id = loto.nextInt(moves.size());
             rowDest = moves.get(id).y;
             colDest = moves.get(id).x;
-            pawn = pawnsToMove.get(id);
+            selectedPawn = pawnsToMove.get(id);
             if (highestScore == 0) {
                 nbRDM++;
             } else {
@@ -220,13 +246,13 @@ public class BRBDecider extends Decider {
             System.out.println("---------------CHOOSING THE BEST MOVE----------------");
             nbSmart++;
         }
-        List<GameElement> toRemove = board.getPawnsToRemove(rowDest, colDest, pawn.getColor());
+        List<GameElement> toRemoveReal = board.getPawnsToRemove(rowDest, colDest, selectedPawn.getColor());
         // remove them
-        board.removePawns(toRemove);
+        board.removePawns(toRemoveReal);
         // create action list. After the last action, it is next player's turn.
         ActionList actions = new ActionList(true);
         // create the move action, without animation => the pawn will be put at the center of dest cell
-        GameAction move = new MoveAction(model, pawn, "BRBboard", rowDest, colDest);
+        GameAction move = new MoveAction(model, selectedPawn, "BRBboard", rowDest, colDest);
         actions.addSingleAction(move);
         return actions;
     }
@@ -385,20 +411,6 @@ public class BRBDecider extends Decider {
             // print the valid cells one by one
             for (int j = 0; j < valid.size(); j++) {
                 System.out.println("pawn " + pawn.getNumber() + " of color " + pawn.getColor() + " can move to row: " + valid.get(j).y + " col: " + valid.get(j).x);
-                //TODO if a corner is available, take it
-                if (valid.get(j).y == 0 && valid.get(j).x == 0
-                || valid.get(j).y == 0 && valid.get(j).x == 7
-                || valid.get(j).y == 7 && valid.get(j).x == 0
-                || valid.get(j).y == 7 && valid.get(j).x == 7) {
-                    pawn = pawns.get(i);
-                    rowDest = valid.get(j).y;
-                    colDest = valid.get(j).x;
-                    ActionList actions = new ActionList(true);
-                    // create the move action, without animation => the pawn will be put at the center of dest cell
-                    GameAction move = new MoveAction(model, pawn, "BRBboard", rowDest, colDest);
-                    actions.addSingleAction(move);
-                    return actions;
-                }
                 //System.out.println("valid: " + valid.get(j).y + " " + valid.get(j).x);
                 toRemove.clear();
                 if (!pawn.isKing()) toRemove = board.getPawnsToRemove(valid.get(j).y, valid.get(j).x, pawn.getColor());
@@ -411,7 +423,7 @@ public class BRBDecider extends Decider {
                 if (corners.contains(valid.get(j))) score = 9999; // MmmMMMMm ~even better~ (if corner available go to corner)
                 //if the king is in the remove list, capture it
                 for (int k = 0; k < toRemove.size(); k++) {
-                    if (toRemove.get(k).isKing()) score = 99999;
+                    if (toRemove.get(k).isKing()) score = 9999;
                 }
                 if (score >= highestScore) {
                     toRemoveReal.clear();

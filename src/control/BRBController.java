@@ -34,9 +34,9 @@ public class BRBController extends Controller {
     ArrayList<String> storedData = new ArrayList<>(10);
     ArrayList<Character> storedDataColor = new ArrayList<>(10);
 
-    public static HashMap<String, Data> dataMapPawns = new HashMap<>();
-    //public static HashMap<String, Data> dataMapRed = new HashMap<>();
-    //public static HashMap<String, Data> dataMapBlack = new HashMap<>();
+    //public static HashMap<String, Data> dataMapPawns = new HashMap<>();
+    public static HashMap<String, Data> dataMapRed = new HashMap<>();
+    public static HashMap<String, Data> dataMapBlack = new HashMap<>();
 
     public BRBController(Model model, View view) {
         super(model, view);
@@ -114,24 +114,53 @@ public class BRBController extends Controller {
         int i = 0;
         // Pour chaque set de données récupéré par storeData
         for (String stateString : storedData) {
-            if (dataMapPawns.containsKey(stateString)) {
-                Data data = dataMapPawns.get(stateString);
-                int WCountB = data.getWCountB();
-                int WCountR = data.getWCountR();
-                if (winner == 'R') {
-                    data.setWCountR(WCountR + 1);
-                    data.setWCountB(WCountB);
-                } else { // winner is equal to B
-                    data.setWCountR(WCountR);
-                    data.setWCountB(WCountB + 1);
-                }
-                dataMapPawns.put(stateString, data);
-            } else { // first time situation
-                if (winner == 'R') { // red win count to 1
-                    dataMapPawns.put(stateString, new Data<>(1, 0));
-                } else { // black win count to 1
-                    dataMapPawns.put(stateString, new Data<>(0, 1));
-                }
+            switch (storedDataColor.get(i)) {
+                case 'R':
+                    if (dataMapRed.containsKey(stateString)) {
+                        Data data = dataMapRed.get(stateString);
+                        int WCountB = data.getWCountB();
+                        int WCountR = data.getWCountR();
+                        if (winner == 'R') {
+                            data.setWCountR(WCountR + 1);
+                            data.setWCountB(WCountB);
+                        } else { // winner is equal to B
+                            data.setWCountR(WCountR);
+                            data.setWCountB(WCountB + 1);
+                        }
+                        dataMapRed.put(stateString, data);
+                    } else { // first time situation
+                        if (winner == 'R') { // red win count to 1
+                            dataMapRed.put(stateString, new Data<>(1, 0));
+                        } else { // blue win count to 1
+                            dataMapRed.put(stateString, new Data<>(0, 1));
+                        }
+                    }
+                    break;
+                case 'B':
+                    if (dataMapBlack.containsKey(stateString)) {
+                        Data data = dataMapBlack.get(stateString);
+                        int WCountB = data.getWCountB();
+                        int WCountR = data.getWCountR();
+                        if (winner == 'R') {
+                            data.setWCountR(WCountR + 1);
+                            data.setWCountB(WCountB);
+                        } else { // winner is equal to B
+                            data.setWCountR(WCountR);
+                            data.setWCountB(WCountB + 1);
+                        }
+                        dataMapBlack.put(stateString, data);
+                    } else { // first time situation
+                        if (winner == 'R') { // red win count to 1
+                            dataMapBlack.put(stateString, new Data<>(1, 0));
+                        } else { // blue win count to 1
+                            dataMapBlack.put(stateString, new Data<>(0, 1));
+                        }
+                    }
+                    break;
+                default:
+                    // Throw error for now
+                    System.out.println("Error in takeData");
+                    break;
             }
             i++;
         }
@@ -141,9 +170,17 @@ public class BRBController extends Controller {
 
     public void saveAllFiles() {
         // remove the files if they exist first
+        /*
         File file = new File("dataMapPawns.bin");
         file.delete();
         savingFiles("dataMapPawns.bin", dataMapPawns);
+         */
+        File file = new File("dataMapRed.bin");
+        File file2 = new File("dataMapBlack.bin");
+        file.delete();
+        file2.delete();
+        savingFiles("dataMapRed.bin", dataMapRed, 'R');
+        savingFiles("dataMapBlack.bin", dataMapBlack, 'B');
     }
 
     /**
@@ -152,7 +189,7 @@ public class BRBController extends Controller {
      * @param namefile nom du fichier dans lequel on souhaite chercher une valeur
      * @param hashMap valeurs que l'on souhaite ajouter au fichier
      */
-    public void savingFiles(String namefile, HashMap<String, Data> hashMap){
+    public void savingFiles(String namefile, HashMap<String, Data> hashMap, char color){
         long numberOfKeys = hashMap.size();
         int bufferSize = (int) Math.min(500 * numberOfKeys + 1024, Integer.MAX_VALUE*0.75);
 
@@ -165,7 +202,7 @@ public class BRBController extends Controller {
             ByteBuffer bb = ByteBuffer.allocate(bufferSize);
             for (Map.Entry<String, Data> entry : hashMap.entrySet()) {
                 // Compress the key
-                String compressedKeyStr = compressData(entry.getKey());
+                String compressedKeyStr = compressData(entry.getKey(), color);
 
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 ObjectOutputStream oos = new ObjectOutputStream(baos);
@@ -195,10 +232,16 @@ public class BRBController extends Controller {
         }
     }
 
-    public static String compressData(String someData) {
+    public static String compressData(String someData, char color) {
         StringBuilder compressed = new StringBuilder();
         int count = 1;
         char last = someData.charAt(0);
+        // if color = 'R' then we replace all the 'B' by '_'
+        if (color == 'R') {
+            someData = someData.replace('B', '_');
+        } else if (color == 'B'){
+            someData = someData.replace('R', '_');
+        }
 
         for (int i = 1; i < someData.length(); i++) {
             if (someData.charAt(i) == last) {
