@@ -27,6 +27,14 @@ public class BRBBoard extends GridElement {
             }
         }
     }
+
+    /**
+     * Compute the valid cells for the given pawn
+     * @param row
+     * @param col
+     * @param isKing
+     * @return the list of valid cells
+     */
     public List<Point> computeValidCells(int row, int col, boolean isKing) {
         List<Point> lst = new ArrayList<>();
         Pawn p = null;
@@ -110,7 +118,6 @@ public class BRBBoard extends GridElement {
      * @return List<GameElement>
      */
     public List<GameElement> getPawnsToRemove(int row, int col, int idPlayer) {
-        // TODO UNIT TESTS
         BRBStageModel gameStage = (BRBStageModel) getGameStage();
         BRBBoard board = gameStage.getBoard();
         List<GameElement> pawnsToRemove = new ArrayList<>();
@@ -234,6 +241,10 @@ public class BRBBoard extends GridElement {
         return pawnsToRemove;
     }
 
+    /**
+     * Remove the pawns from the board
+     * @param pawnsToRemove
+     */
     public void removePawns(List<GameElement> pawnsToRemove) {
         BRBStageModel gameStage = (BRBStageModel) getGameStage();
         BRBBoard board = gameStage.getBoard();

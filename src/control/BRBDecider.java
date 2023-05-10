@@ -26,6 +26,12 @@ public class BRBDecider extends Decider {
     public static int nbRDM = 0;
     public static int nbSmart = 0;
     public static int nbOfRemovedPawns = 0;
+
+    /**
+     * Select the AI we want to play against
+     * @param selected
+     * @return the move given by the chosen AI
+     */
     @Override
     public ActionList decider(int selected) {
         switch (selected) {
@@ -34,60 +40,16 @@ public class BRBDecider extends Decider {
             case 2:
                 return decideSmart();
             case 3:
-                return decide2();
-            case 4:
                 return decideEAT();
             default:
                 return null;
         }
     }
 
-    //@Override
-    public ActionList decide2() {
-        System.out.println("ActionList is getting executed");
-        // do a cast get a variable of the real type to get access to the attributes of HoleStageModel
-        BRBStageModel stage = (BRBStageModel)model.getGameStage();
-        BRBBoard board = stage.getBoard(); // get the board
-        //BRBPawnPot pot = null; // the pot where to take a pawn
-        GameElement pawn = null; // the pawn that is moved
-        int rowDest = 0; // the dest. row in board
-        int colDest = 0; // the dest. col in board
-
-        /*
-        if (model.getIdPlayer() == Pawn.PAWN_BLACK) {
-            pot = stage.getBlackPot();
-        }
-        else {
-            pot = stage.getRedPot();
-        }
-
-        for(int i=0;i<4;i++) {
-            Pawn p = (Pawn)pot.getElement(i,0);
-            // if there is a pawn in i.
-            if (p != null) {
-                // get the valid cells
-                List<Point> valid = board.computeValidCells(p.getNumber());
-                if (valid.size() != 0) {
-                    // choose at random one of the valid cells
-                    int id = loto.nextInt(valid.size());
-                    pawn = p;
-                    rowDest = valid.get(id).y;
-                    colDest = valid.get(id).x;
-                    break; // stop the loop
-                }
-            }
-        }
-         */
-
-        // create action list. After the last action, it is next player's turn.
-        ActionList actions = new ActionList(true);
-        // create the move action, without animation => the pawn will be put at the center of dest cell
-        GameAction move = new MoveAction(model, pawn, "BRBboard", rowDest, colDest);
-        actions.addSingleAction(move);
-        return actions;
-    }
-
-    //@Override
+    /**
+     * Play a move at random
+     * @return the chosen move
+     */
     public ActionList decideAleatoire() {
         BRBStageModel stage = (BRBStageModel)model.getGameStage();
         BRBBoard board = stage.getBoard(); // get the board
@@ -139,7 +101,16 @@ public class BRBDecider extends Decider {
         return actions;
     }
 
-    //@Override
+    /**
+     * Decide the next move for the current player (Attackers or Defenders) by searching for
+     * datas in the files
+     *
+     * If you can eat a pawn, do it
+     * Else, move a pawn
+     * If it doesn't know what to move, move at random
+     *
+     * @return the move to do
+     */
     public ActionList decideSmart() {
         BRBStageModel stage = (BRBStageModel) model.getGameStage();
         BRBBoard board = stage.getBoard(); // get the board
@@ -257,6 +228,16 @@ public class BRBDecider extends Decider {
         return actions;
     }
 
+    /**
+     * Translate the board in a String format
+     * It also swaps the start and dest pawns
+     *
+     * @param startX
+     * @param startY
+     * @param destX
+     * @param destY
+     * @return the translated board
+     */
     public String translator(int startX, int startY, int destX, int destY) {
         BRBStageModel stage = (BRBStageModel)model.getGameStage();
         BRBBoard board = stage.getBoard(); // get the board
@@ -277,6 +258,13 @@ public class BRBDecider extends Decider {
         return translatedBoard;
     }
 
+    /**
+     * Calculate the score of a board, this can be modified to ajust the AI
+     *
+     * @param currentPlayerWins
+     * @param enemyWins
+     * @return the score
+     */
     public int score(int currentPlayerWins, int enemyWins) {
         int score = 0;
         // Give a higher score for a larger lead
@@ -286,6 +274,13 @@ public class BRBDecider extends Decider {
         return score;
     }
 
+    /**
+     * Search a value in a file (value usually given by translator)
+     *
+     * @param namefile
+     * @param key
+     * @return the data found, or null
+     */
     public static Data searchValue(String namefile, String key) {
         FileInputStream fis = null;
         try {
@@ -366,6 +361,15 @@ public class BRBDecider extends Decider {
         }
     }
 
+    /**
+     * AI : decide the next action to do
+     * This AI works for both Attackers and Defenders
+     * Objective 1 : Capture the king or go to the corner (Win)
+     * Objective 2 : If the king can go the edges, go there (SUBJECT TO CHANGE)
+     * Objective 3 : If you can eat a pawn, do it
+     *
+     * @return the move action to do
+     */
     public ActionList decideEAT() {
         BRBStageModel stage = (BRBStageModel) model.getGameStage();
         BRBBoard board = stage.getBoard(); // get the board
@@ -421,9 +425,8 @@ public class BRBDecider extends Decider {
                 // for red it means it is a spot to defend
                 if (kingLimitsMoves.contains(valid.get(j))) score = 999; // if you can go to the edge, go to the edge
                 if (corners.contains(valid.get(j))) score = 9999; // MmmMMMMm ~even better~ (if corner available go to corner)
-                //if the king is in the remove list, capture it
                 for (int k = 0; k < toRemove.size(); k++) {
-                    if (toRemove.get(k).isKing()) score = 9999;
+                    if (toRemove.get(k).isKing()) score = 9999; // King is in the remove list, capture it now
                 }
                 if (score >= highestScore) {
                     toRemoveReal.clear();
@@ -468,7 +471,7 @@ public class BRBDecider extends Decider {
      * Get all the places the king can move to
      * Why ? Because then the attacker can be in danger
      *
-     * @return a list of the edges where the king can move to
+     * @return a list of the places (in edges) where the king can move to
      */
     public List<Point> getKingLimitsMoves() {
         List<Point> moves = new ArrayList<>();
@@ -477,7 +480,7 @@ public class BRBDecider extends Decider {
         List<GameElement> redPawns = board.getPawns(1);
 
         int[] coords = board.getCoords(9, 2, 'K'); // the 2 First parameters don't matter here
-        // if the king is already on the edge, then return an empty list
+        // if the king is already on the edge, this function is useless, so return null
         if (coords[0] == 0 || coords[0] == 7 || coords[1] == 0 || coords[1] == 7) return moves;
         // get all the places the king can move to
         moves = board.computeValidCells(coords[0], coords[1], true);
