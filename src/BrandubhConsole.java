@@ -143,7 +143,7 @@ public class BrandubhConsole {
                 control.startGame();
                 control.stageLoop();
                 //every 1000 games, we save the files
-                if (mode==2 && i%1000 == 0) {
+                if (mode==2 && (i+1)%1000 == 0) {
                     control.saveAllFiles();
                     //toggleOutput();
                     System.out.println("Files saved");

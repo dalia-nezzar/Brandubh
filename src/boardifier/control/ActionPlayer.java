@@ -72,7 +72,7 @@ public class ActionPlayer {
         }
         playActions(actions);
         // transfer the actions to the model
-        System.out.println(this);
+        //System.out.println(this);
 
         model.setCaptureEvents(true);
 

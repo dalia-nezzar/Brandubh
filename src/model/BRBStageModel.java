@@ -109,7 +109,7 @@ public class BRBStageModel extends GameStageModel {
                 || board.getElement(6, 0) == blackKingPawns[0]
                 || board.getElement(6, 6) == blackKingPawns[0]) {
             int idWinner = 0;
-            System.out.println("The winner of the war is player "+idWinner);
+            //System.out.println("The winner of the war is player "+idWinner);
             nbWinBlack++;
             // set the winner
             model.setIdWinner(idWinner);
@@ -161,7 +161,7 @@ public class BRBStageModel extends GameStageModel {
             // get the coords of the given pawn
             int[] coords = board.getCoords(pawn.getNumber(), pawn.getColor(), isKing);
             // print the coords
-            System.out.println("pawn: " + pawn.getNumber() + " row: " + coords[0] + " col: " + coords[1]);
+            //System.out.println("pawn: " + pawn.getNumber() + " row: " + coords[0] + " col: " + coords[1]);
             // get list of valid cells for the given pawn
             valid = board.computeValidCells(coords[0], coords[1], pawn.isKing());
             totalValid += valid.size();
@@ -169,7 +169,7 @@ public class BRBStageModel extends GameStageModel {
         if (totalValid == 0) {
             idWinner = 1 - model.getIdPlayer();
         }
-        System.out.println("totalValid: " + totalValid);
+        //System.out.println("totalValid: " + totalValid);
 
 
         if (idWinner != -1) {

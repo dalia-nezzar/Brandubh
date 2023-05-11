@@ -390,7 +390,7 @@ public class BRBController extends Controller {
         System.out.println("Player " + model.getCurrentPlayer().getName() + " plays " + line);
 
         ActionPlayer play = new ActionPlayer(model, this, actions);
-        play.start();
+        play.start(-1);// Number here doesn't matter since this function is only used by the player
         // get the pawns to remove
         BRBStageModel stage = (BRBStageModel)model.getGameStage();
         BRBBoard board = stage.getBoard(); // get the board

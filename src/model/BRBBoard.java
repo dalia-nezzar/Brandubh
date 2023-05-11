@@ -158,7 +158,6 @@ public class BRBBoard extends GridElement {
                 // If pawn above is a red pawn
                 // AND (pawn far above is a black pawn OR it's the king OR it's the corner)
                 // OR It's the empty throne
-                System.out.println("row-2: " + (row-2) + " col: " + col);
                 if ((pawn1 != null && pawn1.getColor() == 1)
                         && ((pawn1_1 != null && (pawn1_1.getColor() == idPlayer || pawn1_1.getColor() == 2))
                         || ((row-2==0 && ((col==0) || (col==6))) || (king == null && (row-2==3 && col==3))))){
