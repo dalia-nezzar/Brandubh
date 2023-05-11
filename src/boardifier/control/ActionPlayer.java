@@ -55,6 +55,29 @@ public class ActionPlayer {
 
     }
 
+    public void start(int typeAI) {
+        // first disable event capture
+        model.setCaptureEvents(false);
+
+        if (preActions != null) {
+            playActions(preActions);
+        }
+        // if there is a decider, decide what to do
+        if (decider != null && typeAI != 0 && (typeAI==2 || typeAI==3)) {
+            // create neural network
+            actions = decider.decider(typeAI);
+            //1 aléatoire
+            //2 smart
+            //3 EAT
+        }
+        playActions(actions);
+        // transfer the actions to the model
+        System.out.println(this);
+
+        model.setCaptureEvents(true);
+
+    }
+
     private void playActions(ActionList actions) {
         // loop over all action packs
         int idPack = 0;

@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b19e153a-b93b-43b7-bbc2-43394a293a12" name="Changes" comment="Test">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BrandubhConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BrandubhConsole.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/in.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/in.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +82,8 @@
     <configuration name="Brandubh in.txt" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
       <module name="Brandubh" />
-      <option name="PROGRAM_PARAMETERS" value="&lt; C:\Users\noahe\IdeaProjects\Brandubh\out\production\Brandubh\in.txt" />
+      <option name="REDIRECT_INPUT" value="true" />
+      <option name="INPUT_FILE" value="src/in.txt" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -178,6 +182,8 @@
       <workItem from="1683702503736" duration="33000" />
       <workItem from="1683702893332" duration="6196000" />
       <workItem from="1683749858320" duration="1412000" />
+      <workItem from="1683796597278" duration="435000" />
+      <workItem from="1683800316507" duration="2426000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>

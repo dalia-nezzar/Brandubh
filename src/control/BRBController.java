@@ -31,6 +31,8 @@ public class BRBController extends Controller {
     public static boolean drawRequested;
     public static int countDraw;
 
+    public static int typeAI;
+
     ArrayList<String> storedData = new ArrayList<>(10);
     ArrayList<Character> storedDataColor = new ArrayList<>(10);
 
@@ -277,7 +279,7 @@ public class BRBController extends Controller {
             System.out.println("GOD [COMPUTER] PLAYS");
             BRBDecider decider = new BRBDecider(model, this);
             ActionPlayer play = new ActionPlayer(model, this, decider, null);
-            play.start();
+            play.start(typeAI);
         } else {
             boolean ok = false;
             while (!ok) {

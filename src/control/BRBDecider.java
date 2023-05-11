@@ -374,7 +374,7 @@ public class BRBDecider extends Decider {
         BRBStageModel stage = (BRBStageModel) model.getGameStage();
         BRBBoard board = stage.getBoard(); // get the board
         GameElement pawn = null; // the pawn that is moved
-        GameElement selectedPawn = null; // the pawn pawn to move for now
+        GameElement selectedPawn = null; // the pawn to move for now
         int rowDest = 0; // the dest. row in board
         int colDest = 0; // the dest. col in board
 
