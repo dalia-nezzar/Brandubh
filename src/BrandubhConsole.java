@@ -56,7 +56,7 @@ public class BrandubhConsole {
         if (args.length == 1) {
             try {
                 choice = Integer.parseInt(args[0]);
-                if ((choice <0) || (choice>2)) choice = 0;
+                if ((choice <0) || (choice>2)) choice = -1;
             }
             catch(NumberFormatException e) {
                 choice = -1;
@@ -110,20 +110,19 @@ public class BrandubhConsole {
         View BRBView = new View(model);
         BRBController control = new BRBController(model,BRBView);
         control.setFirstStageName("BRB");
-        int nbParties = 0;
-        nbParties=setNumberGame();
+        int nbParties=setNumberGame();
         //toggleOutput();
         try {
             for (int i=0;i<nbParties;i++) {
                 control.startGame();
                 control.stageLoop();
                 //every 1000 games, we save the files
-                if ((choice == 2 || mode==2) && (i+1)%10000 == 0) {
+                /*if (mode==2 && i%1000 == 0) {
                     control.saveAllFiles();
                     //toggleOutput();
                     System.out.println("Files saved");
-                    //toggleOutput();
-                }
+                    toggleOutput();
+                }*/
             }
         }
         catch(GameException e) {
@@ -161,8 +160,14 @@ public class BrandubhConsole {
         catch(IOException e) {
             System.out.println("Don't take me for a fool, son. That's not a real God! Abort.");
         }
-        if (ai==1) return "God Odin";
-        else return "God Loki";
+        if (ai==1){
+            BRBController.typeAI=2;
+            return "God Odin";
+        }
+        else {
+            BRBController.typeAI=3;
+            return "God Loki";
+        }
     }
 
     public static int chooseGameMode() {
