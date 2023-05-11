@@ -18,7 +18,7 @@ public class BrandubhConsole {
     public static final int HUMAN_VS_HUMAN = 0;
     public static final int HUMAN_VS_COMPUTER = 1;
     public static final int COMPUTER_VS_COMPUTER = 2;
-    Scanner input = new Scanner(System.in);
+    public static Scanner input = new Scanner(System.in);
 
     private static PrintStream originalOut = System.out;
     private static boolean suppressOutput = true;
@@ -96,14 +96,14 @@ public class BrandubhConsole {
             else if (mode == 1) {
                 System.out.println("What role do you want to play in the war, brother?");
                 String answer = "";
-                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+                //BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
                 System.out.println(PURPLE_BOLD+"1. Defender"+BLACK);
                 System.out.println(PURPLE_BOLD+"2. Attacker"+BLACK);
                 try {
-                    answer = br.readLine();
-                }
-                catch(IOException e) {
-                    System.out.println("Don't take me for a fool, son. That's not a real role! Abort.");
+                    //TODO add exception if the user enters a number bigger than 2 and less than 1
+                    answer = input.nextLine();
+                } catch (Exception e) {
+                    System.out.println("Error while reading your answer. Please try again.");
                 }
                 if (answer.equals("1")){
                     System.out.println(GREEN_BOLD+"===== DEFENDERS ====="+BLACK);
@@ -143,12 +143,12 @@ public class BrandubhConsole {
                 control.startGame();
                 control.stageLoop();
                 //every 1000 games, we save the files
-                /*if (mode==2 && i%1000 == 0) {
+                if (mode==2 && i%1000 == 0) {
                     control.saveAllFiles();
                     //toggleOutput();
                     System.out.println("Files saved");
-                    toggleOutput();
-                }*/
+                    //toggleOutput();
+                }
             }
         }
         catch(GameException e) {
@@ -203,7 +203,7 @@ public class BrandubhConsole {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
             try {
-                answer = br.readLine();
+                answer = input.nextLine();
                 if (answer.toLowerCase().equals("yes")
                 || answer.toLowerCase().equals("y")
                 || answer.toLowerCase().equals("yeah")
@@ -229,8 +229,8 @@ public class BrandubhConsole {
                 } else {
                     System.out.println("Arf. You've got to try again, son ! Please answer yes or no.");
                 }
-            } catch (IOException e) {
-                System.out.println("There was an error reading your answer (rules). Try again, son.");
+            } catch (Exception e) {
+                System.out.println("Don't take me for a fool, son. That's not a real answer! Abort.");
             }
         }
         System.out.println(BLUE_BOLD + "Speak, son, what kind of war would you like to engage yourself in?" + BLACK);
@@ -238,18 +238,19 @@ public class BrandubhConsole {
         System.out.println("or, write "+ RED_BOLD + HUMAN_VS_COMPUTER + BLACK+" for a brother (human) vs God (computer) war!");
         System.out.println("or, write " + RED_BOLD + COMPUTER_VS_COMPUTER + BLACK+" for a God (computer) vs God (computer) war!");
 
-        BufferedReader stringReader = new BufferedReader(new InputStreamReader(System.in));
+        //BufferedReader stringReader = new BufferedReader(new InputStreamReader(System.in));
+        int mode = 0;
         while (true) {
             try {
-                int mode = Integer.parseInt(stringReader.readLine());
+                mode = Integer.parseInt(input.nextLine());
+                System.out.println("You chose " + mode + "!");
                 if (mode >= HUMAN_VS_HUMAN && mode <= COMPUTER_VS_COMPUTER) {
                     return mode;
                 } else {
                     System.out.println("Arf. You've got to try again, son ! Invalid game mode. Please enter a number between " + HUMAN_VS_HUMAN + " and " + COMPUTER_VS_COMPUTER + ".");
                 }
-            } catch (IOException e) {
-                System.out.println("There was an error reading your answer (mode). Try again, son.");
             } catch (NumberFormatException e) {
+                System.out.println("You chose " + mode + "!");
                 System.out.println("Arf, that's an invalid input. Please enter a number, son.");
             }
         }
@@ -279,16 +280,12 @@ public class BrandubhConsole {
     }
 
     static int setNumberGame(){
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        //BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("How many wars will there be?");
         try{
-            int numberGame = Integer.parseInt(br.readLine());
+            int numberGame = input.nextInt();
             return numberGame;
-        }
-        catch(IOException e){
-            System.out.println("There was an error reading the number of games. Try again, son.");
-        }
-        catch(NumberFormatException e){
+        } catch(NumberFormatException e){
             System.out.println("Arf, that's an invalid input. Please enter a number, son.");
         }
         return 0;
