@@ -78,29 +78,55 @@ public class BrandubhConsole {
                     break;
             }
             if (mode == 0) {
+                System.out.println(GREEN_BOLD+"===== DEFENDERS ====="+BLACK);
                 String player1 = getName();
                 model.addHumanPlayer(player1);
+                System.out.println(RED_BOLD+"===== ATTACKERS ====="+BLACK);
                 String player2 = getName();
                 if (player1.toLowerCase().equals(player2.toLowerCase())) {
-                    System.out.println(RED_BOLD+"You can't have two warriors with the same name!"+BLACK);
-                    do{
-                        System.out.println(BLACK_BOLD+"Enter a new name for the second player, son! Else... The war will never start! "+BLACK);
+                    System.out.println(RED_BOLD + "You can't have two warriors with the same name!" + BLACK);
+                    do {
+                        System.out.println(BLACK_BOLD + "Enter a new name for the second player, son! Else... The war will never start! " + BLACK);
                         player2 = getName();
                     }
                     while (player1.toLowerCase().equals(player2.toLowerCase()));
                 }
                 model.addHumanPlayer(player2);
             }
-            //TODO: only Strings regarding the AI's name have been added for now. Need to add the AIs now.
             else if (mode == 1) {
-                String playerAI = getName();
-                model.addHumanPlayer(playerAI);
-                String AIMode1=setAI();
-                model.addComputerPlayer(AIMode1);
+                System.out.println("What role do you want to play in the war, brother?");
+                String answer = "";
+                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+                System.out.println(PURPLE_BOLD+"1. Defender"+BLACK);
+                System.out.println(PURPLE_BOLD+"2. Attacker"+BLACK);
+                try {
+                    answer = br.readLine();
+                }
+                catch(IOException e) {
+                    System.out.println("Don't take me for a fool, son. That's not a real role! Abort.");
+                }
+                if (answer.equals("1")){
+                    System.out.println(GREEN_BOLD+"===== DEFENDERS ====="+BLACK);
+                    String player1 = getName();
+                    model.addHumanPlayer(player1);
+                    System.out.println(RED_BOLD+"===== ATTACKERS ====="+BLACK);
+                    String AI1Mode1=setAI();
+                    model.addComputerPlayer(AI1Mode1);
+                }
+                else if (answer.equals("2")){
+                    System.out.println(GREEN_BOLD+"===== DEFENDERS ====="+BLACK);
+                    String AI1Mode1=setAI();
+                    model.addComputerPlayer(AI1Mode1);
+                    System.out.println(RED_BOLD+"===== ATTACKERS ====="+BLACK);
+                    String player1 = getName();
+                    model.addHumanPlayer(player1);
+                }
             }
             else if (mode == 2) {
+                System.out.println(GREEN_BOLD+"===== DEFENDERS ====="+BLACK);
                 String AI1Mode2=setAI();
                 model.addComputerPlayer(AI1Mode2);
+                System.out.println(RED_BOLD+"===== ATTACKERS ====="+BLACK);
                 String AI2Mode2=setAI();
                 model.addComputerPlayer(AI2Mode2);
             }
