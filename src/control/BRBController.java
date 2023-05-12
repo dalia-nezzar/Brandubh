@@ -16,10 +16,7 @@ import model.BRBStageModel;
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static boardifier.view.ConsoleColor.*;
 
@@ -32,7 +29,7 @@ public class BRBController extends Controller {
     public static int countDraw;
 
     public static int typeAI;
-
+    public static Scanner input = new Scanner(System.in);
     ArrayList<String> storedData = new ArrayList<>(10);
     ArrayList<Character> storedDataColor = new ArrayList<>(10);
 
@@ -44,17 +41,6 @@ public class BRBController extends Controller {
         super(model, view);
         firstPlayer = true;
         in = new BufferedReader(new InputStreamReader(System.in));
-    }
-
-    public BRBController(Model model, View view, String fileName) {
-        super(model, view);
-        firstPlayer = true;
-        try {
-            in = new BufferedReader(new FileReader(fileName));
-        } catch (IOException e) {
-            System.out.println("Cannot open file " + fileName);
-            in = new BufferedReader(new InputStreamReader(System.in));
-        }
     }
 
     /**
@@ -289,7 +275,7 @@ public class BRBController extends Controller {
                     System.out.print(BLACK_BOLD + p.getName() + BLACK + " > ");
                 }
                 try {
-                    String line = in.readLine();
+                    String line = input.nextLine();
                     if (line.length() == 3) {
                         ok = analyseAndPlay(line);
                     } else if(line.toLowerCase().contains("stop")
@@ -306,10 +292,10 @@ public class BRBController extends Controller {
                             line = "L(° O °L)";
                         } else if (players.get(0) == p) {
                             System.out.print(players.get(1).getName()+ " > ");
-                            line = in.readLine();
+                            line = input.nextLine();
                         } else {
                             System.out.print(players.get(0).getName()+ " > ");
-                            line = in.readLine();
+                            line = input.nextLine();
                         }
                         if (line.toLowerCase().contains("yes")
                                 || line.toLowerCase().contains("ok")
@@ -331,7 +317,7 @@ public class BRBController extends Controller {
                     if (!ok) {
                         System.out.println("Incorrect instruction. Retry, son !");
                     }
-                } catch (IOException e) {
+                } catch (Exception e) {
                     firstPlayer= true;
                     e.printStackTrace();
                 }
