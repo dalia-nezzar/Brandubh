@@ -19,7 +19,6 @@ public class BrandubhConsole {
     public static final int HUMAN_VS_HUMAN = 0;
     public static final int HUMAN_VS_COMPUTER = 1;
     public static final int COMPUTER_VS_COMPUTER = 2;
-    public static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
         // Suppress output
@@ -73,7 +72,7 @@ public class BrandubhConsole {
                 System.out.println(PURPLE_BOLD+"2. Attacker"+BLACK);
                 try {
                     //TODO add exception if the user enters a number bigger than 2 and less than 1
-                    answer = input.nextLine();
+                    answer = BRBController.input.nextLine();
                 } catch (Exception e) {
                     System.out.println("Error while reading your answer. Please try again.");
                 }
@@ -129,7 +128,7 @@ public class BrandubhConsole {
     static String getName() {
         String name = "";
         System.out.println("Enter your name, warrior! ");
-        name = input.nextLine();
+        name = BRBController.input.nextLine();
         if (name.equals("")) {
             System.out.println("You must enter a name, son! Try again.");
             name = getName();
@@ -144,7 +143,7 @@ public class BrandubhConsole {
         System.out.println(GREEN_BOLD+"2. God Loki (EAT)"+BLACK);
         System.out.println(RED_BOLD+"3. God Frigg (RANDOM)"+BLACK);
         do{
-            ai=input.nextInt();
+            ai=BRBController.input.nextInt();
             if (ai!=1 && ai!=2 && ai!=3) System.out.println("Don't take me for a fool, son. That's not a real God! Try again.");
         } while(ai!=1 && ai!=2 && ai!=3);
         if (ai==1){
@@ -180,7 +179,7 @@ public class BrandubhConsole {
         String answer = "";
         while (true) {
             try {
-                answer = input.nextLine();
+                answer = BRBController.input.nextLine();
                 if (answer.toLowerCase().contains("yes")
                 || answer.toLowerCase().equals("y")
                 || answer.toLowerCase().contains("yeah")
@@ -219,7 +218,7 @@ public class BrandubhConsole {
         int mode = 0;
         while (true) {
             try {
-                mode = Integer.parseInt(input.nextLine());
+                mode = Integer.parseInt(BRBController.input.nextLine());
                 System.out.println("You chose " + mode + "!");
                 if (mode >= HUMAN_VS_HUMAN && mode <= COMPUTER_VS_COMPUTER) {
                     return mode;

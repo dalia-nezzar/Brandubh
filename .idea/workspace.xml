@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b19e153a-b93b-43b7-bbc2-43394a293a12" name="Changes" comment="Test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataMapBlack.bin" beforeDir="false" afterPath="$PROJECT_DIR$/dataMapBlack.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataMapRed.bin" beforeDir="false" afterPath="$PROJECT_DIR$/dataMapRed.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BrandubhConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BrandubhConsole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gamer1Win.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/gamer1Win.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/GameSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/GameSettings.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +70,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Brandubh">
+  <component name="RunManager" selected="Application.Brandubh in.txt">
     <configuration name="Brandubh AI vs AI" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
       <module name="Brandubh" />
@@ -83,7 +83,7 @@
       <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
       <module name="Brandubh" />
       <option name="REDIRECT_INPUT" value="true" />
-      <option name="INPUT_FILE" value="src/in.txt" />
+      <option name="INPUT_FILE" value="src/gamer2Win.txt" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -185,6 +185,7 @@
       <workItem from="1683796597278" duration="435000" />
       <workItem from="1683800316507" duration="2426000" />
       <workItem from="1683897063273" duration="310000" />
+      <workItem from="1683903910652" duration="381000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>
