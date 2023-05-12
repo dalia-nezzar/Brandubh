@@ -282,7 +282,6 @@ public class BRBController extends Controller {
                 }
                 try {
                     String line = input.nextLine();
-                    System.out.println("line " + line);
                     if (line.length() == 3) {
                         ok = analyseAndPlay(line);
                     } else if(line.toLowerCase().contains("stop")

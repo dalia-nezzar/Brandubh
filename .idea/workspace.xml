@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b19e153a-b93b-43b7-bbc2-43394a293a12" name="Changes" comment="Test">
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BrandubhConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BrandubhConsole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gamer1Win.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/gamer1Win.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/GameSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/GameSettings.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -23,7 +25,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2MRr2Zxn3AIur33UPHY1tdNASYt" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -70,11 +72,11 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Brandubh in.txt">
+  <component name="RunManager" selected="Application.Brandubh">
     <configuration name="Brandubh AI vs AI" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
       <module name="Brandubh" />
-      <option name="PROGRAM_PARAMETERS" value="2" />
+      <option name="PROGRAM_PARAMETERS" value="2 3 3 100" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -186,6 +188,8 @@
       <workItem from="1683800316507" duration="2426000" />
       <workItem from="1683897063273" duration="310000" />
       <workItem from="1683903910652" duration="381000" />
+      <workItem from="1683897063273" duration="2996000" />
+      <workItem from="1683900710802" duration="5349000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>
