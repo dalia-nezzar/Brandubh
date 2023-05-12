@@ -163,35 +163,34 @@ public class BrandubhConsole {
      **/
     static String getName() {
         String name = "";
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Enter your name, warrior! ");
-        try {
-            name = br.readLine();
-        }
-        catch(IOException e) {
-            System.out.println("Don't take me for a fool, son. That's not your real name ye! Abort.");
+        name = input.nextLine();
+        if (name.equals("")) {
+            System.out.println("You must enter a name, son! Try again.");
+            name = getName();
         }
         return name;
     }
 
     public static String setAI() {
         int ai = 0;
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Choose your opponent, warrior! Will it be God Odin or God Loki?");
         System.out.println(PURPLE_BOLD+"1. God Odin"+BLACK);
         System.out.println(GREEN_BOLD+"2. God Loki"+BLACK);
-        try {
-            ai= br.read();
-        }
-        catch(IOException e) {
-            System.out.println("Don't take me for a fool, son. That's not a real God! Abort.");
-        }
+        do{
+            ai=input.nextInt();
+            if (ai!=1 && ai!=2) System.out.println("Don't take me for a fool, son. That's not a real God! Try again.");
+        } while(ai!=1 && ai!=2);
         if (ai==1){
             BRBController.typeAI=2;
             return "God Odin";
         }
-        else {
+        else if(ai==2) {
             BRBController.typeAI=3;
+            return "God Loki";
+        }
+        else{
+            System.out.println("Don't take me for a fool, son. That's not a real God! Abort.");
             return "God Loki";
         }
     }
@@ -200,7 +199,6 @@ public class BrandubhConsole {
         System.out.println(BLACK_BOLD+"Welcome, warrior, to Brandubh!");
         System.out.println("Oh! Say, son, do you know"+ PURPLE_BRIGHT+ " the rules of the Brandubh?"+BLACK);
         String answer = "";
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
             try {
                 answer = input.nextLine();
@@ -280,7 +278,6 @@ public class BrandubhConsole {
     }
 
     static int setNumberGame(){
-        //BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("How many wars will there be?");
         try{
             int numberGame = input.nextInt();
