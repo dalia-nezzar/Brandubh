@@ -26,8 +26,9 @@ public class BRBController extends Controller {
 
     public static boolean drawRequested;
     public static int countDraw;
-
-    public static int typeAI;
+    public static int typeAI1;
+    public static int typeAI2 = -1;
+    public static int nbParties;
     public static Scanner input = new Scanner(System.in);
     ArrayList<String> storedData = new ArrayList<>(10);
     ArrayList<Character> storedDataColor = new ArrayList<>(10);
@@ -263,7 +264,14 @@ public class BRBController extends Controller {
             System.out.println("GOD [COMPUTER] PLAYS");
             BRBDecider decider = new BRBDecider(model, this);
             ActionPlayer play = new ActionPlayer(model, this, decider, null);
-            play.start(typeAI);
+            System.out.println("typeAI1 = " + typeAI1 + " typeAI2 = " + typeAI2 + " idPlayer = " + model.getIdPlayer());
+            if (typeAI2 == -1) {
+                play.start(typeAI1);
+            } else if (model.getIdPlayer() == 1) {
+                play.start(typeAI1);
+            } else {
+                play.start(typeAI2);
+            }
         } else {
             boolean ok = false;
             while (!ok) {
@@ -274,6 +282,7 @@ public class BRBController extends Controller {
                 }
                 try {
                     String line = input.nextLine();
+                    System.out.println("line " + line);
                     if (line.length() == 3) {
                         ok = analyseAndPlay(line);
                     } else if(line.toLowerCase().contains("stop")

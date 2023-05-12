@@ -20,35 +20,6 @@ public class BrandubhConsole {
     public static final int COMPUTER_VS_COMPUTER = 2;
     public static Scanner input = new Scanner(System.in);
 
-    private static PrintStream originalOut = System.out;
-    private static boolean suppressOutput = true;
-    // Override the default print stream
-    private static class NullPrintStream extends PrintStream {
-        public NullPrintStream() {
-            super(new OutputStream() {
-                public void write(int b) {
-                    // Do nothing
-                }
-            });
-        }
-    }
-
-    // Override the standard output stream
-    private static void setOutputStream(PrintStream out) {
-        System.setOut(out);
-        System.setErr(out);
-    }
-
-    // Toggle output suppression
-    private static void toggleOutput() {
-        if (suppressOutput) {
-            setOutputStream(new NullPrintStream());
-            suppressOutput = false;
-        } else {
-            setOutputStream(originalOut);
-            suppressOutput = true;
-        }
-    }
     public static void main(String[] args) {
         // Suppress output
         //toggleOutput();
@@ -110,12 +81,12 @@ public class BrandubhConsole {
                     String player1 = getName();
                     model.addHumanPlayer(player1);
                     System.out.println(RED_BOLD+"===== ATTACKERS ====="+BLACK);
-                    String AI1Mode1=setAI();
+                    String AI1Mode1=setAI(1);
                     model.addComputerPlayer(AI1Mode1);
                 }
                 else if (answer.equals("2")){
                     System.out.println(GREEN_BOLD+"===== DEFENDERS ====="+BLACK);
-                    String AI1Mode1=setAI();
+                    String AI1Mode1=setAI(1);
                     model.addComputerPlayer(AI1Mode1);
                     System.out.println(RED_BOLD+"===== ATTACKERS ====="+BLACK);
                     String player1 = getName();
@@ -124,10 +95,10 @@ public class BrandubhConsole {
             }
             else if (mode == 2) {
                 System.out.println(GREEN_BOLD+"===== DEFENDERS ====="+BLACK);
-                String AI1Mode2=setAI();
+                String AI1Mode2=setAI(2);
                 model.addComputerPlayer(AI1Mode2);
                 System.out.println(RED_BOLD+"===== ATTACKERS ====="+BLACK);
-                String AI2Mode2=setAI();
+                String AI2Mode2=setAI(1);
                 model.addComputerPlayer(AI2Mode2);
             }
         }
@@ -136,10 +107,10 @@ public class BrandubhConsole {
         View BRBView = new View(model);
         BRBController control = new BRBController(model,BRBView);
         control.setFirstStageName("BRB");
-        int nbParties=setNumberGame();
+        BRBController.nbParties=setNumberGame();
         //toggleOutput();
         try {
-            for (int i=0;i<nbParties;i++) {
+            for (int i=0;i<BRBController.nbParties;i++) {
                 control.startGame();
                 control.stageLoop();
             }
@@ -147,7 +118,7 @@ public class BrandubhConsole {
         catch(GameException e) {
             System.out.println("Cannot start the war. Abort");
         }
-        if (nbParties > 1000) control.saveAllFiles();
+        if (BRBController.nbParties > 1000) control.saveAllFiles();
     }
 
     /**
@@ -165,26 +136,40 @@ public class BrandubhConsole {
         return name;
     }
 
-    public static String setAI() {
+    public static String setAI(int player) {
         int ai = 0;
         System.out.println("Choose your opponent, warrior! Will it be God Odin or God Loki?");
-        System.out.println(PURPLE_BOLD+"1. God Odin"+BLACK);
-        System.out.println(GREEN_BOLD+"2. God Loki"+BLACK);
+        System.out.println(PURPLE_BOLD+"1. God Odin (SMART)"+BLACK);
+        System.out.println(GREEN_BOLD+"2. God Loki (EAT)"+BLACK);
+        System.out.println(RED_BOLD+"3. God Frigg (RANDOM)"+BLACK);
         do{
             ai=input.nextInt();
-            if (ai!=1 && ai!=2) System.out.println("Don't take me for a fool, son. That's not a real God! Try again.");
-        } while(ai!=1 && ai!=2);
+            if (ai!=1 && ai!=2 && ai!=3) System.out.println("Don't take me for a fool, son. That's not a real God! Try again.");
+        } while(ai!=1 && ai!=2 && ai!=3);
         if (ai==1){
-            BRBController.typeAI=2;
-            return "God Odin";
+            if (player == 1)
+                BRBController.typeAI1=2;
+            else
+                BRBController.typeAI2=2;
+            return "God Odin (SMART)";
         }
         else if(ai==2) {
-            BRBController.typeAI=3;
-            return "God Loki";
+            if (player == 1)
+                BRBController.typeAI1=3;
+            else
+                BRBController.typeAI2=3;
+            return "God Loki (EAT)";
+        }
+        else if(ai==3) {
+            if (player == 1)
+                BRBController.typeAI1=1;
+            else
+                BRBController.typeAI2=1;
+            return "God Frigg (RANDOM)";
         }
         else{
             System.out.println("Don't take me for a fool, son. That's not a real God! Abort.");
-            return "God Loki";
+            return null;
         }
     }
 
@@ -195,22 +180,22 @@ public class BrandubhConsole {
         while (true) {
             try {
                 answer = input.nextLine();
-                if (answer.toLowerCase().equals("yes")
+                if (answer.toLowerCase().contains("yes")
                 || answer.toLowerCase().equals("y")
-                || answer.toLowerCase().equals("yeah")
-                || answer.toLowerCase().equals("yep")
-                || answer.toLowerCase().equals("yup")
+                || answer.toLowerCase().contains("yeah")
+                || answer.toLowerCase().contains("yep")
+                || answer.toLowerCase().contains("yup")
                 || answer.toLowerCase().equals("ye")
                 || answer.toLowerCase().equals("yee")
-                || answer.toLowerCase().equals("oui")
+                || answer.toLowerCase().contains("oui")
                 || answer.toLowerCase().equals("1")) {
                     System.out.println("Fair. Let's head to the warzone, ey!");
                     System.out.println("=======================================");
                     break;
-                } else if (answer.toLowerCase().equals("no")
+                } else if (answer.toLowerCase().contains("no")
                 || answer.toLowerCase().equals("n")
-                || answer.toLowerCase().equals("nope")
-                || answer.toLowerCase().equals("nah")
+                || answer.toLowerCase().contains("nope")
+                || answer.toLowerCase().contains("nah")
                 || answer.toLowerCase().equals("non")
                 || answer.toLowerCase().equals("noo")
                 || answer.toLowerCase().equals("0")) {

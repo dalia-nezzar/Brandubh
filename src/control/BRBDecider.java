@@ -36,10 +36,13 @@ public class BRBDecider extends Decider {
     public ActionList decider(int selected) {
         switch (selected) {
             case 1:
+                System.out.println("Random");
                 return decideAleatoire();
             case 2:
+                System.out.println("Smart");
                 return decideSmart();
             case 3:
+                System.out.println("DecideEAT");
                 return decideEAT();
             default:
                 return null;

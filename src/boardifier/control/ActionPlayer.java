@@ -31,30 +31,6 @@ public class ActionPlayer {
         this.preActions = null;
     }
 
-    public void start() {
-        // first disable event capture
-        model.setCaptureEvents(false);
-
-        if (preActions != null) {
-            playActions(preActions);
-        }
-        // if there is a decider, decide what to do
-        if (decider != null) {
-            // create neural network
-            actions = decider.decider(2);
-            //1 aléatoire
-            //2 smart
-            //3 decide2
-            //4 EAT
-        }
-        playActions(actions);
-        // transfer the actions to the model
-        System.out.println(this);
-
-        model.setCaptureEvents(true);
-
-    }
-
     public void start(int typeAI) {
         // first disable event capture
         model.setCaptureEvents(false);
@@ -63,7 +39,7 @@ public class ActionPlayer {
             playActions(preActions);
         }
         // if there is a decider, decide what to do
-        if (decider != null && typeAI != 0 && (typeAI==2 || typeAI==3)) {
+        if (decider != null && typeAI != 0 && (typeAI==1 || typeAI==2 || typeAI==3)) {
             // create neural network
             actions = decider.decider(typeAI);
             //1 aléatoire
