@@ -142,19 +142,12 @@ public class BrandubhConsole {
             for (int i=0;i<nbParties;i++) {
                 control.startGame();
                 control.stageLoop();
-                //every 1000 games, we save the files
-                if (mode==2 && (i+1)%1000 == 0) {
-                    control.saveAllFiles();
-                    //toggleOutput();
-                    System.out.println("Files saved");
-                    //toggleOutput();
-                }
             }
         }
         catch(GameException e) {
             System.out.println("Cannot start the war. Abort");
         }
-        //if (mode == 2) control.saveAllFiles();
+        if (nbParties > 1000) control.saveAllFiles();
     }
 
     /**

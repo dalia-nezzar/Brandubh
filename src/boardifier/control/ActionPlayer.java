@@ -70,7 +70,8 @@ public class ActionPlayer {
             //2 smart
             //3 EAT
         }
-        playActions(actions);
+        if (actions == null) System.out.println("actions is null");
+        else playActions(actions);
         // transfer the actions to the model
         //System.out.println(this);
 
