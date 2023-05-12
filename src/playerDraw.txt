@@ -1,0 +1,7 @@
+﻿yes
+0
+player
+player2
+1
+draw
+yes

@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b19e153a-b93b-43b7-bbc2-43394a293a12" name="Changes" comment="Test">
+      <change afterPath="$PROJECT_DIR$/src/playerDraw.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BrandubhConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BrandubhConsole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/in.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/playerAgainstComputer_PlayerWins.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +77,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Brandubh PlayerVSMachine PlayerW">
+  <component name="RunManager" selected="Application.Brandubh PlayerDraw">
     <configuration name="Brandubh AI vs AI" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
       <module name="Brandubh" />
@@ -85,16 +86,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Brandubh PlayerVSMachine PlayerW" type="Application" factoryName="Application">
+    <configuration name="Brandubh PlayerDraw" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
       <module name="Brandubh" />
       <option name="REDIRECT_INPUT" value="true" />
-      <option name="INPUT_FILE" value="src/playerAgainstComputer_PlayerWins.txt" />
+      <option name="INPUT_FILE" value="src/playerDraw.txt" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Brandubh in.txt" type="Application" factoryName="Application">
+    <configuration name="Brandubh gamer1 Wins.txt" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
+      <module name="Brandubh" />
+      <option name="REDIRECT_INPUT" value="true" />
+      <option name="INPUT_FILE" value="src/gamer1Win.txt" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Brandubh gamer2 Wins.txt" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
       <module name="Brandubh" />
       <option name="REDIRECT_INPUT" value="true" />
@@ -110,11 +120,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Branubh EatWhenPossible and Mistakes" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
+      <module name="Brandubh" />
+      <option name="REDIRECT_INPUT" value="true" />
+      <option name="INPUT_FILE" value="src/eatWhenPossible_Mistakes.txt" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.Brandubh" />
       <item itemvalue="Application.Brandubh AI vs AI" />
-      <item itemvalue="Application.Brandubh in.txt" />
-      <item itemvalue="Application.Brandubh PlayerVSMachine PlayerW" />
+      <item itemvalue="Application.Brandubh gamer2 Wins.txt" />
+      <item itemvalue="Application.Brandubh gamer1 Wins.txt" />
+      <item itemvalue="Application.Brandubh PlayerDraw" />
+      <item itemvalue="Application.Branubh EatWhenPossible and Mistakes" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
