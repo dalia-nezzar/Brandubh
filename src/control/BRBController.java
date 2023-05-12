@@ -283,7 +283,7 @@ public class BRBController extends Controller {
                 }
                 try {
                     String line = input.next();
-                    if (line.length() == 3) {
+                    if (line.length() == 3 && (!line.equals(null))) {
                         ok = analyseAndPlay(line);
                     } else if(line.toLowerCase().contains("stop")
                     || (line.toLowerCase().contains("exit"))) {
