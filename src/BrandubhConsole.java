@@ -26,7 +26,7 @@ public class BrandubhConsole {
             modeChoice = Integer.parseInt(args[0]);
             if ((modeChoice <0) || (modeChoice>2)) modeChoice = -1;
         }
-        catch(NumberFormatException e) {
+        catch(NumberFormatException | ArrayIndexOutOfBoundsException e) {
             modeChoice = -1;
         }
         int mode;

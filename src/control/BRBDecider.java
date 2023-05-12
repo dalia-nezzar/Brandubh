@@ -220,7 +220,7 @@ public class BRBDecider extends Decider {
             System.out.println("---------------CHOOSING THE BEST MOVE----------------");
             nbSmart++;
         }
-        List<GameElement> toRemoveReal = board.getPawnsToRemove(rowDest, colDest, selectedPawn.getColor());
+        List<GameElement> toRemoveReal = board.getPawnsToRemove(rowDest, colDest, pawn.getColor());
         // remove them
         board.removePawns(toRemoveReal);
         // create action list. After the last action, it is next player's turn.
