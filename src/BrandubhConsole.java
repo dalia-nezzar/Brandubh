@@ -26,7 +26,7 @@ public class BrandubhConsole {
             modeChoice = Integer.parseInt(args[0]);
             if ((modeChoice <0) || (modeChoice>2)) modeChoice = -1;
         }
-        catch(NumberFormatException e) {
+        catch(NumberFormatException | ArrayIndexOutOfBoundsException e) {
             modeChoice = -1;
         }
         int mode;
@@ -140,54 +140,48 @@ public class BrandubhConsole {
         System.out.println(PURPLE_BOLD+"1. God Odin (SMART)"+BLACK);
         System.out.println(GREEN_BOLD+"2. God Loki (EAT)"+BLACK);
         System.out.println(RED_BOLD+"3. Goddess Frigg (RANDOM)"+BLACK);
-        do{
-            ai=BRBController.input.nextInt();
-            if (ai!=1 && ai!=2 && ai!=3) System.out.println("Don't take me for a fool, son. That's not a real God! Try again.");
-        } while(ai!=1 && ai!=2 && ai!=3);
+
         try {
             if (player == 1)
                 ai = Integer.parseInt(args[1]);
             else if (player == 2)
                 ai = Integer.parseInt(args[2]);
             else
-            ai = -1;
+                ai = -1;
         } catch (Exception e) {
             ai = -1;
         }
-        if (ai!=1 && ai!=2 && ai!=3) ai=-1;
-        if (ai==-1) {
-            do{
-                ai=BRBController.input.nextInt();
-                if (ai!=1 && ai!=2 && ai!=3) System.out.println("Don't take me for a fool, son. That's not a real God! Try again.");
-            } while(ai!=1 && ai!=2 && ai!=3);
+
+        if (ai != 1 && ai != 2 && ai != 3) {
+            do {
+                ai = BRBController.input.nextInt();
+                if (ai != 1 && ai != 2 && ai != 3) System.out.println("Don't take me for a fool, son. That's not a real God! Try again.");
+            } while (ai != 1 && ai != 2 && ai != 3);
         }
-        if (ai==1){
+
+        if (ai == 1) {
             if (player == 1)
-                BRBController.typeAI1=2;
+                BRBController.typeAI1 = 2;
             else
-                BRBController.typeAI2=2;
+                BRBController.typeAI2 = 2;
             return "God Odin (SMART)";
-        }
-        else if(ai==2) {
+        } else if (ai == 2) {
             if (player == 1)
-                BRBController.typeAI1=3;
+                BRBController.typeAI1 = 3;
             else
-                BRBController.typeAI2=3;
+                BRBController.typeAI2 = 3;
             return "God Loki (EAT)";
-        }
-        else if(ai==3) {
+        } else if (ai == 3) {
             if (player == 1)
-                BRBController.typeAI1=1;
+                BRBController.typeAI1 = 1;
             else
-                BRBController.typeAI2=1;
+                BRBController.typeAI2 = 1;
             return "Goddess Frigg (RANDOM)";
-        }
-        else{
+        } else {
             System.out.println("Don't take me for a fool, son. That's not a real God! Abort.");
             return null;
         }
     }
-
     public static int chooseGameMode() {
         System.out.println(BLACK_BOLD+"Welcome, warrior, to Brandubh!");
         System.out.println("Oh! Say, son, do you know"+ PURPLE_BRIGHT+ " the rules of the Brandubh?"+BLACK);
