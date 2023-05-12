@@ -50,12 +50,12 @@ public class BrandubhConsole {
         if (mode == 0) {
             System.out.println(GREEN_BOLD+"===== DEFENDERS ====="+BLACK);
             String player1 = getName();
+            if (player1.equals("")) player1 = "Player1";
             model.addHumanPlayer(player1);
             System.out.println(RED_BOLD+"===== ATTACKERS ====="+BLACK);
             String player2 = getName();
-            if (player1.equals("")) player1 = "Player1";
             if (player2.equals("")) player2 = "Player2";
-            if (player1.toLowerCase().equals(player2.toLowerCase())) {
+            if (player1.toLowerCase().equals(player2.toLowerCase()) && !player2.equals("")) {
                 System.out.println(RED_BOLD + "You can't have two warriors with the same name!" + BLACK);
                 do {
                     System.out.println(BLACK_BOLD + "Enter a new name for the second player, son! Else... The war will never start! " + BLACK);
@@ -111,7 +111,7 @@ public class BrandubhConsole {
             for (int i=0;i<BRBController.nbParties;i++) {
                 control.startGame();
                 control.stageLoop();
-                if (BRBController.stopBool==true) break;
+                if (BRBController.stopBool) break;
             }
         }
         catch(GameException e) {
@@ -128,10 +128,6 @@ public class BrandubhConsole {
         String name = "";
         System.out.println("Enter your name, warrior! ");
         name = BRBController.input.nextLine();
-        if (name.equals("")) {
-            System.out.println("You must enter a name, son! Try again.");
-            name = getName();
-        }
         return name;
     }
 
