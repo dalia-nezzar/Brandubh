@@ -264,7 +264,7 @@ public class BRBController extends Controller {
             System.out.println("GOD [COMPUTER] PLAYS");
             BRBDecider decider = new BRBDecider(model, this);
             ActionPlayer play = new ActionPlayer(model, this, decider, null);
-            System.out.println("typeAI1 = " + typeAI1 + " typeAI2 = " + typeAI2 + " idPlayer = " + model.getIdPlayer());
+            //System.out.println("typeAI1 = " + typeAI1 + " typeAI2 = " + typeAI2 + " idPlayer = " + model.getIdPlayer());
             if (typeAI2 == -1) {
                 play.start(typeAI1);
             } else if (model.getIdPlayer() == 1) {

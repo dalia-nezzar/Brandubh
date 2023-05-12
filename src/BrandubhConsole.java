@@ -141,7 +141,7 @@ public class BrandubhConsole {
         System.out.println("Choose your opponent, warrior! Will it be God Odin or God Loki?");
         System.out.println(PURPLE_BOLD+"1. God Odin (SMART)"+BLACK);
         System.out.println(GREEN_BOLD+"2. God Loki (EAT)"+BLACK);
-        System.out.println(RED_BOLD+"3. God Frigg (RANDOM)"+BLACK);
+        System.out.println(RED_BOLD+"3. Goddess Frigg (RANDOM)"+BLACK);
         do{
             ai=BRBController.input.nextInt();
             if (ai!=1 && ai!=2 && ai!=3) System.out.println("Don't take me for a fool, son. That's not a real God! Try again.");
@@ -165,7 +165,7 @@ public class BrandubhConsole {
                 BRBController.typeAI1=1;
             else
                 BRBController.typeAI2=1;
-            return "God Frigg (RANDOM)";
+            return "Goddess Frigg (RANDOM)";
         }
         else{
             System.out.println("Don't take me for a fool, son. That's not a real God! Abort.");

@@ -167,14 +167,14 @@ public class BRBDecider extends Decider {
                     return actions;
                 }
 
-                System.out.println("valid: " + valid.get(j).y + " " + valid.get(j).x);
+                //System.out.println("valid: " + valid.get(j).y + " " + valid.get(j).x);
                 // create a representation of the move in String format
                 String combinationToSearch = translator(coords[1], coords[0], valid.get(j).x, valid.get(j).y);
                 char color;
                 if (model.getIdPlayer() == 0) color = 'B';
                 else color = 'R';
                 String combinationToSearchCompressed = BRBController.compressData(combinationToSearch, color);
-                System.out.println(combinationToSearchCompressed);
+                // System.out.println(combinationToSearchCompressed);
                 // if player is red then search in dataRed.bin, else in dataBlack.bin
                 Data data = null;
                 int score = 0;
@@ -201,12 +201,12 @@ public class BRBDecider extends Decider {
                     selectedPawn = pawn;
                 }
                 // print data info
-                System.out.println(data);
+                //System.out.println(data);
             }
         }
         // if there is more than one move with the same score, choose one at random
         if (moves.size() > 1) {
-            System.out.println("---------------CHOOSING A MOVE AT RANDOM----------------");
+            //System.out.println("---------------CHOOSING A MOVE AT RANDOM----------------");
             id = loto.nextInt(moves.size());
             rowDest = moves.get(id).y;
             colDest = moves.get(id).x;
@@ -217,7 +217,7 @@ public class BRBDecider extends Decider {
                 nbSmart++;
             }
         } else {
-            System.out.println("---------------CHOOSING THE BEST MOVE----------------");
+            //System.out.println("---------------CHOOSING THE BEST MOVE----------------");
             nbSmart++;
         }
         List<GameElement> toRemoveReal = board.getPawnsToRemove(rowDest, colDest, selectedPawn.getColor());
@@ -330,7 +330,7 @@ public class BRBDecider extends Decider {
                         ObjectInputStream ois = new ObjectInputStream(bais);
                         value = (Data) ois.readObject();
                         ois.close();
-                        System.out.println("Value found !");
+                        //System.out.println("Value found !");
                         return value;
                         // Value found !
                     }
@@ -347,7 +347,7 @@ public class BRBDecider extends Decider {
                     }
                 }
             }
-            System.out.println("Key not found in map");
+            // System.out.println("Key not found in map");
             // Key not found in map
             return null;
         } catch (IOException | ClassNotFoundException e) {
