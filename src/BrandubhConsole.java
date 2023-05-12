@@ -21,94 +21,92 @@ public class BrandubhConsole {
     public static final int COMPUTER_VS_COMPUTER = 2;
 
     public static void main(String[] args) {
-        // Suppress output
-        //toggleOutput();
-        int choice=-1;
-        if (args.length == 1) {
-            try {
-                choice = Integer.parseInt(args[0]);
-                if ((choice <0) || (choice>2)) choice = -1;
-            }
-            catch(NumberFormatException e) {
-                choice = -1;
-            }
+        int modeChoice;
+        try {
+            modeChoice = Integer.parseInt(args[0]);
+            if ((modeChoice <0) || (modeChoice>2)) modeChoice = -1;
         }
-        int mode=0;
+        catch(NumberFormatException e) {
+            modeChoice = -1;
+        }
+        int mode;
         Model model = new Model();
-        if (choice==-1){
-            mode=chooseGameMode();
-            switch (mode) {
-                case HUMAN_VS_HUMAN:
-                    System.out.println("You chose a"+ BLACK_BOLD +" brother (human) vs brother (human) "+ BLACK +"game!");
-                    break;
-                case HUMAN_VS_COMPUTER:
-                    System.out.println("You chose a"+ BLACK_BOLD +" brother (human) vs God (computer) "+ BLACK +"game!");
-                    break;
-                case COMPUTER_VS_COMPUTER:
-                    System.out.println("You chose a"+ BLACK_BOLD +" God (computer) vs God (computer) "+ BLACK +"game!");
-                    break;
+        if (modeChoice==-1) mode=chooseGameMode();
+        else if (modeChoice > 0 && modeChoice < 3) mode = modeChoice;
+        else mode = -1;
+
+        switch (mode) {
+            case HUMAN_VS_HUMAN:
+                System.out.println("You chose a"+ BLACK_BOLD +" brother (human) vs brother (human) "+ BLACK +"game!");
+                break;
+            case HUMAN_VS_COMPUTER:
+                System.out.println("You chose a"+ BLACK_BOLD +" brother (human) vs God (computer) "+ BLACK +"game!");
+                break;
+            case COMPUTER_VS_COMPUTER:
+                System.out.println("You chose a"+ BLACK_BOLD +" God (computer) vs God (computer) "+ BLACK +"game!");
+                break;
+        }
+
+        if (mode == 0) {
+            System.out.println(GREEN_BOLD+"===== DEFENDERS ====="+BLACK);
+            String player1 = getName();
+            model.addHumanPlayer(player1);
+            System.out.println(RED_BOLD+"===== ATTACKERS ====="+BLACK);
+            String player2 = getName();
+            if (player1.equals("")) player1 = "Player1";
+            if (player2.equals("")) player2 = "Player2";
+            if (player1.toLowerCase().equals(player2.toLowerCase())) {
+                System.out.println(RED_BOLD + "You can't have two warriors with the same name!" + BLACK);
+                do {
+                    System.out.println(BLACK_BOLD + "Enter a new name for the second player, son! Else... The war will never start! " + BLACK);
+                    player2 = getName();
+                }
+                while (player1.toLowerCase().equals(player2.toLowerCase()));
             }
-            if (mode == 0) {
+            model.addHumanPlayer(player2);
+        }
+        else if (mode == 1) {
+            System.out.println("What role do you want to play in the war, brother?");
+            String answer = "";
+            //BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println(PURPLE_BOLD+"1. Defender"+BLACK);
+            System.out.println(PURPLE_BOLD+"2. Attacker"+BLACK);
+            try {
+                answer = BRBController.input.nextLine();
+            } catch (Exception e) {
+                System.out.println("Error while reading your answer. Please try again.");
+            }
+            if (answer.equals("1")){
                 System.out.println(GREEN_BOLD+"===== DEFENDERS ====="+BLACK);
                 String player1 = getName();
                 model.addHumanPlayer(player1);
                 System.out.println(RED_BOLD+"===== ATTACKERS ====="+BLACK);
-                String player2 = getName();
-                if (player1.toLowerCase().equals(player2.toLowerCase())) {
-                    System.out.println(RED_BOLD + "You can't have two warriors with the same name!" + BLACK);
-                    do {
-                        System.out.println(BLACK_BOLD + "Enter a new name for the second player, son! Else... The war will never start! " + BLACK);
-                        player2 = getName();
-                    }
-                    while (player1.toLowerCase().equals(player2.toLowerCase()));
-                }
-                model.addHumanPlayer(player2);
+                String AI1Mode1=setAI(1, args);
+                model.addComputerPlayer(AI1Mode1);
             }
-            else if (mode == 1) {
-                System.out.println("What role do you want to play in the war, brother?");
-                String answer = "";
-                //BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-                System.out.println(PURPLE_BOLD+"1. Defender"+BLACK);
-                System.out.println(PURPLE_BOLD+"2. Attacker"+BLACK);
-                try {
-                    //TODO add exception if the user enters a number bigger than 2 and less than 1
-                    answer = BRBController.input.nextLine();
-                } catch (Exception e) {
-                    System.out.println("Error while reading your answer. Please try again.");
-                }
-                if (answer.equals("1")){
-                    System.out.println(GREEN_BOLD+"===== DEFENDERS ====="+BLACK);
-                    String player1 = getName();
-                    model.addHumanPlayer(player1);
-                    System.out.println(RED_BOLD+"===== ATTACKERS ====="+BLACK);
-                    String AI1Mode1=setAI(1);
-                    model.addComputerPlayer(AI1Mode1);
-                }
-                else if (answer.equals("2")){
-                    System.out.println(GREEN_BOLD+"===== DEFENDERS ====="+BLACK);
-                    String AI1Mode1=setAI(1);
-                    model.addComputerPlayer(AI1Mode1);
-                    System.out.println(RED_BOLD+"===== ATTACKERS ====="+BLACK);
-                    String player1 = getName();
-                    model.addHumanPlayer(player1);
-                }
-            }
-            else if (mode == 2) {
+            else if (answer.equals("2")){
                 System.out.println(GREEN_BOLD+"===== DEFENDERS ====="+BLACK);
-                String AI1Mode2=setAI(2);
-                model.addComputerPlayer(AI1Mode2);
+                String AI1Mode1=setAI(1, args);
+                model.addComputerPlayer(AI1Mode1);
                 System.out.println(RED_BOLD+"===== ATTACKERS ====="+BLACK);
-                String AI2Mode2=setAI(1);
-                model.addComputerPlayer(AI2Mode2);
+                String player1 = getName();
+                model.addHumanPlayer(player1);
             }
+        }
+        else if (mode == 2) {
+            System.out.println(GREEN_BOLD+"===== DEFENDERS ====="+BLACK);
+            String AI1Mode2=setAI(2, args);
+            model.addComputerPlayer(AI1Mode2);
+            System.out.println(RED_BOLD+"===== ATTACKERS ====="+BLACK);
+            String AI2Mode2=setAI(1, args);
+            model.addComputerPlayer(AI2Mode2);
         }
 
         StageFactory.registerModelAndView("BRB", "model.BRBStageModel", "view.BRBStageView");
         View BRBView = new View(model);
         BRBController control = new BRBController(model,BRBView);
         control.setFirstStageName("BRB");
-        BRBController.nbParties=setNumberGame();
-        //toggleOutput();
+        BRBController.nbParties=setNumberGame(args);
         try {
             for (int i=0;i<BRBController.nbParties;i++) {
                 control.startGame();
@@ -136,16 +134,30 @@ public class BrandubhConsole {
         return name;
     }
 
-    public static String setAI(int player) {
-        int ai = 0;
+    public static String setAI(int player, String[] args) {
+        int ai;
         System.out.println("Choose your opponent, warrior! Will it be God Odin or God Loki?");
         System.out.println(PURPLE_BOLD+"1. God Odin (SMART)"+BLACK);
         System.out.println(GREEN_BOLD+"2. God Loki (EAT)"+BLACK);
         System.out.println(RED_BOLD+"3. God Frigg (RANDOM)"+BLACK);
-        do{
-            ai=BRBController.input.nextInt();
-            if (ai!=1 && ai!=2 && ai!=3) System.out.println("Don't take me for a fool, son. That's not a real God! Try again.");
-        } while(ai!=1 && ai!=2 && ai!=3);
+
+        try {
+            if (player == 1)
+                ai = Integer.parseInt(args[1]);
+            else if (player == 2)
+                ai = Integer.parseInt(args[2]);
+            else
+            ai = -1;
+        } catch (Exception e) {
+            ai = -1;
+        }
+        if (ai!=1 && ai!=2 && ai!=3) ai=-1;
+        if (ai==-1) {
+            do{
+                ai=BRBController.input.nextInt();
+                if (ai!=1 && ai!=2 && ai!=3) System.out.println("Don't take me for a fool, son. That's not a real God! Try again.");
+            } while(ai!=1 && ai!=2 && ai!=3);
+        }
         if (ai==1){
             if (player == 1)
                 BRBController.typeAI1=2;
