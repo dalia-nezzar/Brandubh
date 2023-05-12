@@ -111,6 +111,7 @@ public class BrandubhConsole {
             for (int i=0;i<BRBController.nbParties;i++) {
                 control.startGame();
                 control.stageLoop();
+                if (BRBController.stopBool==true) break;
             }
         }
         catch(GameException e) {

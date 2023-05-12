@@ -5,9 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b19e153a-b93b-43b7-bbc2-43394a293a12" name="Changes" comment="Test">
+      <change afterPath="$PROJECT_DIR$/src/playerDraw.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/src/BrandubhConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BrandubhConsole.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/src/in.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/playerAgainstComputer_PlayerWins.txt" beforeDir="false" />
+>>>>>>> 3d4c81fc37c944b09228a178ba8fd717b694f6b6
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +82,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Brandubh">
+  <component name="RunManager" selected="Application.Brandubh PlayerDraw">
     <configuration name="Brandubh AI vs AI" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
       <module name="Brandubh" />
@@ -85,7 +91,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Brandubh in.txt" type="Application" factoryName="Application">
+    <configuration name="Brandubh PlayerDraw" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
+      <module name="Brandubh" />
+      <option name="REDIRECT_INPUT" value="true" />
+      <option name="INPUT_FILE" value="src/playerDraw.txt" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Brandubh gamer1 Wins.txt" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
+      <module name="Brandubh" />
+      <option name="REDIRECT_INPUT" value="true" />
+      <option name="INPUT_FILE" value="src/gamer1Win.txt" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Brandubh gamer2 Wins.txt" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
       <module name="Brandubh" />
       <option name="REDIRECT_INPUT" value="true" />
@@ -101,10 +125,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Branubh EatWhenPossible and Mistakes" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
+      <module name="Brandubh" />
+      <option name="REDIRECT_INPUT" value="true" />
+      <option name="INPUT_FILE" value="src/eatWhenPossible_Mistakes.txt" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.Brandubh" />
       <item itemvalue="Application.Brandubh AI vs AI" />
-      <item itemvalue="Application.Brandubh in.txt" />
+      <item itemvalue="Application.Brandubh gamer2 Wins.txt" />
+      <item itemvalue="Application.Brandubh gamer1 Wins.txt" />
+      <item itemvalue="Application.Brandubh PlayerDraw" />
+      <item itemvalue="Application.Branubh EatWhenPossible and Mistakes" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -194,6 +230,11 @@
       <workItem from="1683903910652" duration="381000" />
       <workItem from="1683897063273" duration="2996000" />
       <workItem from="1683900710802" duration="5349000" />
+<<<<<<< HEAD
+=======
+      <workItem from="1683908713459" duration="10782000" />
+      <workItem from="1683919780917" duration="749000" />
+>>>>>>> 3d4c81fc37c944b09228a178ba8fd717b694f6b6
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>

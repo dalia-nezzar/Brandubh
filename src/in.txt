@@ -1,5 +1,0 @@
-yes
-0
-player1
-player2
-1
