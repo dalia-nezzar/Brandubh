@@ -161,7 +161,6 @@ public class BrandubhConsole {
                 if (ai!=1 && ai!=2 && ai!=3) System.out.println("Don't take me for a fool, son. That's not a real God! Try again.");
             } while(ai!=1 && ai!=2 && ai!=3);
         }
->>>>>>> 1287939dcd355ef33a019bc8f3139b7518de3732
         if (ai==1){
             if (player == 1)
                 BRBController.typeAI1=2;
