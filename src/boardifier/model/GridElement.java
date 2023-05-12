@@ -137,7 +137,7 @@ public class GridElement extends StaticElement {
         int[] coords;
         coords = getElementCell(element);
         if (coords == null) {
-            System.out.println("NO CELL FOR MOVE");
+            //System.out.println("NO CELL FOR MOVE");
         }
         // if the element is in the grid, and not already in rowDest,colDest cell: move it.
         if ((coords != null) && ((rowDest != coords[0]) || (colDest != coords[1]))) {

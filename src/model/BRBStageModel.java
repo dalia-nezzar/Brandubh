@@ -32,13 +32,13 @@ public class BRBStageModel extends GameStageModel {
         // Fix score if needed
         int nbToRemove = currScore - pastScore - 1;
         nbWinRed -= nbToRemove;
-        System.out.println(BRBController.countDraw+" "+BRBController.drawRequested);
+        //System.out.println(BRBController.countDraw+" "+BRBController.drawRequested);
         if (BRBController.countDraw== 1 || BRBController.drawRequested) {
             nbWinRed-=1;
             pastScore--;
         }
         BRBController.countDraw = 0;
-        System.out.println(pastScore+" "+currScore);
+        //System.out.println(pastScore+" "+currScore);
         BRBController.drawRequested = false;
         currScore = nbWinBlack+nbWinRed;
         if (pastScore+1 != currScore) {
