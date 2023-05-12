@@ -132,7 +132,7 @@ public class BRBDecider extends Decider {
         // toremove
         List<GameElement> toRemove = new ArrayList<>();
         int id = 0;
-        int highestScore = -1;
+        int highestScore = Integer.MIN_VALUE;
 
         // Get all the pawns for the given player
         for (int i = 0; i < pawns.size(); i++) {
@@ -189,7 +189,6 @@ public class BRBDecider extends Decider {
                     // if the score is the same, add the move to the list of possible moves
                     moves.add(new Point(valid.get(j).x, valid.get(j).y));
                     pawnsToMove.add(pawn);
-
                 }
                 if (score > highestScore) {
                     pawnsToMove.clear();
@@ -197,6 +196,7 @@ public class BRBDecider extends Decider {
                     highestScore = score;
                     rowDest = valid.get(j).y;
                     colDest = valid.get(j).x;
+                    moves.add(new Point(valid.get(j).x, valid.get(j).y));
                     pawnsToMove.add(pawn);
                     selectedPawn = pawn;
                 }
@@ -220,7 +220,8 @@ public class BRBDecider extends Decider {
             System.out.println("---------------CHOOSING THE BEST MOVE----------------");
             nbSmart++;
         }
-        List<GameElement> toRemoveReal = board.getPawnsToRemove(rowDest, colDest, pawn.getColor());
+        System.out.println("2-Selected pawn: " + selectedPawn.getNumber() + " row: " + rowDest + " col: " + colDest);
+        List<GameElement> toRemoveReal = board.getPawnsToRemove(rowDest, colDest, selectedPawn.getColor());
         // remove them
         board.removePawns(toRemoveReal);
         // create action list. After the last action, it is next player's turn.
@@ -401,7 +402,7 @@ public class BRBDecider extends Decider {
         );
 
         int id = 0;
-        int highestScore = -1;
+        int highestScore = Integer.MIN_VALUE;
 
         // Get all the pawns for the given player
         for (int i = 0; i < pawns.size(); i++) {
