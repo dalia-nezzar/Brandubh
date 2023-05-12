@@ -22,7 +22,6 @@ import static boardifier.view.ConsoleColor.*;
 
 public class BRBController extends Controller {
 
-    BufferedReader in;
     boolean firstPlayer;
 
     public static boolean drawRequested;
@@ -40,7 +39,6 @@ public class BRBController extends Controller {
     public BRBController(Model model, View view) {
         super(model, view);
         firstPlayer = true;
-        in = new BufferedReader(new InputStreamReader(System.in));
     }
 
     /**
