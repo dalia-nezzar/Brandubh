@@ -220,7 +220,7 @@ public class BRBDecider extends Decider {
             //System.out.println("---------------CHOOSING THE BEST MOVE----------------");
             nbSmart++;
         }
-        System.out.println("2-Selected pawn: " + selectedPawn.getNumber() + " row: " + rowDest + " col: " + colDest);
+        //System.out.println("2-Selected pawn: " + selectedPawn.getNumber() + " row: " + rowDest + " col: " + colDest);
         List<GameElement> toRemoveReal = board.getPawnsToRemove(rowDest, colDest, selectedPawn.getColor());
         // remove them
         board.removePawns(toRemoveReal);

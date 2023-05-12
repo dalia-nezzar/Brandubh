@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b19e153a-b93b-43b7-bbc2-43394a293a12" name="Changes" comment="Test">
+    <list default="true" id="2d7a093e-41d2-4c7a-bd8f-3ae7fe96411e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataMapBlack.bin" beforeDir="false" afterPath="$PROJECT_DIR$/dataMapBlack.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataMapRed.bin" beforeDir="false" afterPath="$PROJECT_DIR$/dataMapRed.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/control/BRBDecider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBDecider.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +78,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Brandubh PlayerDraw">
+  <component name="RunManager" selected="Application.Brandubh">
     <configuration name="Brandubh AI vs AI" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
       <module name="Brandubh" />
