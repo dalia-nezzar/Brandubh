@@ -75,7 +75,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Brandubh">
+  <component name="RunManager" selected="Application.Brandubh PlayerDraw">
     <configuration name="Brandubh AI vs AI" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
       <module name="Brandubh" />
