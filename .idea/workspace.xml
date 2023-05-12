@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b19e153a-b93b-43b7-bbc2-43394a293a12" name="Changes" comment="Test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BrandubhConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BrandubhConsole.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +75,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Brandubh PlayerDraw">
+  <component name="RunManager" selected="Application.Brandubh">
     <configuration name="Brandubh AI vs AI" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
       <module name="Brandubh" />
@@ -233,6 +233,10 @@
       <workItem from="1683903910652" duration="381000" />
       <workItem from="1683897063273" duration="2996000" />
       <workItem from="1683900710802" duration="5349000" />
+      <workItem from="1683908713459" duration="10782000" />
+      <workItem from="1683919780917" duration="749000" />
+      <workItem from="1683919780917" duration="2574000" />
+      <workItem from="1683925235289" duration="77000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>
@@ -279,6 +283,11 @@
           <url>file://$PROJECT_DIR$/src/control/BRBController.java</url>
           <line>275</line>
           <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/BrandubhConsole.java</url>
+          <line>66</line>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.NullPointerException" package="java.lang" />
