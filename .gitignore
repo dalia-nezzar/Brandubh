@@ -31,3 +31,7 @@ bin/
 .idea/workspace.xml
 *.xml
 *.xml
+
+dataMapBlack.bin
+dataMapRed.bin
+
