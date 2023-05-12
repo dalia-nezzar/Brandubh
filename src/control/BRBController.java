@@ -25,6 +25,7 @@ public class BRBController extends Controller {
     boolean firstPlayer;
 
     public static boolean drawRequested;
+    public static boolean stopBool=false;
     public static int countDraw;
     public static int typeAI1;
     public static int typeAI2 = -1;
@@ -286,6 +287,7 @@ public class BRBController extends Controller {
                         ok = analyseAndPlay(line);
                     } else if(line.toLowerCase().contains("stop")
                     || (line.toLowerCase().contains("exit"))) {
+                        stopBool=true;
                         stopStage();
                         endGame();
                         break;
