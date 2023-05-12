@@ -12,6 +12,7 @@ import java.util.Date;
 import java.io.*;
 
 import static boardifier.view.ConsoleColor.*;
+import static model.GameSettings.setNumberGame;
 
 
 public class BrandubhConsole {
@@ -268,16 +269,5 @@ public class BrandubhConsole {
         catch(InterruptedException e){
             System.out.println("There was an error reading the rules. Try again, son.");
         }
-    }
-
-    static int setNumberGame(){
-        System.out.println("How many wars will there be?");
-        try{
-            int numberGame = input.nextInt();
-            return numberGame;
-        } catch(NumberFormatException e){
-            System.out.println("Arf, that's an invalid input. Please enter a number, son.");
-        }
-        return 0;
     }
 }

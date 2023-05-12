@@ -4,6 +4,8 @@ import boardifier.model.GameElement;
 
 import boardifier.model.Model;
 
+import static model.GameSettings.getNumberGame;
+
 public class View {
 
     /**
@@ -43,7 +45,8 @@ public class View {
         gameStageView.update();
         // by default, would update the root pane and then print it
         root.udpate(gameStageView);
-        root.print();
+        int nbPartie = getNumberGame();
+        if (nbPartie < 1000) root.print();
     }
 
     public Object getView() {

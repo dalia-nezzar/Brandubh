@@ -38,8 +38,10 @@ public class BRBDecider extends Decider {
             case 1:
                 return decideAleatoire();
             case 2:
+                System.out.println(("IA SMART JOUE"));
                 return decideSmart();
             case 3:
+                System.out.println(("IA EAT JOUE"));
                 return decideEAT();
             default:
                 return null;
