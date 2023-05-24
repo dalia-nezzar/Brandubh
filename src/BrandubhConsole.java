@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.util.Scanner;
 import java.util.Date;
 import java.io.*;
+import javax.swing.*;
 
 import static boardifier.view.ConsoleColor.*;
 import static model.GameSettings.setNumberGame;
@@ -21,6 +22,9 @@ public class BrandubhConsole {
     public static final int COMPUTER_VS_COMPUTER = 2;
 
     public static void main(String[] args) {
+        Thread loadFilesThread = new Thread(() -> BRBDecider.loadData("dataMap.bin"));
+        loadFilesThread.start();
+
         int modeChoice;
         try {
             modeChoice = Integer.parseInt(args[0]);
@@ -46,7 +50,10 @@ public class BrandubhConsole {
                 System.out.println("You chose a"+ BLACK_BOLD +" God (computer) vs God (computer) "+ BLACK +"game!");
                 break;
         }
-
+        String AI1Mode1="";
+        String AI2Mode1="";
+        String AI1Mode2="";
+        String AI2Mode2="";
         if (mode == 0) {
             System.out.println(GREEN_BOLD+"===== DEFENDERS ====="+BLACK);
             String player1 = getName();
@@ -81,12 +88,12 @@ public class BrandubhConsole {
                 String player1 = getName();
                 model.addHumanPlayer(player1);
                 System.out.println(RED_BOLD+"===== ATTACKERS ====="+BLACK);
-                String AI1Mode1=setAI(1, args);
+                AI1Mode1=setAI(1, args);
                 model.addComputerPlayer(AI1Mode1);
             }
             else if (answer.equals("2")){
                 System.out.println(GREEN_BOLD+"===== DEFENDERS ====="+BLACK);
-                String AI1Mode1=setAI(1, args);
+                AI1Mode1=setAI(1, args);
                 model.addComputerPlayer(AI1Mode1);
                 System.out.println(RED_BOLD+"===== ATTACKERS ====="+BLACK);
                 String player1 = getName();
@@ -95,11 +102,21 @@ public class BrandubhConsole {
         }
         else if (mode == 2) {
             System.out.println(GREEN_BOLD+"===== DEFENDERS ====="+BLACK);
-            String AI1Mode2=setAI(2, args);
+            AI1Mode2=setAI(2, args);
             model.addComputerPlayer(AI1Mode2);
             System.out.println(RED_BOLD+"===== ATTACKERS ====="+BLACK);
-            String AI2Mode2=setAI(1, args);
+            AI2Mode2=setAI(1, args);
             model.addComputerPlayer(AI2Mode2);
+        }
+        /*
+        //if one of the AI is "Smart" then BRuBDecider.loadData(dataMap.bin)
+        if (BRBController.typeAI1 == 2 || BRBController.typeAI2 == 2) {
+            BRBDecider.loadData("dataMap.bin");
+        }
+         */
+        //if both of the AI are not smart then interrupt the thread
+        if (BRBController.typeAI1 != 2 && BRBController.typeAI2 != 2) {
+            loadFilesThread.interrupt();
         }
 
         StageFactory.registerModelAndView("BRB", "model.BRBStageModel", "view.BRBStageView");
@@ -117,7 +134,36 @@ public class BrandubhConsole {
         catch(GameException e) {
             System.out.println("Cannot start the war. Abort");
         }
-        if (BRBController.nbParties > 1000) control.saveAllFiles();
+        if (BRBController.nbParties > 1000) {
+            Thread saveFilesThread = new Thread(() -> progressBar(BRBController.nbParties/50));
+            saveFilesThread.start();
+            control.saveAllFiles();
+            if (saveFilesThread.isAlive()) {
+                saveFilesThread.interrupt();
+                progressBar(10);
+            }
+        }
+    }
+
+    /**
+     * Progress bar
+     *
+     **/
+    public static void progressBar(int sleepTime) {
+        System.out.print("Saving files, do not quit... ");
+        for (int i = 0; i < 10; i++) {
+            try {
+                Thread.sleep(sleepTime);
+                //System.out.print(BLACK_BOLD + "█" + BLACK);
+            } catch (InterruptedException e) {
+                //e.printStackTrace();
+            }
+            System.out.print(RED_BOLD + "\rSaving files, do not quit... " + BLACK + "[");
+            for (int j = 0; j <= i; j++) System.out.print(RED_BOLD + "=" + BLACK);
+            for (int j = 0; j < 9 - i; j++) System.out.print(" ");
+            System.out.print(BLACK + "]");
+        }
+        System.out.println();
     }
 
     /**

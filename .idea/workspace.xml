@@ -7,7 +7,11 @@
     <list default="true" id="2d7a093e-41d2-4c7a-bd8f-3ae7fe96411e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataMapBlack.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataMapRed.bin" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BrandubhConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BrandubhConsole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/control/BRBDecider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBDecider.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +53,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Narra/Documents/brand/Brandubh&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -124,6 +129,7 @@
     <configuration name="Brandubh" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
       <module name="Brandubh" />
+      <option name="VM_PARAMETERS" value="-Xmx6g" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -150,7 +156,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="b19e153a-b93b-43b7-bbc2-43394a293a12" name="Changes" comment="" />
+      <changelist id="2d7a093e-41d2-4c7a-bd8f-3ae7fe96411e" name="Changes" comment="" />
       <created>1677741033086</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -238,6 +244,16 @@
       <workItem from="1683919780917" duration="749000" />
       <workItem from="1683919780917" duration="2574000" />
       <workItem from="1683925235289" duration="77000" />
+      <workItem from="1683929342921" duration="740000" />
+      <workItem from="1683989742710" duration="10576000" />
+      <workItem from="1684159501939" duration="41000" />
+      <workItem from="1684235528286" duration="575000" />
+      <workItem from="1684912775399" duration="1214000" />
+      <workItem from="1684917908033" duration="1189000" />
+      <workItem from="1684919340915" duration="51000" />
+      <workItem from="1684919508145" duration="593000" />
+      <workItem from="1684920887867" duration="2903000" />
+      <workItem from="1684931872510" duration="3432000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>
@@ -274,21 +290,6 @@
           <url>file://$PROJECT_DIR$/src/model/BRBStageModel.java</url>
           <line>182</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/control/BRBController.java</url>
-          <line>50</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/control/BRBController.java</url>
-          <line>275</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/BrandubhConsole.java</url>
-          <line>66</line>
-          <option name="timeStamp" value="15" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.NullPointerException" package="java.lang" />

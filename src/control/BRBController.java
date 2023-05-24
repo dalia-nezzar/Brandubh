@@ -34,9 +34,9 @@ public class BRBController extends Controller {
     ArrayList<String> storedData = new ArrayList<>(10);
     ArrayList<Character> storedDataColor = new ArrayList<>(10);
 
-    //public static HashMap<String, Data> dataMapPawns = new HashMap<>();
-    public static HashMap<String, Data> dataMapRed = new HashMap<>();
-    public static HashMap<String, Data> dataMapBlack = new HashMap<>();
+    public static HashMap<String, Data> dataMap = new HashMap<>();
+    //public static HashMap<String, Data> dataMapRed = new HashMap<>();
+    //public static HashMap<String, Data> dataMapBlack = new HashMap<>();
 
     public BRBController(Model model, View view) {
         super(model, view);
@@ -99,48 +99,26 @@ public class BRBController extends Controller {
         int i = 0;
         // Pour chaque set de données récupéré par storeData
         for (String stateString : storedData) {
+            //System.out.println("stateString : " + stateString);
+            //System.out.println("RotatedString : " + rotateArray(stateString));
+            String rotatedString90 = rotateArray(stateString);
+            String rotatedString180 = rotateArray(rotatedString90);
+            String rotatedString270 = rotateArray(rotatedString180);
+            Data data0 = dataMap.get(stateString);
+            Data data90 = dataMap.get(rotatedString90);
+            Data data180 = dataMap.get(rotatedString180);
+            Data data270 = dataMap.get(rotatedString270);
+            Data selectedData = null;
+            if      (data0   != null) selectedData = data0;
+            else if (data90  != null) selectedData = data90;
+            else if (data180 != null) selectedData = data180;
+            else if (data270 != null) selectedData = data270;
             switch (storedDataColor.get(i)) {
                 case 'R':
-                    if (dataMapRed.containsKey(stateString)) {
-                        Data data = dataMapRed.get(stateString);
-                        int WCountB = data.getWCountB();
-                        int WCountR = data.getWCountR();
-                        if (winner == 'R') {
-                            data.setWCountR(WCountR + 1);
-                            data.setWCountB(WCountB);
-                        } else { // winner is equal to B
-                            data.setWCountR(WCountR);
-                            data.setWCountB(WCountB + 1);
-                        }
-                        dataMapRed.put(stateString, data);
-                    } else { // first time situation
-                        if (winner == 'R') { // red win count to 1
-                            dataMapRed.put(stateString, new Data<>(1, 0));
-                        } else { // blue win count to 1
-                            dataMapRed.put(stateString, new Data<>(0, 1));
-                        }
-                    }
+                    putOrUpdate(winner, stateString, rotatedString90, rotatedString180, rotatedString270, data0, data90, data180, data270, selectedData, dataMap);
                     break;
                 case 'B':
-                    if (dataMapBlack.containsKey(stateString)) {
-                        Data data = dataMapBlack.get(stateString);
-                        int WCountB = data.getWCountB();
-                        int WCountR = data.getWCountR();
-                        if (winner == 'R') {
-                            data.setWCountR(WCountR + 1);
-                            data.setWCountB(WCountB);
-                        } else { // winner is equal to B
-                            data.setWCountR(WCountR);
-                            data.setWCountB(WCountB + 1);
-                        }
-                        dataMapBlack.put(stateString, data);
-                    } else { // first time situation
-                        if (winner == 'R') { // red win count to 1
-                            dataMapBlack.put(stateString, new Data<>(1, 0));
-                        } else { // blue win count to 1
-                            dataMapBlack.put(stateString, new Data<>(0, 1));
-                        }
-                    }
+                    putOrUpdate(winner, stateString, rotatedString90, rotatedString180, rotatedString270, data0, data90, data180, data270, selectedData, dataMap);
                     break;
                 default:
                     // Throw error for now
@@ -153,19 +131,54 @@ public class BRBController extends Controller {
         storedDataColor.clear();
     }
 
+    private void putOrUpdate(char winner, String stateString, String rotatedString90, String rotatedString180, String rotatedString270, Data data0, Data data90, Data data180, Data data270, Data selectedData, HashMap<String, Data> dataMap) {
+        if (selectedData != null) {
+            int WCountB = selectedData.getWCountB();
+            int WCountR = selectedData.getWCountR();
+            if (winner == 'R') {
+                selectedData.setWCountR(WCountR + 1);
+                selectedData.setWCountB(WCountB);
+            } else { // winner is equal to B
+                selectedData.setWCountR(WCountR);
+                selectedData.setWCountB(WCountB + 1);
+            }
+            if      (data0   != null) dataMap.put(stateString,      selectedData);
+            else if (data90  != null) dataMap.put(rotatedString90 , selectedData);
+            else if (data180 != null) dataMap.put(rotatedString180, selectedData);
+            else if (data270 != null) dataMap.put(rotatedString270, selectedData);
+        } else { // first time situation
+            if (winner == 'R') dataMap.put(stateString, new Data<>(1, 0)); // Red win count to 1
+            else               dataMap.put(stateString, new Data<>(0, 1)); // Blue win count to 1
+        }
+    }
+
     public void saveAllFiles() {
         // remove the files if they exist first
-        /*
-        File file = new File("dataMapPawns.bin");
+        File file = new File("dataMap.bin");
         file.delete();
-        savingFiles("dataMapPawns.bin", dataMapPawns);
-         */
+        savingFiles("dataMap.bin", dataMap, 'X');
+
+        /*
         File file = new File("dataMapRed.bin");
         File file2 = new File("dataMapBlack.bin");
         file.delete();
         file2.delete();
         savingFiles("dataMapRed.bin", dataMapRed, 'R');
         savingFiles("dataMapBlack.bin", dataMapBlack, 'B');
+         */
+    }
+
+    public static String rotateArray(String inputArray) {
+        int n = 7; // 7x7 board
+        char[] rotatedArray = new char[inputArray.length()];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = n - 1; j >= 0; j--) {
+                rotatedArray[i * n + (n - j - 1)] = inputArray.charAt(j * n + i);
+            }
+        }
+
+        return new String(rotatedArray);
     }
 
     /**
@@ -226,6 +239,8 @@ public class BRBController extends Controller {
             someData = someData.replace('B', '_');
         } else if (color == 'B'){
             someData = someData.replace('R', '_');
+        } else {
+            // do nothing;
         }
 
         for (int i = 1; i < someData.length(); i++) {

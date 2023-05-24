@@ -19,6 +19,16 @@ import java.util.List;
 public class BRBDecider extends Decider {
 
     private static final Random loto = new Random(Calendar.getInstance().getTimeInMillis());
+    //private static HashMap<String, Data> dataMapBlack = new HashMap<>();
+    //private static HashMap<String, Data> dataMapRed = new HashMap<>();
+    private static HashMap<String, Data> dataMap = new HashMap<>();
+    final List<Point> corners = Arrays.asList(
+            new Point(0, 0),
+            new Point(0, 6),
+            new Point(6, 0),
+            new Point(6, 6)
+    );
+
 
     public BRBDecider(Model model, Controller control) {
         super(model, control);
@@ -115,6 +125,9 @@ public class BRBDecider extends Decider {
      * @return the move to do
      */
     public ActionList decideSmart() {
+        //if (model.getIdPlayer() == 0 && dataMapBlack.size() == 0) loadData("dataMapBlack.bin", dataMapBlack);
+        //else if (model.getIdPlayer() == 1 && dataMapRed.size() == 0) loadData("dataMapRed.bin", dataMapRed);
+
         BRBStageModel stage = (BRBStageModel) model.getGameStage();
         BRBBoard board = stage.getBoard(); // get the board
         GameElement pawn = null; // the pawn that is moved
@@ -133,6 +146,7 @@ public class BRBDecider extends Decider {
         List<GameElement> toRemove = new ArrayList<>();
         int id = 0;
         int highestScore = Integer.MIN_VALUE;
+        boolean skip = false;
 
         // Get all the pawns for the given player
         for (int i = 0; i < pawns.size(); i++) {
@@ -152,7 +166,11 @@ public class BRBDecider extends Decider {
                 toRemove.clear();
                 if (!pawn.isKing()) toRemove = board.getPawnsToRemove(valid.get(j).y, valid.get(j).x, pawn.getColor());
                 else toRemove = board.getPawnsToRemove(valid.get(j).y, valid.get(j).x, 2);
-                if (toRemove.size() > 0) {
+                if (corners.contains(valid.get(j))) skip = true; // MmmMMMMm ~even better~ (if corner available go to corner)
+                for (int k = 0; k < toRemove.size(); k++) {
+                    if (toRemove.get(k).isKing()) skip = true; // King is in the remove list, capture it now
+                }
+                if (skip) {
                     // ignore the rest, return now
                     rowDest = valid.get(j).y;
                     colDest = valid.get(j).x;
@@ -169,22 +187,43 @@ public class BRBDecider extends Decider {
 
                 //System.out.println("valid: " + valid.get(j).y + " " + valid.get(j).x);
                 // create a representation of the move in String format
-                String combinationToSearch = translator(coords[1], coords[0], valid.get(j).x, valid.get(j).y);
+                String combinationToSearch0 = translator(coords[1], coords[0], valid.get(j).x, valid.get(j).y);
+                String combinationToSearch90 = BRBController.rotateArray(combinationToSearch0);
+                String combinationToSearch180 = BRBController.rotateArray(combinationToSearch90);
+                String combinationToSearch270 = BRBController.rotateArray(combinationToSearch180);
                 char color;
-                if (model.getIdPlayer() == 0) color = 'B';
-                else color = 'R';
-                String combinationToSearchCompressed = BRBController.compressData(combinationToSearch, color);
+                //if (model.getIdPlayer() == 0) color = 'B';
+                //else color = 'R';
+                color = 'X';
+                String combinationToSearchCompressed = BRBController.compressData(combinationToSearch0, color);
+                String combinationToSearchCompressed90 = BRBController.compressData(combinationToSearch90, color);
+                String combinationToSearchCompressed180 = BRBController.compressData(combinationToSearch180, color);
+                String combinationToSearchCompressed270 = BRBController.compressData(combinationToSearch270, color);
                 // System.out.println(combinationToSearchCompressed);
                 // if player is red then search in dataRed.bin, else in dataBlack.bin
                 Data data = null;
                 int score = 0;
+                data = searchValue(dataMap, combinationToSearchCompressed);
+                if (data == null) data = searchValue(dataMap, combinationToSearchCompressed90);
+                if (data == null) data = searchValue(dataMap, combinationToSearchCompressed180);
+                if (data == null) data = searchValue(dataMap, combinationToSearchCompressed270);
+                if (data != null) score = score(data.getWCountB(), data.getWCountR());
+                /*
                 if (model.getIdPlayer() == 0) {
-                    data = searchValue("dataMapBlack.bin", combinationToSearchCompressed);
+                    data = searchValue(dataMapBlack, combinationToSearchCompressed);
+                    if (data == null) data = searchValue(dataMapBlack, combinationToSearchCompressed90);
+                    if (data == null) data = searchValue(dataMapBlack, combinationToSearchCompressed180);
+                    if (data == null) data = searchValue(dataMapBlack, combinationToSearchCompressed270);
                     if (data != null) score = score(data.getWCountB(), data.getWCountR());
                 } else {
-                    data = searchValue("dataMapRed.bin", combinationToSearchCompressed);
+                    data = searchValue(dataMapRed, combinationToSearchCompressed);
+                    if (data == null) data = searchValue(dataMapRed, combinationToSearchCompressed90);
+                    if (data == null) data = searchValue(dataMapRed, combinationToSearchCompressed180);
+                    if (data == null) data = searchValue(dataMapRed, combinationToSearchCompressed270);
                     if (data != null) score = score(data.getWCountR(), data.getWCountB());
                 }
+                 */
+                System.out.println("data " + data + " score " + score);
                 if (score == highestScore) {
                     // if the score is the same, add the move to the list of possible moves
                     moves.add(new Point(valid.get(j).x, valid.get(j).y));
@@ -204,6 +243,7 @@ public class BRBDecider extends Decider {
                 //System.out.println(data);
             }
         }
+        if (highestScore < 500) return decideEAT();
         // if there is more than one move with the same score, choose one at random
         if (moves.size() > 1) {
             //System.out.println("---------------CHOOSING A MOVE AT RANDOM----------------");
@@ -281,89 +321,23 @@ public class BRBDecider extends Decider {
     /**
      * Search a value in a file (value usually given by translator)
      *
-     * @param namefile
      * @param key
      * @return the data found, or null
      */
-    public static Data searchValue(String namefile, String key) {
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(namefile);
-            File file = new File(namefile);
-            long fileSize = file.length();
-            int bufferSize = (int) Math.min(fileSize, Integer.MAX_VALUE * 0.75);
-            byte[] buffer = new byte[bufferSize];
-            int bytesRead;
-            Data value;
-
-            while ((bytesRead = fis.read(buffer)) != -1) {
-                ByteBuffer bb = ByteBuffer.wrap(buffer, 0, bytesRead);
-                while (bb.hasRemaining()) {
-                    if (bb.remaining() < 4) {
-                        System.out.println("Error: Not enough data in buffer to read the key length");
-                        return null;
-                    }
-                    int keyLength = bb.getInt();
-                    byte[] keyBytes = null;
-                    if (keyLength <= bb.remaining()) {
-                        keyBytes = new byte[keyLength];
-                        bb.get(keyBytes);
-                    } else {
-                        System.out.println("Error: Not enough data in buffer to read the key");
-                        return null;
-                    }
-                    String readKey = new String(keyBytes);
-                    if (readKey.equals(key)) {
-                        if (bb.remaining() < 4) {
-                            System.out.println("Error: Not enough data in buffer to read the value length");
-                            return null;
-                        }
-                        int valueLength = bb.getInt();
-                        byte[] valueBytes = null;
-                        if (valueLength <= bb.remaining()) {
-                            valueBytes = new byte[valueLength];
-                            bb.get(valueBytes);
-                        } else {
-                            System.out.println("Error: Not enough data in buffer to read the value");
-                            return null;
-                        }
-                        ByteArrayInputStream bais = new ByteArrayInputStream(valueBytes);
-                        ObjectInputStream ois = new ObjectInputStream(bais);
-                        value = (Data) ois.readObject();
-                        ois.close();
-                        //System.out.println("Value found !");
-                        return value;
-                        // Value found !
-                    }
-                    if (bb.remaining() < 4) {
-                        System.out.println("Error: Not enough data in buffer to skip the value");
-                        return null;
-                    }
-                    int valueLength = bb.getInt();
-                    if (valueLength <= bb.remaining()) {
-                        bb.position(bb.position() + valueLength);
-                    } else {
-                        System.out.println("Error: Not enough data in buffer to skip the value");
-                        return null;
-                    }
-                }
-            }
-            // System.out.println("Key not found in map");
+    public static Data searchValue(HashMap<String, Data> dataMap, String key) {
+        // Search for the value using the key in the HashMap
+        Data value = dataMap.get(key);
+        if (value != null) {
+            // Value found!
+            //System.out.println("Value found: " + value);
+            return value;
+        } else {
             // Key not found in map
+            //System.out.println("Key not found in map");
             return null;
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            if (fis != null) {
-                try {
-                    fis.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
+
 
     /**
      * AI : decide the next action to do
@@ -393,13 +367,6 @@ public class BRBDecider extends Decider {
         List<GameElement> toRemoveReal = new ArrayList<>();
         // get list of the possibles edges moves the king can do
         List<Point> kingLimitsMoves = getKingLimitsMoves();
-        // create the list of corners in one line
-        List<Point> corners = Arrays.asList(
-                new Point(0, 0),
-                new Point(0, 6),
-                new Point(6, 0),
-                new Point(6, 6)
-        );
 
         int id = 0;
         int highestScore = Integer.MIN_VALUE;
@@ -557,5 +524,74 @@ public class BRBDecider extends Decider {
             }
         }
         return moves;
+    }
+
+    public static void loadData(String filename) {
+        loadData(filename, dataMap);
+        System.out.println("*System: Loaded " + dataMap.size() + " entries*");
+    }
+
+    public static void loadData(String filename, HashMap<String, Data> dataMap) {
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(filename);
+            File file = new File(filename);
+            long fileSize = file.length();
+            int bufferSize = (int) Math.min(fileSize, Integer.MAX_VALUE * 0.75);
+            byte[] buffer = new byte[bufferSize];
+            int bytesRead;
+
+            while ((bytesRead = fis.read(buffer)) != -1) {
+                ByteBuffer bb = ByteBuffer.wrap(buffer, 0, bytesRead);
+                while (bb.hasRemaining()) {
+                    if (bb.remaining() < 4) {
+                        System.out.println("Error: Not enough data in buffer to read the key length");
+                        return;
+                    }
+                    int keyLength = bb.getInt();
+                    byte[] keyBytes = null;
+                    if (keyLength <= bb.remaining()) {
+                        keyBytes = new byte[keyLength];
+                        bb.get(keyBytes);
+                    } else {
+                        System.out.println("Error: Not enough data in buffer to read the key");
+                        return;
+                    }
+                    String readKey = new String(keyBytes);
+
+                    if (bb.remaining() < 4) {
+                        System.out.println("Error: Not enough data in buffer to read the value length");
+                        return;
+                    }
+                    int valueLength = bb.getInt();
+                    byte[] valueBytes = null;
+                    if (valueLength <= bb.remaining()) {
+                        valueBytes = new byte[valueLength];
+                        bb.get(valueBytes);
+                    } else {
+                        System.out.println("Error: Not enough data in buffer to read the value");
+                        return;
+                    }
+                    ByteArrayInputStream bais = new ByteArrayInputStream(valueBytes);
+                    ObjectInputStream ois = new ObjectInputStream(bais);
+                    Data value = (Data) ois.readObject();
+                    ois.close();
+
+                    // Add key-value pair to the HashMap
+                    dataMap.put(readKey, value);
+                }
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            //e.printStackTrace();
+            System.out.println("*System: Error while trying to load data from file " + filename + "*");
+        } finally {
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
