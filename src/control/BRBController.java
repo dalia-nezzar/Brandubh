@@ -130,7 +130,7 @@ public class BRBController extends Controller {
 
             Data dataList[] = {data0, data90, data180, data270, mirroredData0, mirroredData90, mirroredData180, mirroredData270};
             String stateList[] = {stateString, rotatedString90, rotatedString180, rotatedString270, mirroredString, mirroredString90, mirroredString180, mirroredString270};
-            selectedData = data0; // TODO remove
+            //selectedData = data0; // TODO remove
             switch (storedDataColor.get(i)) {
                 case 'R':
                     putOrUpdate(winner, dataList, stateList, selectedData, dataMap);
@@ -161,15 +161,12 @@ public class BRBController extends Controller {
                 selectedData.setWCountB(WCountB + 1);
             }
             // for i in range len of list
-            /*
             for (int i = 0; i < dataList.length; i++) {
                 if (dataList[i] != null) {
                     dataMap.put(stateList[i], selectedData);
                 }
             }
-
-             */
-            dataMap.put(stateList[0], selectedData); // TODO remove and uncomment the for loop
+            //dataMap.put(stateList[0], selectedData); // TODO remove and uncomment the for loop
         } else { // first time situation
             if (winner == 'R') dataMap.put(stateList[0], new Data<>(1, 0)); // Red win count to 1
             else               dataMap.put(stateList[0], new Data<>(0, 1)); // Blue win count to 1

@@ -612,6 +612,11 @@ public class BRBDecider extends Decider {
         } catch (IOException | ClassNotFoundException e) {
             //e.printStackTrace();
             System.out.println("*System: Error while trying to load data from file " + filename + "*");
+            System.out.println("*NOTE : This Error is caused because you don't have the dataMap.bin file*");
+            System.out.println("*NOTE : This file is only required for the AI SMART to work well, not loading it " +
+                    "will not affect the rest of the game*");
+            System.out.println("*NOTE : Playing over 1.000 games at once will automatically generate this file" +
+                    "but note that it is recommended to play at least 10.000*");
         } finally {
             if (fis != null) {
                 try {

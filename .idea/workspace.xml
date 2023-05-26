@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2d7a093e-41d2-4c7a-bd8f-3ae7fe96411e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BrandubhConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BrandubhConsole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/view/View.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/control/BRBDecider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBDecider.java" afterDir="false" />
     </list>
@@ -257,6 +255,7 @@
       <workItem from="1685084235749" duration="301000" />
       <workItem from="1685085431503" duration="2394000" />
       <workItem from="1685097084999" duration="10057000" />
+      <workItem from="1685112876433" duration="85000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>
