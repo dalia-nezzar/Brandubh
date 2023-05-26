@@ -333,7 +333,6 @@ public class BRBController extends Controller {
                 }
                 try {
                     String line = input.nextLine();
-                    line = input.nextLine();
                     if (line.length() == 3 && (!line.equals(null))) {
                         ok = analyseAndPlay(line);
                     } else if(line.toLowerCase().contains("stop")
