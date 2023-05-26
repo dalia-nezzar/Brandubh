@@ -108,6 +108,13 @@ public class BrandubhConsole {
             AI2Mode2=setAI(1, args);
             model.addComputerPlayer(AI2Mode2);
         }
+
+        StageFactory.registerModelAndView("BRB", "model.BRBStageModel", "view.BRBStageView");
+        View BRBView = new View(model);
+        BRBController control = new BRBController(model,BRBView);
+        control.setFirstStageName("BRB");
+        BRBController.nbParties=setNumberGame(args);
+
         /*
         //if one of the AI is "Smart" then BRuBDecider.loadData(dataMap.bin)
         if (BRBController.typeAI1 == 2 || BRBController.typeAI2 == 2) {
@@ -115,15 +122,20 @@ public class BrandubhConsole {
         }
          */
         //if both of the AI are not smart then interrupt the thread
-        if (BRBController.typeAI1 != 2 && BRBController.typeAI2 != 2) {
+        if (BRBController.typeAI1 != 2 && BRBController.typeAI2 != 2 && loadFilesThread.isAlive()) {
+            //System.out.println("interrupting thread");
             loadFilesThread.interrupt();
+        } else if ((BRBController.typeAI1 == 2 || BRBController.typeAI2 == 2) && loadFilesThread.isAlive()) {
+            Thread loadBarThread = new Thread(() -> loadBar(500, "Data still loading, please wait"));
+            loadBarThread.start();
+            try {
+                loadFilesThread.join();
+            } catch (InterruptedException e) {
+                //e.printStackTrace();
+            }
+            loadBarThread.interrupt();
         }
 
-        StageFactory.registerModelAndView("BRB", "model.BRBStageModel", "view.BRBStageView");
-        View BRBView = new View(model);
-        BRBController control = new BRBController(model,BRBView);
-        control.setFirstStageName("BRB");
-        BRBController.nbParties=setNumberGame(args);
         try {
             for (int i=0;i<BRBController.nbParties;i++) {
                 control.startGame();
@@ -135,22 +147,22 @@ public class BrandubhConsole {
             System.out.println("Cannot start the war. Abort");
         }
         if (BRBController.nbParties > 1000) {
-            Thread saveFilesThread = new Thread(() -> progressBar(BRBController.nbParties/50));
+            System.out.println("DataMap size: " + BRBController.dataMap.size() + " elements.");
+            System.out.println("This will take " + BRBController.dataMap.size()/1000000 + " seconds to save.");
+            Thread saveFilesThread = new Thread(() -> progressBar(BRBController.dataMap.size()/1000, "Saving files, do not quit... "));
             saveFilesThread.start();
             control.saveAllFiles();
             if (saveFilesThread.isAlive()) {
                 saveFilesThread.interrupt();
-                progressBar(10);
+                progressBar(10, "\rSaving files, do not quit... ");
             }
         }
     }
 
     /**
      * Progress bar
-     *
      **/
-    public static void progressBar(int sleepTime) {
-        System.out.print("Saving files, do not quit... ");
+    public static void progressBar(int sleepTime, String text) {
         for (int i = 0; i < 10; i++) {
             try {
                 Thread.sleep(sleepTime);
@@ -158,13 +170,35 @@ public class BrandubhConsole {
             } catch (InterruptedException e) {
                 //e.printStackTrace();
             }
-            System.out.print(RED_BOLD + "\rSaving files, do not quit... " + BLACK + "[");
+            System.out.print(RED_BOLD + "\r" + text + BLACK + "[");
             for (int j = 0; j <= i; j++) System.out.print(RED_BOLD + "=" + BLACK);
             for (int j = 0; j < 9 - i; j++) System.out.print(" ");
             System.out.print(BLACK + "]");
         }
         System.out.println();
     }
+
+    /**
+     * Loading print
+     **/
+    public static void loadBar(int sleepTime, String text) {
+        int i = 0;
+        while (true) {
+            if (Thread.currentThread().isInterrupted()) return;
+            try {
+                Thread.sleep(sleepTime);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            if (i == 0) System.out.print(RED_BOLD + "\r" + text + ". ");
+            else if (i == 1) System.out.print(RED_BOLD + "\r" + text + "..");
+            else if (i == 2) System.out.print(RED_BOLD + "\r" + text + "...");
+            else if (i == 3) System.out.print(RED_BOLD + "\r" + text + "   ");
+            else if (i > 3) i = -1;
+            i++;
+        }
+    }
+
 
     /**
      * Get the name of the player from the standard input
@@ -197,7 +231,11 @@ public class BrandubhConsole {
 
         if (ai != 1 && ai != 2 && ai != 3) {
             do {
-                ai = BRBController.input.nextInt();
+                try {
+                    ai = BRBController.input.nextInt();
+                } catch (Exception e) {
+                    ai = -1;
+                }
                 if (ai != 1 && ai != 2 && ai != 3) System.out.println("Don't take me for a fool, son. That's not a real God! Try again.");
             } while (ai != 1 && ai != 2 && ai != 3);
         }

@@ -4,12 +4,15 @@ import control.BRBController;
 
 import java.util.Scanner;
 
+import static boardifier.view.ConsoleColor.BLACK;
+
 public class GameSettings {
     private static int numberGame;
 
     public static int setNumberGame(String args[]){
         //BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("How many wars will there be?");
+        System.out.println();
+        System.out.println(BLACK + "How many wars will there be?");
         if (args.length == 3) {
             System.out.println("You have chosen " + args[2] + " as the number of wars.");
             numberGame = Integer.parseInt(args[2]);

@@ -29,6 +29,9 @@ public class BRBDecider extends Decider {
             new Point(6, 6)
     );
 
+    public static HashMap<String, Data> getDataMap() {
+        return dataMap;
+    }
 
     public BRBDecider(Model model, Controller control) {
         super(model, control);
@@ -223,7 +226,7 @@ public class BRBDecider extends Decider {
                     if (data != null) score = score(data.getWCountR(), data.getWCountB());
                 }
                  */
-                System.out.println("data " + data + " score " + score);
+                //System.out.println("data " + data + " score " + score);
                 if (score == highestScore) {
                     // if the score is the same, add the move to the list of possible moves
                     moves.add(new Point(valid.get(j).x, valid.get(j).y));
@@ -542,8 +545,17 @@ public class BRBDecider extends Decider {
             int bytesRead;
 
             while ((bytesRead = fis.read(buffer)) != -1) {
+                if (Thread.currentThread().isInterrupted()) {
+                    System.out.println("Thread interrupted. Exiting loadData function.");
+                    return;
+                }
+
                 ByteBuffer bb = ByteBuffer.wrap(buffer, 0, bytesRead);
                 while (bb.hasRemaining()) {
+                    if (Thread.currentThread().isInterrupted()) {
+                        System.out.println("Thread interrupted. Exiting loadData function.");
+                        return;
+                    }
                     if (bb.remaining() < 4) {
                         System.out.println("Error: Not enough data in buffer to read the key length");
                         return;
