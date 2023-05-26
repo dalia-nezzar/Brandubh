@@ -125,6 +125,8 @@ public class BrandubhConsole {
         if (BRBController.typeAI1 != 2 && BRBController.typeAI2 != 2 && loadFilesThread.isAlive()) {
             //System.out.println("interrupting thread");
             loadFilesThread.interrupt();
+            // Free up memory
+            BRBController.dataMap.clear();
         } else if ((BRBController.typeAI1 == 2 || BRBController.typeAI2 == 2) && loadFilesThread.isAlive()) {
             Thread loadBarThread = new Thread(() -> loadBar(500, "Data still loading, please wait"));
             loadBarThread.start();
@@ -148,7 +150,7 @@ public class BrandubhConsole {
         }
         if (BRBController.nbParties > 1000) {
             System.out.println("DataMap size: " + BRBController.dataMap.size() + " elements.");
-            System.out.println("This will take " + BRBController.dataMap.size()/1000000 + " seconds to save.");
+            System.out.println("This will take " + BRBController.dataMap.size()/100000 + " seconds to save.");
             Thread saveFilesThread = new Thread(() -> progressBar(BRBController.dataMap.size()/1000, "Saving files, do not quit... "));
             saveFilesThread.start();
             control.saveAllFiles();
@@ -163,6 +165,7 @@ public class BrandubhConsole {
      * Progress bar
      **/
     public static void progressBar(int sleepTime, String text) {
+        System.out.print(RED_BOLD + "\r" + text + BLACK + "[          ]");
         for (int i = 0; i < 10; i++) {
             try {
                 Thread.sleep(sleepTime);

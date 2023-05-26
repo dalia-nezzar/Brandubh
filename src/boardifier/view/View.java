@@ -46,7 +46,7 @@ public class View {
         // by default, would update the root pane and then print it
         root.udpate(gameStageView);
         int nbPartie = getNumberGame();
-        if (nbPartie < 1000) root.print();
+        if (nbPartie <= 1000) root.print();
     }
 
     public Object getView() {

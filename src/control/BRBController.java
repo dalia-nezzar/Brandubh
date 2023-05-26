@@ -108,17 +108,35 @@ public class BRBController extends Controller {
             Data data90 = dataMap.get(rotatedString90);
             Data data180 = dataMap.get(rotatedString180);
             Data data270 = dataMap.get(rotatedString270);
+
+            //System.out.println("stateString: "+ stateString + " mirroredString: " + mirrorArray(stateString));
+            String mirroredString = mirrorArray(stateString);
+            String mirroredString90 = rotateArray(mirroredString);
+            String mirroredString180 = rotateArray(mirroredString90);
+            String mirroredString270 = rotateArray(mirroredString180);
+            Data mirroredData0 = dataMap.get(mirroredString);
+            Data mirroredData90 = dataMap.get(mirroredString90);
+            Data mirroredData180 = dataMap.get(mirroredString180);
+            Data mirroredData270 = dataMap.get(mirroredString270);
             Data selectedData = null;
-            if      (data0   != null) selectedData = data0;
+            if (data0   != null) selectedData = data0;
             else if (data90  != null) selectedData = data90;
             else if (data180 != null) selectedData = data180;
             else if (data270 != null) selectedData = data270;
+            else if (mirroredData0   != null) selectedData = mirroredData0;
+            else if (mirroredData90  != null) selectedData = mirroredData90;
+            else if (mirroredData180 != null) selectedData = mirroredData180;
+            else if (mirroredData270 != null) selectedData = mirroredData270;
+
+            Data dataList[] = {data0, data90, data180, data270, mirroredData0, mirroredData90, mirroredData180, mirroredData270};
+            String stateList[] = {stateString, rotatedString90, rotatedString180, rotatedString270, mirroredString, mirroredString90, mirroredString180, mirroredString270};
+            selectedData = data0; // TODO remove
             switch (storedDataColor.get(i)) {
                 case 'R':
-                    putOrUpdate(winner, stateString, rotatedString90, rotatedString180, rotatedString270, data0, data90, data180, data270, selectedData, dataMap);
+                    putOrUpdate(winner, dataList, stateList, selectedData, dataMap);
                     break;
                 case 'B':
-                    putOrUpdate(winner, stateString, rotatedString90, rotatedString180, rotatedString270, data0, data90, data180, data270, selectedData, dataMap);
+                    putOrUpdate(winner, dataList, stateList, selectedData, dataMap);
                     break;
                 default:
                     // Throw error for now
@@ -131,7 +149,7 @@ public class BRBController extends Controller {
         storedDataColor.clear();
     }
 
-    private void putOrUpdate(char winner, String stateString, String rotatedString90, String rotatedString180, String rotatedString270, Data data0, Data data90, Data data180, Data data270, Data selectedData, HashMap<String, Data> dataMap) {
+    private void putOrUpdate(char winner, Data dataList[], String stateList[], Data selectedData, HashMap<String, Data> dataMap) {
         if (selectedData != null) {
             int WCountB = selectedData.getWCountB();
             int WCountR = selectedData.getWCountR();
@@ -142,13 +160,19 @@ public class BRBController extends Controller {
                 selectedData.setWCountR(WCountR);
                 selectedData.setWCountB(WCountB + 1);
             }
-            if      (data0   != null) dataMap.put(stateString,      selectedData);
-            else if (data90  != null) dataMap.put(rotatedString90 , selectedData);
-            else if (data180 != null) dataMap.put(rotatedString180, selectedData);
-            else if (data270 != null) dataMap.put(rotatedString270, selectedData);
+            // for i in range len of list
+            /*
+            for (int i = 0; i < dataList.length; i++) {
+                if (dataList[i] != null) {
+                    dataMap.put(stateList[i], selectedData);
+                }
+            }
+
+             */
+            dataMap.put(stateList[0], selectedData); // TODO remove and uncomment the for loop
         } else { // first time situation
-            if (winner == 'R') dataMap.put(stateString, new Data<>(1, 0)); // Red win count to 1
-            else               dataMap.put(stateString, new Data<>(0, 1)); // Blue win count to 1
+            if (winner == 'R') dataMap.put(stateList[0], new Data<>(1, 0)); // Red win count to 1
+            else               dataMap.put(stateList[0], new Data<>(0, 1)); // Blue win count to 1
         }
     }
 
@@ -177,8 +201,19 @@ public class BRBController extends Controller {
                 rotatedArray[i * n + (n - j - 1)] = inputArray.charAt(j * n + i);
             }
         }
-
         return new String(rotatedArray);
+    }
+
+    public static String mirrorArray(String inputArray) {
+        int n = 7; // 7x7 board
+        char[] mirroredArray = new char[inputArray.length()];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = n - 1; j >= 0; j--) {
+                mirroredArray[i * n + (n - j - 1)] = inputArray.charAt(i * n + j);
+            }
+        }
+        return new String(mirroredArray);
     }
 
     /**
@@ -277,7 +312,7 @@ public class BRBController extends Controller {
         Player p = model.getCurrentPlayer();
         // System.out.println("Player " + p.getName() + " plays");
         if (p.getType() == Player.COMPUTER) {
-            System.out.println("GOD [COMPUTER] PLAYS");
+            if (nbParties < 1000) System.out.println("GOD [COMPUTER] PLAYS");
             BRBDecider decider = new BRBDecider(model, this);
             ActionPlayer play = new ActionPlayer(model, this, decider, null);
             //System.out.println("typeAI1 = " + typeAI1 + " typeAI2 = " + typeAI2 + " idPlayer = " + model.getIdPlayer());

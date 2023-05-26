@@ -49,13 +49,13 @@ public class BRBDecider extends Decider {
     public ActionList decider(int selected) {
         switch (selected) {
             case 1:
-                System.out.println("Random");
+                if (BRBController.nbParties < 1000) System.out.println("Random");
                 return decideAleatoire();
             case 2:
-                System.out.println("Smart");
+                if (BRBController.nbParties < 1000) System.out.println("Smart");
                 return decideSmart();
             case 3:
-                System.out.println("DecideEAT");
+                if (BRBController.nbParties < 1000) System.out.println("DecideEAT");
                 return decideEAT();
             default:
                 return null;
@@ -165,6 +165,7 @@ public class BRBDecider extends Decider {
             valid = board.computeValidCells(coords[0], coords[1], pawn.isKing());
             // print the valid cells one by one
             for (int j = 0; j < valid.size(); j++) {
+                System.out.println("pawn " + pawn.getNumber() + " of color " + pawn.getColor() + " can move to row: " + valid.get(j).y + " col: " + valid.get(j).x);
                 // Can he eat something?
                 toRemove.clear();
                 if (!pawn.isKing()) toRemove = board.getPawnsToRemove(valid.get(j).y, valid.get(j).x, pawn.getColor());
@@ -190,18 +191,26 @@ public class BRBDecider extends Decider {
 
                 //System.out.println("valid: " + valid.get(j).y + " " + valid.get(j).x);
                 // create a representation of the move in String format
-                String combinationToSearch0 = translator(coords[1], coords[0], valid.get(j).x, valid.get(j).y);
-                String combinationToSearch90 = BRBController.rotateArray(combinationToSearch0);
-                String combinationToSearch180 = BRBController.rotateArray(combinationToSearch90);
-                String combinationToSearch270 = BRBController.rotateArray(combinationToSearch180);
+                String combinationToSearch0         = translator(coords[1], coords[0], valid.get(j).x, valid.get(j).y);
+                String combinationToSearch90        = BRBController.rotateArray(combinationToSearch0);
+                String combinationToSearch180       = BRBController.rotateArray(combinationToSearch90);
+                String combinationToSearch270       = BRBController.rotateArray(combinationToSearch180);
+                String combinationToSearchMirror    = BRBController.mirrorArray(combinationToSearch0);
+                String combinationToSearchMirror90  = BRBController.rotateArray(combinationToSearchMirror);
+                String combinationToSearchMirror180 = BRBController.rotateArray(combinationToSearchMirror90);
+                String combinationToSearchMirror270 = BRBController.rotateArray(combinationToSearchMirror180);
                 char color;
                 //if (model.getIdPlayer() == 0) color = 'B';
                 //else color = 'R';
                 color = 'X';
-                String combinationToSearchCompressed = BRBController.compressData(combinationToSearch0, color);
-                String combinationToSearchCompressed90 = BRBController.compressData(combinationToSearch90, color);
-                String combinationToSearchCompressed180 = BRBController.compressData(combinationToSearch180, color);
-                String combinationToSearchCompressed270 = BRBController.compressData(combinationToSearch270, color);
+                String combinationToSearchCompressed          = BRBController.compressData(combinationToSearch0, color);
+                String combinationToSearchCompressed90        = BRBController.compressData(combinationToSearch90, color);
+                String combinationToSearchCompressed180       = BRBController.compressData(combinationToSearch180, color);
+                String combinationToSearchCompressed270       = BRBController.compressData(combinationToSearch270, color);
+                String combinationToSearchCompressedMirror    = BRBController.compressData(combinationToSearchMirror, color);
+                String combinationToSearchCompressedMirror90  = BRBController.compressData(combinationToSearchMirror90, color);
+                String combinationToSearchCompressedMirror180 = BRBController.compressData(combinationToSearchMirror180, color);
+                String combinationToSearchCompressedMirror270 = BRBController.compressData(combinationToSearchMirror270, color);
                 // System.out.println(combinationToSearchCompressed);
                 // if player is red then search in dataRed.bin, else in dataBlack.bin
                 Data data = null;
@@ -210,6 +219,10 @@ public class BRBDecider extends Decider {
                 if (data == null) data = searchValue(dataMap, combinationToSearchCompressed90);
                 if (data == null) data = searchValue(dataMap, combinationToSearchCompressed180);
                 if (data == null) data = searchValue(dataMap, combinationToSearchCompressed270);
+                if (data == null) data = searchValue(dataMap, combinationToSearchCompressedMirror);
+                if (data == null) data = searchValue(dataMap, combinationToSearchCompressedMirror90);
+                if (data == null) data = searchValue(dataMap, combinationToSearchCompressedMirror180);
+                if (data == null) data = searchValue(dataMap, combinationToSearchCompressedMirror270);
                 if (data != null) score = score(data.getWCountB(), data.getWCountR());
                 /*
                 if (model.getIdPlayer() == 0) {
@@ -243,10 +256,11 @@ public class BRBDecider extends Decider {
                     selectedPawn = pawn;
                 }
                 // print data info
-                //System.out.println(data);
+                System.out.println(data);
+                System.out.println("score: " + score);
             }
         }
-        if (highestScore < 500) return decideEAT();
+        if (highestScore == 0) return decideEAT();
         // if there is more than one move with the same score, choose one at random
         if (moves.size() > 1) {
             //System.out.println("---------------CHOOSING A MOVE AT RANDOM----------------");
@@ -387,20 +401,21 @@ public class BRBDecider extends Decider {
             // get list of valid cells for the given pawn
             valid = board.computeValidCells(coords[0], coords[1], pawn.isKing());
             // print the valid cells one by one
-            for (int j = 0; j < valid.size(); j++) {
+            for (Point point : valid) {
                 //System.out.println("pawn " + pawn.getNumber() + " of color " + pawn.getColor() + " can move to row: " + valid.get(j).y + " col: " + valid.get(j).x);
                 //System.out.println("valid: " + valid.get(j).y + " " + valid.get(j).x);
                 toRemove.clear();
-                if (!pawn.isKing()) toRemove = board.getPawnsToRemove(valid.get(j).y, valid.get(j).x, pawn.getColor());
-                else toRemove = board.getPawnsToRemove(valid.get(j).y, valid.get(j).x, 2);
+                if (!pawn.isKing()) toRemove = board.getPawnsToRemove(point.y, point.x, pawn.getColor());
+                else toRemove = board.getPawnsToRemove(point.y, point.x, 2);
                 int score = toRemove.size();
                 // get the edges where the king can move
                 // for black that mean it has a chance to win
                 // for red it means it is a spot to defend
-                if (pawn.isKing() && kingLimitsMoves.contains(valid.get(j)) || pawn.getColor() == 1 && kingLimitsMoves.contains(valid.get(j))) score = 999; // if you can go to the edge, go to the edge
-                if (corners.contains(valid.get(j))) score = 9999; // MmmMMMMm ~even better~ (if corner available go to corner)
-                for (int k = 0; k < toRemove.size(); k++) {
-                    if (toRemove.get(k).isKing()) score = 9999; // King is in the remove list, capture it now
+                if (pawn.isKing() && kingLimitsMoves.contains(point) || pawn.getColor() == 1 && kingLimitsMoves.contains(point))
+                    score = 999; // if you can go to the edge, go to the edge
+                if (corners.contains(point)) score = 9999; // MmmMMMMm ~even better~ (if corner available go to corner)
+                for (GameElement gameElement : toRemove) {
+                    if (gameElement.isKing()) score = 9999; // King is in the remove list, capture it now
                 }
                 if (score >= highestScore) {
                     toRemoveReal.clear();
@@ -408,11 +423,12 @@ public class BRBDecider extends Decider {
                     toRemoveReal.addAll(toRemove);
                     highestScore = score;
                     selectedPawn = pawn;
-                    rowDest = valid.get(j).y;
-                    colDest = valid.get(j).x;
+                    rowDest = point.y;
+                    colDest = point.x;
                 } else {
                     //System.out.println("score: " + score);
                 }
+                //System.out.println("score: " + score);
                 //System.out.println("highestscore: " + highestScore);
                 //print toRemoveReal.size
                 //System.out.println("toRemoveReal.size: " + toRemoveReal.size());
