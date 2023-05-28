@@ -441,4 +441,8 @@ public class BRBController extends Controller {
         board.removePawns(pawnsToRemove);
         return true;
     }
+
+    public boolean startanalyseAndPlay (String line){
+        return analyseAndPlay(line);
+    }
 }
