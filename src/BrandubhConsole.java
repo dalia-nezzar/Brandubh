@@ -21,7 +21,7 @@ public class BrandubhConsole {
     public static final int HUMAN_VS_COMPUTER = 1;
     public static final int COMPUTER_VS_COMPUTER = 2;
 
-    public static void main(String[] args) {
+    public static void start(String[] args) {
         Thread loadFilesThread = new Thread(() -> BRBDecider.loadData("dataMap.bin"));
         loadFilesThread.start();
 
