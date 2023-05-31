@@ -1,4 +1,5 @@
-﻿yes
+﻿1
+yes
 0
 azerty
 player

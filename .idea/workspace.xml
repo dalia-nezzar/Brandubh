@@ -5,11 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2d7a093e-41d2-4c7a-bd8f-3ae7fe96411e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/GameLauncher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BrandubhConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BrandubhConsole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/control/BRBDecider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBDecider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameLauncher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eatWhenPossible.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/eatWhenPossible.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gamer1Win.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/gamer1Win.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gamer2Win.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/gamer2Win.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mistakes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/mistakes.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/playerDraw.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/playerDraw.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,9 +81,9 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Brandubh V2">
+  <component name="RunManager" selected="Application.Branubh mistakes">
     <configuration name="Brandubh AI vs AI" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
+      <option name="MAIN_CLASS_NAME" value="GameLauncher" />
       <module name="Brandubh" />
       <option name="PROGRAM_PARAMETERS" value="2 3 3 100" />
       <method v="2">
@@ -89,7 +91,7 @@
       </method>
     </configuration>
     <configuration name="Brandubh PlayerDraw" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
+      <option name="MAIN_CLASS_NAME" value="GameLauncher" />
       <module name="Brandubh" />
       <option name="REDIRECT_INPUT" value="true" />
       <option name="INPUT_FILE" value="src/playerDraw.txt" />
@@ -105,7 +107,7 @@
       </method>
     </configuration>
     <configuration name="Brandubh eatWhenPossible" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
+      <option name="MAIN_CLASS_NAME" value="GameLauncher" />
       <module name="Brandubh" />
       <option name="REDIRECT_INPUT" value="true" />
       <option name="INPUT_FILE" value="src/eatWhenPossible.txt" />
@@ -114,7 +116,7 @@
       </method>
     </configuration>
     <configuration name="Brandubh gamer1 Wins.txt" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
+      <option name="MAIN_CLASS_NAME" value="GameLauncher" />
       <module name="Brandubh" />
       <option name="REDIRECT_INPUT" value="true" />
       <option name="INPUT_FILE" value="src/gamer1Win.txt" />
@@ -123,7 +125,7 @@
       </method>
     </configuration>
     <configuration name="Brandubh gamer2 Wins.txt" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
+      <option name="MAIN_CLASS_NAME" value="GameLauncher" />
       <module name="Brandubh" />
       <option name="REDIRECT_INPUT" value="true" />
       <option name="INPUT_FILE" value="src/gamer2Win.txt" />
@@ -132,7 +134,7 @@
       </method>
     </configuration>
     <configuration name="Brandubh" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
+      <option name="MAIN_CLASS_NAME" value="GameLauncher" />
       <module name="Brandubh" />
       <option name="VM_PARAMETERS" value="-Xmx6g" />
       <method v="2">
@@ -140,7 +142,7 @@
       </method>
     </configuration>
     <configuration name="Branubh mistakes" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="BrandubhConsole" />
+      <option name="MAIN_CLASS_NAME" value="GameLauncher" />
       <module name="Brandubh" />
       <option name="REDIRECT_INPUT" value="true" />
       <option name="INPUT_FILE" value="src/mistakes.txt" />
@@ -266,7 +268,7 @@
       <workItem from="1685085431503" duration="2394000" />
       <workItem from="1685097084999" duration="10057000" />
       <workItem from="1685112876433" duration="85000" />
-      <workItem from="1685540681575" duration="785000" />
+      <workItem from="1685540681575" duration="1802000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>
