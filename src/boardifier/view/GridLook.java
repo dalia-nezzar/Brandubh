@@ -2,6 +2,7 @@ package boardifier.view;
 
 import boardifier.model.GridElement;
 import boardifier.model.Coord2D;
+import javafx.geometry.Point2D;
 
 public class GridLook extends ElementLook {
 
@@ -136,5 +137,28 @@ public class GridLook extends ElementLook {
     }
     public Coord2D getRootPaneLocationForCell(int row, int col, int position) {
         return geometry.getRootPaneLocationForCell(row, col, position);
+    }
+
+    /**
+     * Get the row,col of a cell in this grid from a location in the whole scene.
+     * @param p the location in the scene (including a menubar if it exists)
+     * @return the cell row and col in the grid
+     */
+    public int[] getCellFromSceneLocation(Coord2D p) {
+        // get the group node that contains the shapes/nodes of this grid and get the coordinates of p within this group
+        Point2D inMyGroup = getGroup().sceneToLocal(p.getX(), p.getY());
+        return getCellFromLocalLocation(inMyGroup.getX(), inMyGroup.getY());
+    }
+
+    /* default computation, may be overridden in subclasses :
+           just divide the width,height by  cellWidth,cellHeight to find the correct cell
+         */
+    public int[] getCellFromLocalLocation(double x, double y) {
+        if ((x < 0) || (x >= width) || (y < 0) || (y >= height)) return null;
+        // must remove the border width
+        x = x-borderWidth;
+        y = y-borderWidth;
+        int[] tab = {(int)y / cellHeight, (int)x / cellWidth}; // row first, columns in second
+        return tab;
     }
 }

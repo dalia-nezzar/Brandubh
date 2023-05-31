@@ -5,8 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2d7a093e-41d2-4c7a-bd8f-3ae7fe96411e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/boardifier/control/ControllerAction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/boardifier/control/ControllerAnimation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/boardifier/control/ControllerKey.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/boardifier/control/ControllerMouse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/control/BRBControllerAction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/control/BRBControllerKey.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/control/BRBControllerMouse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/BRBRootPane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/BRBView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameLauncher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boardifier/control/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/control/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boardifier/view/ElementLook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/view/ElementLook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boardifier/view/GridLook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/view/GridLook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boardifier/view/RootPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/view/RootPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boardifier/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/view/View.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/BRBStageModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BRBStageModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +39,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/view/BRBRootPane.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -67,6 +86,12 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\noahe\IdeaProjects\Brandubh\src" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="boardifier.control" />
+      <recent name="control" />
+      <recent name="view" />
+      <recent name="" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -264,7 +289,7 @@
       <workItem from="1685097084999" duration="10057000" />
       <workItem from="1685112876433" duration="85000" />
       <workItem from="1685540681575" duration="3354000" />
-      <workItem from="1685544940106" duration="1035000" />
+      <workItem from="1685544940106" duration="5760000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>
@@ -299,7 +324,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/model/BRBStageModel.java</url>
-          <line>182</line>
+          <line>184</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">

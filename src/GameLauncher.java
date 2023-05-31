@@ -8,9 +8,8 @@ import boardifier.control.StageFactory;
 import boardifier.model.Model;
 import javafx.application.Application;
 import javafx.stage.Stage;
-//import view.HoleRootPane;
-//import view.HoleView;
-import view.BRBStageView;
+import view.BRBRootPane;
+import view.BRBView;
 import java.util.Scanner;
 
 public class GameLauncher extends Application {
@@ -56,13 +55,13 @@ public class GameLauncher extends Application {
         // register a single stage for the game, called hole
         StageFactory.registerModelAndView("hole", "model.HoleStageModel", "view.HoleStageView");
         // create the root pane, using the subclass HoleRootPane
-        //HoleRootPane rootPane = new HoleRootPane();
+        BRBRootPane rootPane = new BRBRootPane();
         // create the global view.
-        //HoleView view = new HoleView(model, stage, rootPane);
+        BRBView view = new BRBView(model, stage, rootPane);
         // create the controllers.
-        //HoleController control = new HoleController(model,view);
+        BRBController control = new BRBController(model,view);
         // set the name of the first stage to create when the game is started
-        //control.setFirstStageName("hole");
+        control.setFirstStageName("hole");
         // set the stage title
         stage.setTitle("The Hole");
         // show the JavaFx main stage

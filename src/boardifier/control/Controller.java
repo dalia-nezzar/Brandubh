@@ -10,7 +10,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static boardifier.view.ConsoleColor.*;
@@ -22,11 +24,26 @@ public abstract class Controller {
     protected Map<GameElement, ElementLook> mapElementLook;
     protected int typeDefenseur = 0;
     protected int typeAttaquant = 1;
+    protected ControllerKey controlKey;
+    protected ControllerMouse controlMouse;
+    protected ControllerAction controlAction;
 
     public Controller(Model model, View view) {
         this.model = model;
         this.view = view;
         firstStageName = "";
+    }
+
+    public void setControlKey(ControllerKey controlKey) {
+        this.controlKey = controlKey;
+    }
+
+    public void setControlMouse(ControllerMouse controlMouse) {
+        this.controlMouse = controlMouse;
+    }
+
+    public void setControlAction(ControllerAction controlAction) {
+        this.controlAction = controlAction;
     }
 
     public void setFirstStageName(String firstStageName) {
@@ -162,5 +179,29 @@ public abstract class Controller {
         // get the center of the current cell because we can at least reach this center if Me is not already on it.
         Coord2D center = gridLook.getRootPaneLocationForCellCenter(coords[0], coords[1]);
         element.setLocation(center.getX(), center.getY());
+    }
+
+    public void stopGame() {
+        //controlAnimation.stopAnimation();
+        //TODO controlAnimation
+        model.reset();
+    }
+
+    /**
+     * Get all visible and clickable elements that are at a given point in the scene coordinate space.
+     * @param point the coordinate of a point
+     * @return A list of game element
+     */
+    public List<GameElement> elementsAt(Coord2D point) {
+        List<GameElement> list = new ArrayList<>();
+        for(GameElement element : model.getElements()) {
+            if ((element.isVisible()) && (element.isClickable())) {
+                ElementLook look = mapElementLook.get(element);
+                if ((look != null) && (look.isPointWithin(point))) {
+                    list.add(element);
+                }
+            }
+        }
+        return list;
     }
 }

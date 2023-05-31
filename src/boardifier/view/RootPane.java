@@ -1,18 +1,48 @@
 package boardifier.view;
 
+import javafx.scene.Group;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+
 import java.util.List;
 
-public class RootPane {
-
+public class RootPane extends Pane {
+    protected GameStageView gameStageView;
     private String[][] viewPort;
     private int width;
     private int height;
+    protected Group group; // the group that contains all game elements of the current stage
 
     public RootPane(int width, int height) {
         this.width = width;
         this.height = height;
         viewPort = new String[height][width];
         clearViewPort();
+
+        this.gameStageView = null;
+        group = new Group();
+        //setBackground(Background.EMPTY);
+        resetToDefault();
+    }
+
+    public final void resetToDefault() {
+        createDefaultGroup();
+        // add the group to the pane
+        getChildren().clear();
+        getChildren().add(group);
+    }
+
+    /**
+     * create the element of the default group
+     * This method can be overriden to define a different visual aspect.
+     */
+    protected void createDefaultGroup() {
+        Rectangle frame = new Rectangle(100, 100, Color.LIGHTGREY);
+        // remove existing children
+        group.getChildren().clear();
+        // adding default ones
+        group.getChildren().addAll(frame);
     }
 
     public RootPane() {

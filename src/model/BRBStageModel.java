@@ -8,6 +8,8 @@ import java.util.List;
 
 public class BRBStageModel extends GameStageModel {
 
+    public static final int STATE_SELECTPAWN = 1;
+    public static final int STATE_SELECTDEST = 2;
     private BRBBoard board;
     private Pawn[] blackPawns;
     private Pawn[] redPawns;

@@ -1,8 +1,16 @@
 package boardifier.view;
 
+import boardifier.model.Coord2D;
 import boardifier.model.GameElement;
+import javafx.geometry.Bounds;
+import javafx.scene.Group;
+import javafx.scene.Node;
 
 public abstract class ElementLook {
+    /**
+     * The nodes constituting that look must be gathered within a group.*
+     */
+    private final Group group;
 
     protected GameElement element;
     protected String[][] shape; // a buffer of String that is used to store the visual aspect of the element
@@ -19,6 +27,7 @@ public abstract class ElementLook {
 
     public ElementLook(GameElement element, int width, int height, int depth) {
         this.element = element;
+        group = new Group();
         if (width < 0) width = 0;
         if (height < 0) height = 0;
         this.width = width;
@@ -26,6 +35,25 @@ public abstract class ElementLook {
         shape = new String[height][width];
         clearShape();
         this.depth = depth;
+        // move the group to the x,y position of the element in the root pane
+        onLocationChange();
+    }
+
+    /**
+     * move the location of the group within the root pane space, and thus within the scene.
+     * This method MUST NEVER be called directly. It is automatically called whenever
+     * a game element is moved in space.
+     */
+    public void onLocationChange() {
+        if (element.getLocationType() == GameElement.LOCATION_CENTER) {
+            Bounds b = group.getBoundsInLocal();
+            group.setTranslateX(element.getX() - b.getWidth() / 2);
+            group.setTranslateY(element.getY() - b.getHeight() / 2);
+        }
+        else {
+            group.setTranslateX(element.getX());
+            group.setTranslateY(element.getY());
+        }
     }
 
     public ElementLook(GameElement element, int width, int height) {
@@ -102,4 +130,21 @@ public abstract class ElementLook {
        but only if the attribute lookChanged of the element is true (cf. update() in GameStageView)
      */
     public abstract void onLookChange();
+
+    /**
+     * Determine if a point is within the bounds of one of the nodes of this look
+     * @param point a point in the scene coordinate space.
+     * @return <code>true</code> if it is within, otherwise <code>false</code>.
+     */
+    public boolean isPointWithin(Coord2D point) {
+        for(Node node : group.getChildren()) {
+            Bounds b = node.localToScene(node.getBoundsInParent());
+            if ( (point.getX() >= b.getMinX()) &&  (point.getX() <= b.getMaxX()) && (point.getY() >= b.getMinY()) && (point.getY() <= b.getMaxY()) ) return true;
+        }
+        return false;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
 }
