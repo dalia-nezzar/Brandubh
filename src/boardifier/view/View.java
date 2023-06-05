@@ -1,7 +1,7 @@
 package boardifier.view;
 
 import boardifier.model.GameElement;
-
+import boardifier.model.GameException;
 import boardifier.model.Model;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -107,10 +107,6 @@ public class View {
         rootPane.setClip(r);
     }
 
-    public void setView(GameStageView gameStageView)  {
-        this.gameStageView = gameStageView;
-    }
-
     /* ***************************************
        TRAMPOLINE METHODS
     **************************************** */
@@ -128,6 +124,40 @@ public class View {
         root.udpate(gameStageView);
         int nbPartie = getNumberGame();
         if (nbPartie <= 1000) root.print();
+    }
+
+    public void setView(GameStageView gameStageView) {
+        rootPane.init(gameStageView);
+        //NB: gameStageView may be null if there is no game stage view to draw (cf. SimpleTextView)
+        this.gameStageView = gameStageView;
+        // detach the current vbox as a root node of the current scene
+        // so that it can be reused for the new scene.
+        scene.setRoot(new Group());
+                /* create the new scene with vbox as a root node, and if specified the
+                   dimensions.
+                 */
+        if ((this.gameStageView != null) && (this.gameStageView.getWidth() != -1) && (this.gameStageView.getHeight() != -1)) {
+            double h = 0;
+            if (menuBar != null) h = menuBar.getHeight();
+            scene = new Scene(vbox, this.gameStageView.getWidth(), h+ this.gameStageView.getHeight());
+            // set the clipping area of the root pane with the given size of the stage
+            // So, if there are shape that overlap with these boundaries, they won't show totally.
+            Rectangle r = new Rectangle(this.gameStageView.getWidth(), this.gameStageView.getHeight());
+            rootPane.setClip(r);
+            stage.setScene(scene);
+            stage.sizeToScene();
+        }
+        else {
+            scene = new Scene(vbox);
+            // WARNING: must set the scene and resize the stage BEFORE defining the clipping.
+            // Otherwise, dimensions won't be correct.
+            stage.setScene(scene);
+            stage.sizeToScene();
+            stage.setResizable(false);
+            // set the clipping area with the boundaries of root pane.
+            Rectangle r = new Rectangle(rootPane.getWidth(), rootPane.getHeight());
+            rootPane.setClip(r);
+        }
     }
 
     public Object getView() {

@@ -5,6 +5,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.util.Collections;
 import java.util.List;
 
 public class RootPane extends Pane {
@@ -31,6 +32,30 @@ public class RootPane extends Pane {
         // add the group to the pane
         getChildren().clear();
         getChildren().add(group);
+    }
+
+    /**
+     * Initialize the content of the group.
+     * It takes the elements of the model, which are initialized when starting a game stage.
+     * It sorts them so that the element with the highest depth are put in first in the group.
+     * So they will be hidden by elements with a lower depth.
+     */
+    public final void init(GameStageView gameStageView) {
+        if (gameStageView != null) {
+            this.gameStageView = gameStageView;
+            // first sort element by their depth
+            Collections.sort(gameStageView.getLooks(), (a, b) -> a.getDepth() - b.getDepth());
+            // remove existing children
+            group.getChildren().clear();
+            // add game element looks
+            for (ElementLook look : gameStageView.getLooks()) {
+                Group group = look.getGroup();
+                this.group.getChildren().add(group);
+            }
+            // add the group to the pane
+            getChildren().clear();
+            getChildren().add(group);
+        }
     }
 
     /**

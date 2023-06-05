@@ -9,7 +9,7 @@ import boardifier.model.Player;
 import boardifier.model.action.ActionList;
 import boardifier.model.action.GameAction;
 import boardifier.model.action.MoveAction;
-import boardifier.view.View;
+import boardifier.view.*;
 import model.BRBBoard;
 import model.BRBStageModel;
 
@@ -448,4 +448,5 @@ public class BRBController extends Controller {
     public boolean startanalyseAndPlay (String line){
         return analyseAndPlay(line);
     }
+
 }

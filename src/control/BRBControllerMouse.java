@@ -1,7 +1,7 @@
 package control;
 
 import boardifier.control.ActionPlayer;
-import boardifier.control.Controller;
+import boardifier.control.*;
 import boardifier.control.ControllerMouse;
 import boardifier.model.Coord2D;
 import boardifier.model.ElementTypes;
@@ -12,7 +12,7 @@ import boardifier.model.action.GameAction;
 import boardifier.model.action.MoveAction;
 import boardifier.model.animation.AnimationTypes;
 import boardifier.view.GridLook;
-import boardifier.view.View;
+import boardifier.view.*;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import model.BRBBoard;

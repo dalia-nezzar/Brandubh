@@ -4,8 +4,7 @@ import boardifier.model.*;
 import boardifier.view.ElementLook;
 import boardifier.view.GameStageView;
 import boardifier.view.GridLook;
-import boardifier.view.View;
-
+import boardifier.view.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
