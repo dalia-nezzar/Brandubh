@@ -15,8 +15,8 @@ public class ControllerKey implements EventHandler<KeyEvent> {
         this.view = view;
         this.control = control;
         // Attach KeyEvent listening to a Node that has focus.
-        view.getRootPane().setOnKeyPressed(this);
-        view.getRootPane().setOnKeyReleased(this);
+        view.getRootPane().addEventFilter(KeyEvent.KEY_PRESSED, this::handle);
+        view.getRootPane().addEventFilter(KeyEvent.KEY_RELEASED, this::handle);
     }
 
     // by default, do nothing. Must be overridden in subclasses

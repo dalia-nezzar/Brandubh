@@ -28,6 +28,7 @@ public class GameLauncher extends Application {
             game.start(args);
         } else if (choiceInt == 2) {
             // Execute the graphical version
+            Controller.gVersion = true;
             launch(args);
         } else {
             System.out.println("Invalid choice. Exiting the game.");

@@ -23,7 +23,6 @@ public class BRBControllerAction extends ControllerAction implements EventHandle
         super(model, view, control);
         // take the view parameter ot define a local view attribute with the real instance type, i.e. HoleView.
         BRBView = (BRBView) view;
-
         // set handlers dedicated to menu items
         setMenuHandlers();
 

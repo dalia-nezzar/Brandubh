@@ -26,6 +26,7 @@ public abstract class Controller {
     protected ControllerKey controlKey;
     protected ControllerMouse controlMouse;
     protected ControllerAction controlAction;
+    public static boolean gVersion = false;
 
     public Controller(Model model, View view) {
         this.model = model;

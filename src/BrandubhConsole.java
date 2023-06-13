@@ -137,6 +137,10 @@ public class BrandubhConsole {
                 //e.printStackTrace();
             }
             loadBarThread.interrupt();
+            if (BRBDecider.consoleMessages != "") {
+                System.out.println(BRBDecider.consoleMessages);
+                BRBDecider.consoleMessages = "";
+            }
         }
 
         try {
@@ -303,6 +307,10 @@ public class BrandubhConsole {
                 System.out.println("Don't take me for a fool, son. That's not a real answer! Abort.");
             }
         }
+        if (BRBDecider.consoleMessages != "") {
+            System.out.println(BRBDecider.consoleMessages);
+            BRBDecider.consoleMessages = "";
+        }
         System.out.println(BLUE_BOLD + "Speak, son, what kind of war would you like to engage yourself in?" + BLACK);
         System.out.println("Write " + RED_BOLD +HUMAN_VS_HUMAN + BLACK+" for a brother (human) vs brother (human) war,");
         System.out.println("or, write "+ RED_BOLD + HUMAN_VS_COMPUTER + BLACK+" for a brother (human) vs God (computer) war!");
@@ -313,7 +321,10 @@ public class BrandubhConsole {
         while (true) {
             try {
                 mode = Integer.parseInt(BRBController.input.nextLine());
-                System.out.println("You chose " + mode + "!");
+                if (BRBDecider.consoleMessages != "") {
+                    System.out.println(BRBDecider.consoleMessages);
+                    BRBDecider.consoleMessages = "";
+                }
                 if (mode >= HUMAN_VS_HUMAN && mode <= COMPUTER_VS_COMPUTER) {
                     return mode;
                 } else {

@@ -1,5 +1,6 @@
 package boardifier.view;
 
+import boardifier.control.Controller;
 import boardifier.model.GameElement;
 import boardifier.model.GameException;
 import boardifier.model.Model;
@@ -127,9 +128,10 @@ public class View {
     }
 
     public void setView(GameStageView gameStageView) {
-        rootPane.init(gameStageView);
+        if (Controller.gVersion) rootPane.init(gameStageView);
         //NB: gameStageView may be null if there is no game stage view to draw (cf. SimpleTextView)
         this.gameStageView = gameStageView;
+        if (!Controller.gVersion) return;
         // detach the current vbox as a root node of the current scene
         // so that it can be reused for the new scene.
         scene.setRoot(new Group());
