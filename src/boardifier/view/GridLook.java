@@ -8,7 +8,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public abstract class GridLook extends ElementLook {
+public class GridLook extends ElementLook {
 
     protected int cellWidth;
     protected int cellHeight;

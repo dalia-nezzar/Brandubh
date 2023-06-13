@@ -13,7 +13,7 @@ import model.Pawn;
 
 public class PawnLook extends ElementLook {
     private Circle circle;
-    /*
+
     public PawnLook(GameElement element) {
         //super(element, 1, 1);
         super(element);
@@ -28,8 +28,6 @@ public class PawnLook extends ElementLook {
             shape[0][0] = ConsoleColor.BLACK + ConsoleColor.RED_BACKGROUND + pawn.getNumber() + ConsoleColor.RESET;
         }
     }
-
-     */
 
     public PawnLook(int radius, GameElement element) {
         super(element);
