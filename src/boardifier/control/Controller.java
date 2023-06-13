@@ -118,7 +118,6 @@ public abstract class Controller {
 
     public void stopStage() {
         model.stopStage();
-        model.reset();
     }
 
     /**
