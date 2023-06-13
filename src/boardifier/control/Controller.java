@@ -36,7 +36,7 @@ public abstract class Controller {
     public Controller(Model model, View view) {
         this.model = model;
         this.view = view;
-        controlAnimation = new ControllerAnimation(model,view, this);
+        if (Controller.gVersion) controlAnimation = new ControllerAnimation(model,view, this);
         firstStageName = "";
         inUpdate = false;
     }
@@ -110,7 +110,10 @@ public abstract class Controller {
             mapElementLook.put(element, look);
         }
 
-        controlAnimation.startAnimation();
+        if (Controller.gVersion) {
+            // start the animation controller
+            controlAnimation.startAnimation();
+        }
     }
 
     public void stopStage() {
@@ -160,6 +163,7 @@ public abstract class Controller {
     public void update() {
         if (inUpdate) {
             System.err.println("Abnormal case: concurrent updates");
+            return;
         }
         inUpdate = true;
 
@@ -200,12 +204,12 @@ public abstract class Controller {
             k.resetChanged();
         });
 
-        if (model.isEndStage()) {
+        if (Controller.gVersion && model.isEndStage()) {
             controlAnimation.stopAnimation();
             Platform.runLater( () -> {
                 stopStage();});
         }
-        else if (model.isEndGame()) {
+        else if (Controller.gVersion && model.isEndGame()) {
             controlAnimation.stopAnimation();
             Platform.runLater( () -> {endGame();});
         }

@@ -60,7 +60,10 @@ public abstract class ElementLook {
         System.out.println("element = " + element);
         group = new Group();
         shapes = new ArrayList<>();
-        //clearShape();
+        this.width = 1;
+        this.height = 1;
+        shape = new String[height][width];
+        clearShape();
         this.depth = depth;
         // move the group to the x,y position of the element in the root pane
         onLocationChange();
@@ -69,6 +72,7 @@ public abstract class ElementLook {
     public ElementLook(GameElement element) {
         this(element, 0);
     }
+
     public GameElement getElement() {
         return element;
     }

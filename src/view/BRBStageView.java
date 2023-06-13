@@ -23,7 +23,9 @@ public class BRBStageView extends GameStageView {
 
         //addLook(new GridLook(4, 2, model.getBoard(), -4, true));
         //Todo i have really not idea where what how
-        addLook(new BRBBoardLook(320, model.getBoard()));
+        //addLook(new BRBBoardLook(320, model.getBoard()));
+        if (!Controller.gVersion) addLook(new GridLook(4, 2, model.getBoard(), -4, true));
+        else addLook(new BRBBoardLook(320, model.getBoard()));
 
         if (!Controller.gVersion) addLook(new GridLook(4, 2, model.getBoard(), -4, true));
         else addLook(new BRBBoardLook(320, model.getBoard()));
