@@ -1,29 +1,36 @@
 package boardifier.view;
 
+import boardifier.model.GameElement;
 import boardifier.model.GridElement;
 import boardifier.model.Coord2D;
 import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
-public class GridLook extends ElementLook {
+public abstract class GridLook extends ElementLook {
 
     protected int cellWidth;
     protected int cellHeight;
     protected int borderWidth;
     protected GridGeometry geometry;
+    protected String borderColor;
     protected boolean showCoords;
 
-    public GridLook(int cellWidth, int cellHeight, GridElement gridElement, int depth, boolean showCoords) {
-        // there is a +2 to be able to put the rigth/bottom border and the lettering of the cells
-        super(gridElement);
-        this.depth = depth;
-        this.showCoords = showCoords;
-        int margin = 1;
-        if (showCoords) margin++;
-        setSize(cellWidth*gridElement.getNbCols()+margin, cellHeight*gridElement.getNbRows()+margin);
+    public GridLook(int width, int height, int cellWidth, int cellHeight, int borderWidth, String borderColor, GameElement element) {
+        super(element);
+        this.width = width;
+        this.height = height;
         this.cellWidth = cellWidth;
         this.cellHeight = cellHeight;
+        this.borderWidth = borderWidth;
+        this.borderColor = borderColor;
+
+        if (borderWidth > 0) {
+            Rectangle back = new Rectangle(width, height, Color.valueOf(borderColor));
+            addNode(back);
+        }
+
         geometry = new GridGeometry(this);
-        createShape();
     }
 
     /**
@@ -127,6 +134,11 @@ public class GridLook extends ElementLook {
         createShape();
     }
 
+    @Override
+    public void onChange() {
+
+    }
+
     /* *********************************************
            TRAMPOLINE METHODS
            NB: gain access to the current grid geometry
@@ -160,5 +172,9 @@ public class GridLook extends ElementLook {
         y = y-borderWidth;
         int[] tab = {(int)y / cellHeight, (int)x / cellWidth}; // row first, columns in second
         return tab;
+    }
+
+    public GridGeometry getGeometry() {
+        return geometry;
     }
 }

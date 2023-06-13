@@ -105,15 +105,21 @@ public abstract class GameStageView {
      * udpate all the element's looks of the current stage.
      */
     public void update() {
-        // first get the total size
         for (ElementLook look : looks) {
             GameElement element = look.getElement();
+            if (element.isLocationChanged()) {
+                look.onLocationChange();
+            }
             if (element.isVisibleChanged()) {
                 look.onVisibilityChange();
             }
-            if (element.isLookChanged()) {
-                look.onLookChange();
+            if (element.isSelectedChanged()) {
+                look.onSelectionChange();
             }
+            if (element.isLookChanged()) {
+                look.onChange();
+            }
+            //TODO i have no idea of what i'm doing
         }
     }
 }

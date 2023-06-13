@@ -5,6 +5,9 @@ import boardifier.view.ElementLook;
 import boardifier.view.GameStageView;
 import boardifier.view.GridLook;
 import boardifier.view.*;
+import javafx.application.Platform;
+import javafx.geometry.Bounds;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -23,15 +26,19 @@ public abstract class Controller {
     protected Map<GameElement, ElementLook> mapElementLook;
     protected int typeDefenseur = 0;
     protected int typeAttaquant = 1;
+    protected ControllerAnimation controlAnimation;
     protected ControllerKey controlKey;
     protected ControllerMouse controlMouse;
     protected ControllerAction controlAction;
     public static boolean gVersion = false;
+    private boolean inUpdate;
 
     public Controller(Model model, View view) {
         this.model = model;
         this.view = view;
+        controlAnimation = new ControllerAnimation(model,view, this);
         firstStageName = "";
+        inUpdate = false;
     }
 
     public void setControlKey(ControllerKey controlKey) {
@@ -72,11 +79,9 @@ public abstract class Controller {
      * @throws GameException
      */
     protected void startStage(String stageName) throws GameException {
-        if (model.isStageStarted()) {
-            stopStage();
-        }
+        if (model.isStageStarted()) { stopStage(); }
         model.reset();
-        //System.out.println("START STAGE "+stageName);
+        System.out.println("START STAGE "+stageName);
         // create the model of the stage by using the StageFactory
         GameStageModel gameStageModel = StageFactory.createStageModel(stageName, model);
         // create the elements of the stage by getting the default factory of this stage and giving it to createElements()
@@ -88,17 +93,29 @@ public abstract class Controller {
         // start the game, from the model point of view.
         model.startGame(gameStageModel);
         // set the view so that the current pane view can integrate all the looks of the current game stage view.
-        view.setView(gameStageView);
+        if (Controller.gVersion) {
+            view.setView(gameStageView);
+            /* CAUTION: since starting the game implies to
+               remove the intro pane from root, then root has no more
+               children. It seems that this removal causes a focus lost
+               which must be set once again in order to catch keyboard events.
+            */
+            view.getRootPane().setFocusTraversable(true);
+            view.getRootPane().requestFocus();
+        }
         // create a map of GameElement <-> ElementLook, that helps the controller in its update() method
         mapElementLook = new HashMap<>();
         for(GameElement element : model.getElements()) {
             ElementLook look = gameStageView.getElementLook(element);
-            if (look != null) mapElementLook.put(element, look);
+            mapElementLook.put(element, look);
         }
+
+        controlAnimation.startAnimation();
     }
 
     public void stopStage() {
         model.stopStage();
+        model.reset();
     }
 
     /**
@@ -128,12 +145,37 @@ public abstract class Controller {
         }
     }
 
+    /**
+     * Update model and view.
+     * This method MUST NOT BE called directly, and is only called by the ControllerAnimation
+     * at each frame. It is used to update the model and then the view.
+     * It must be noticed that the process of updating follows a fixed scheme :
+     *   - update all game element of the current game stage,
+     *   - update the grid cell of element that are in a grid and that have moved in space, and thus may have changed of cell,
+     *   - update the looks of all elements, calling dedicated methods according the type indicators of change (location, look, selection, ...),
+     *   - reset the change indicators in elements,
+     *   - check if the sage is finished,
+     *   - check if the game is finished.
+     */
     public void update() {
+        if (inUpdate) {
+            System.err.println("Abnormal case: concurrent updates");
+        }
+        inUpdate = true;
+
         // update the model of all elements :
         mapElementLook.forEach((k,v) -> {
-            // update the element if needed
-            k.update();
-            // if the element was moved within the same grid
+            // get the bounds of the look
+            Bounds b = v.getGroup().getBoundsInParent();
+            // get the geometry of the grid that owns the element, if it exists
+            if (k.getGrid() != null) {
+                GridLook look = getElementGridLook(k);
+                k.update(b.getWidth(), b.getHeight(), look.getGeometry());
+            }
+            else {
+                k.update(b.getWidth(), b.getHeight(), null);
+            }
+            // if the element must be auto-localized in its cell center
             if (k.isAutoLocChanged()) {
                 setElementLocationToCellCenter(k);
             }
@@ -144,6 +186,18 @@ public abstract class Controller {
         mapElementLook.forEach((k,v) -> {
             k.resetChanged();
         });
+
+        if (model.isEndStage()) {
+            controlAnimation.stopAnimation();
+            Platform.runLater( () -> {
+                stopStage();});
+        }
+        else if (model.isEndGame()) {
+            controlAnimation.stopAnimation();
+            Platform.runLater( () -> {endGame();});
+        }
+
+        inUpdate = false;
     }
 
     /* ***************************************
@@ -182,8 +236,7 @@ public abstract class Controller {
     }
 
     public void stopGame() {
-        //controlAnimation.stopAnimation();
-        //TODO controlAnimation
+        controlAnimation.stopAnimation();
         model.reset();
     }
 

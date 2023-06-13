@@ -124,4 +124,9 @@ public class RootPane extends Pane {
             System.out.println();
         }
     }
+
+    public void update() {
+        if (gameStageView == null) return;
+        gameStageView.update();
+    }
 }

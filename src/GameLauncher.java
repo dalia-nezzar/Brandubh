@@ -18,20 +18,29 @@ public class GameLauncher extends Application {
         System.out.println("Choose the game version:");
         System.out.println("1. Console Version");
         System.out.println("2. Graphical Version");
-
-        String choice = BRBController.input.nextLine().replaceAll("\\D+", "");
-        int choiceInt = Integer.parseInt(choice);
-
-        if (choiceInt == 1) {
+        if (args.length > 0 && args[0].equals("console")) {
             // Execute the console version
             BrandubhConsole game = new BrandubhConsole();
             game.start(args);
-        } else if (choiceInt == 2) {
+        } else if (args.length > 0 && args[0].equals("graphical")) {
             // Execute the graphical version
             Controller.gVersion = true;
             launch(args);
         } else {
-            System.out.println("Invalid choice. Exiting the game.");
+            String choice = BRBController.input.nextLine().replaceAll("\\D+", "");
+            int choiceInt = Integer.parseInt(choice);
+
+            if (choiceInt == 1) {
+                // Execute the console version
+                BrandubhConsole game = new BrandubhConsole();
+                game.start(args);
+            } else if (choiceInt == 2) {
+                // Execute the graphical version
+                Controller.gVersion = true;
+                launch(args);
+            } else {
+                System.out.println("Invalid choice. Exiting the game.");
+            }
         }
     }
 

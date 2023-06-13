@@ -5,15 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2d7a093e-41d2-4c7a-bd8f-3ae7fe96411e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/boardifier/view/BackgroundLook.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/boardifier/view/SpriteLook.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/boardifier/view/TextLook.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/BRBBoardLook.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BrandubhConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BrandubhConsole.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameLauncher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/boardifier/control/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/control/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/control/ControllerKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/control/ControllerKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boardifier/model/GameElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/model/GameElement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boardifier/model/GameStageModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/model/GameStageModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boardifier/view/ElementLook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/view/ElementLook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boardifier/view/GameStageView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/view/GameStageView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boardifier/view/GridLook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/view/GridLook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boardifier/view/RootPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/view/RootPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/boardifier/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/view/View.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/control/BRBControllerAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBControllerAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/control/BRBDecider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBDecider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/BRBStageFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BRBStageFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/BRBStageModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BRBStageModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/BRBStageView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/BRBStageView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/PawnLook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/PawnLook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/PawnPotLook.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,9 +89,10 @@
       <recent name="C:\Users\noahe\IdeaProjects\Brandubh\src" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="boardifier.view" />
+      <recent name="view" />
       <recent name="boardifier.control" />
       <recent name="control" />
-      <recent name="view" />
       <recent name="" />
     </key>
   </component>
@@ -97,6 +108,15 @@
       <option name="MAIN_CLASS_NAME" value="GameLauncher" />
       <module name="Brandubh" />
       <option name="PROGRAM_PARAMETERS" value="2 3 3 100" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Brandubh Graphical Version" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="GameLauncher" />
+      <module name="Brandubh" />
+      <option name="PROGRAM_PARAMETERS" value="graphical" />
+      <option name="VM_PARAMETERS" value="-Xmx6g --module-path E:\Github\MyJavaLibs\javafx-sdk-20.0.1\lib --add-modules javafx.controls,javafx.fxml" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -166,6 +186,7 @@
     </configuration>
     <list>
       <item itemvalue="Application.Brandubh" />
+      <item itemvalue="Application.Brandubh Graphical Version" />
       <item itemvalue="Application.Brandubh V2" />
       <item itemvalue="Application.Brandubh AI vs AI" />
       <item itemvalue="Application.Brandubh gamer2 Wins.txt" />
@@ -288,7 +309,7 @@
       <workItem from="1686663942562" duration="2219000" />
       <workItem from="1686667174287" duration="16000" />
       <workItem from="1686667589975" duration="253000" />
-      <workItem from="1686668345724" duration="1221000" />
+      <workItem from="1686668345724" duration="10393000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>
@@ -319,19 +340,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Test" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/model/BRBStageModel.java</url>
-          <line>184</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.NullPointerException" package="java.lang" />
-          <option name="timeStamp" value="4" />
-        </breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="control.BRBDecider" memberName="control" />

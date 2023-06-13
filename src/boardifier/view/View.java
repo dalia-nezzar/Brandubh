@@ -108,6 +108,14 @@ public class View {
         rootPane.setClip(r);
     }
 
+    /**
+     *
+     * @return the primary javafx stage
+     */
+    public Stage getStage() {
+        return stage;
+    }
+
     /* ***************************************
        TRAMPOLINE METHODS
     **************************************** */
@@ -127,7 +135,12 @@ public class View {
         if (nbPartie <= 1000) root.print();
     }
 
+    public void updateGraphique() {
+        rootPane.update();
+    }
+
     public void setView(GameStageView gameStageView) {
+        System.out.println("View.setView()");
         if (Controller.gVersion) rootPane.init(gameStageView);
         //NB: gameStageView may be null if there is no game stage view to draw (cf. SimpleTextView)
         this.gameStageView = gameStageView;
