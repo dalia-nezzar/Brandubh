@@ -394,6 +394,9 @@ public abstract class GameElement {
     public void update(double width, double height, GridGeometry gridGeometry) {
     }
 
+    public void update() {
+    }
+
     public boolean isLocationChanged() {
         return locationChanged;
     }

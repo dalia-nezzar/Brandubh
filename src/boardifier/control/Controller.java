@@ -93,8 +93,8 @@ public abstract class Controller {
         // start the game, from the model point of view.
         model.startGame(gameStageModel);
         // set the view so that the current pane view can integrate all the looks of the current game stage view.
+        view.setView(gameStageView);
         if (Controller.gVersion) {
-            view.setView(gameStageView);
             /* CAUTION: since starting the game implies to
                remove the intro pane from root, then root has no more
                children. It seems that this removal causes a focus lost
@@ -164,22 +164,35 @@ public abstract class Controller {
         inUpdate = true;
 
         // update the model of all elements :
-        mapElementLook.forEach((k,v) -> {
-            // get the bounds of the look
-            Bounds b = v.getGroup().getBoundsInParent();
-            // get the geometry of the grid that owns the element, if it exists
-            if (k.getGrid() != null) {
-                GridLook look = getElementGridLook(k);
-                k.update(b.getWidth(), b.getHeight(), look.getGeometry());
-            }
-            else {
-                k.update(b.getWidth(), b.getHeight(), null);
-            }
-            // if the element must be auto-localized in its cell center
-            if (k.isAutoLocChanged()) {
-                setElementLocationToCellCenter(k);
-            }
-        });
+        if (Controller.gVersion) {
+            mapElementLook.forEach((k,v) -> {
+                // get the bounds of the look
+                Bounds b = v.getGroup().getBoundsInParent();
+                // get the geometry of the grid that owns the element, if it exists
+                if (k.getGrid() != null) {
+                    GridLook look = getElementGridLook(k);
+                    k.update(b.getWidth(), b.getHeight(), look.getGeometry());
+                }
+                else {
+                    k.update(b.getWidth(), b.getHeight(), null);
+                }
+                // if the element must be auto-localized in its cell center
+                if (k.isAutoLocChanged()) {
+                    setElementLocationToCellCenter(k);
+                }
+            });
+        } else {
+            // update the model of all elements :
+            mapElementLook.forEach((k,v) -> {
+                // update the element if needed
+                k.update();
+                // if the element was moved within the same grid
+                if (k.isAutoLocChanged()) {
+                    setElementLocationToCellCenter(k);
+                }
+            });
+        }
+
         // update the looks
         view.update();
         // reset changed indicators
