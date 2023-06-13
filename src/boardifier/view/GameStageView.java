@@ -126,6 +126,9 @@ public abstract class GameStageView {
     /**
      * udpate all the element's looks of the current stage.
      */
+    /**
+     * udpate all the element's looks of the current stage.
+     */
     public void consoleUpdate() {
         // first get the total size
         for (ElementLook look : looks) {
@@ -133,9 +136,9 @@ public abstract class GameStageView {
             if (element.isVisibleChanged()) {
                 look.onVisibilityChange();
             }
-            //if (element.isLookChanged()) {
-            //    look.onLookChange();
-            //}
+            if (element.isLookChanged()) {
+                look.onLookChange();
+            }
         }
     }
 }

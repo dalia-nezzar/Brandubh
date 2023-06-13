@@ -8,8 +8,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/boardifier/view/ElementLook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/view/ElementLook.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/boardifier/view/GameStageView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/view/GameStageView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/view/RootPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/view/RootPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/view/View.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

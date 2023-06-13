@@ -60,6 +60,7 @@ public abstract class ElementLook {
         System.out.println("element = " + element);
         group = new Group();
         shapes = new ArrayList<>();
+        clearShape();
         this.depth = depth;
         // move the group to the x,y position of the element in the root pane
         onLocationChange();
@@ -107,7 +108,6 @@ public abstract class ElementLook {
      * a game element is moved in space.
      */
     public void onLocationChange() {
-        if (element == null) return; // TODO test fix ugly to remove that sh
         System.out.println("onLocationChange");
         System.out.println("element.getLocationType() = " + element.getLocationType());
         if (element.getLocationType() == GameElement.LOCATION_CENTER) {
