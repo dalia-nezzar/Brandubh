@@ -128,7 +128,8 @@ public class View {
     }
 
     public void update() {
-        gameStageView.update();
+        if (Controller.gVersion) gameStageView.update();
+        else gameStageView.consoleUpdate();
         // by default, would update the root pane and then print it
         root.udpate(gameStageView);
         int nbPartie = getNumberGame();

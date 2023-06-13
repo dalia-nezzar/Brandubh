@@ -40,6 +40,20 @@ public abstract class ElementLook {
      * The look of elements at the same depth are painted in the order they are added to the root pane
      */
     protected int depth;
+    public ElementLook(GameElement element, int width, int height, int depth) {
+        this.element = element;
+        group = new Group();
+        if (width < 0) width = 0;
+        if (height < 0) height = 0;
+        this.width = width;
+        this.height = height;
+        shape = new String[height][width];
+        shapes = new ArrayList<>();
+        clearShape();
+        this.depth = depth;
+        // move the group to the x,y position of the element in the root pane
+        onLocationChange();
+    }
 
     public ElementLook(GameElement element, int depth) {
         this.element = element;

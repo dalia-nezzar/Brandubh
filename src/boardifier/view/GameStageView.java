@@ -122,4 +122,20 @@ public abstract class GameStageView {
             //TODO i have no idea of what i'm doing
         }
     }
+
+    /**
+     * udpate all the element's looks of the current stage.
+     */
+    public void consoleUpdate() {
+        // first get the total size
+        for (ElementLook look : looks) {
+            GameElement element = look.getElement();
+            if (element.isVisibleChanged()) {
+                look.onVisibilityChange();
+            }
+            //if (element.isLookChanged()) {
+            //    look.onLookChange();
+            //}
+        }
+    }
 }
