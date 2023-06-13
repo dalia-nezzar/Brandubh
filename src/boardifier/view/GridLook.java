@@ -1,5 +1,6 @@
 package boardifier.view;
 
+import boardifier.control.Controller;
 import boardifier.model.GameElement;
 import boardifier.model.GridElement;
 import boardifier.model.Coord2D;
@@ -33,10 +34,26 @@ public abstract class GridLook extends ElementLook {
         geometry = new GridGeometry(this);
     }
 
+    public GridLook(int cellWidth, int cellHeight, GridElement gridElement, int depth, boolean showCoords) {
+        // there is a +2 to be able to put the rigth/bottom border and the lettering of the cells
+        super(gridElement);
+        this.depth = depth;
+        this.showCoords = showCoords;
+        int margin = 1;
+        if (showCoords) margin++;
+        setSize(cellWidth*gridElement.getNbCols()+margin, cellHeight*gridElement.getNbRows()+margin);
+        this.cellWidth = cellWidth;
+        this.cellHeight = cellHeight;
+        geometry = new GridGeometry(this);
+        createShape();
+    }
+
     /**
      * createShape() provides a default look for the grid. It can be overriden in subclasses.
      */
     protected void createShape() {
+        System.out.println("GridLook.createShape");
+        System.out.println("shape " + shape);
         // draw cells
         GridElement gridElement = (GridElement) element;
         int nbRows = gridElement.getNbRows();
