@@ -17,13 +17,19 @@ public class BRBStageModel extends GameStageModel {
     static int nbWinBlack = 0;
     static int nbWinRed = 0;
     static int pastScore = 0;
+    private TextElement playerName;
     public BRBStageModel(String name, Model model) {
         super(name, model);
+        state = STATE_SELECTPAWN;
         setupCallbacks();
     }
 
     public BRBBoard getBoard() {
         return board;
+    }
+    public void setBoard(BRBBoard board) {
+        this.board = board;
+        addGrid(board);
     }
 
     public static int[] getScore() {
@@ -53,11 +59,6 @@ public class BRBStageModel extends GameStageModel {
         return score;
     }
 
-
-    public void setBoard(BRBBoard board) {
-        this.board = board;
-        addGrid(board);
-    }
 
     public Pawn[] getBlackPawns() {
         return blackPawns;
@@ -89,8 +90,17 @@ public class BRBStageModel extends GameStageModel {
             addElement(blackKingPawns[i]);
         }
     }
+    public TextElement getPlayerName() {
+        return playerName;
+    }
+    public void setPlayerName(TextElement playerName) {
+        this.playerName = playerName;
+        addElement(playerName);
+    }
 
     private void setupCallbacks() {
+        //TODO onSelectionChange
+
         onMoveInGrid( (element, gridDest, rowDest, colDest) -> {
             // just check when pawns are put in the board
             if (gridDest != board) return;
@@ -236,6 +246,7 @@ public class BRBStageModel extends GameStageModel {
         return sb.toString();
     }
 
+    // This was intented to be used for the neural network (Encog)
     public double[] getInputs(int currentPlayer) {
         // Return the board in a 2D array
         double[] inputs = new double[50];

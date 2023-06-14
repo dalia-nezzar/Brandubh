@@ -210,4 +210,8 @@ public abstract class GameStageModel {
         }
         return list;
     }
+
+    public String getCurrentPlayerName() {
+        return model.getCurrentPlayer().getName();
+    }
 }

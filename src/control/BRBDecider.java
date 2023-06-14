@@ -22,6 +22,7 @@ public class BRBDecider extends Decider {
     //private static HashMap<String, Data> dataMapBlack = new HashMap<>();
     //private static HashMap<String, Data> dataMapRed = new HashMap<>();
     private static HashMap<String, Data> dataMap = new HashMap<>();
+    public static String consoleMessages = "";
     final List<Point> corners = Arrays.asList(
             new Point(0, 0),
             new Point(0, 6),
@@ -547,7 +548,8 @@ public class BRBDecider extends Decider {
 
     public static void loadData(String filename) {
         loadData(filename, dataMap);
-        System.out.println("*System: Loaded " + dataMap.size() + " entries*");
+        consoleMessages = consoleMessages + "\n*System: Loaded " + dataMap.size() + " entries*";
+        //System.out.println("*System: Loaded " + dataMap.size() + " entries*");
     }
 
     public static void loadData(String filename, HashMap<String, Data> dataMap) {
@@ -611,12 +613,12 @@ public class BRBDecider extends Decider {
             }
         } catch (IOException | ClassNotFoundException e) {
             //e.printStackTrace();
-            System.out.println("*System: Error while trying to load data from file " + filename + "*");
-            System.out.println("*NOTE : This Error is caused because you don't have the dataMap.bin file*");
-            System.out.println("*NOTE : This file is only required for the AI SMART to work well, not loading it " +
-                    "will not affect the rest of the game*");
-            System.out.println("*NOTE : Playing over 1.000 games at once will automatically generate this file" +
-                    " but note that it is recommended to play at least 10.000*");
+            consoleMessages = consoleMessages + "\n*System: Error while trying to load data from file " + filename + "*" +
+                    "\n*NOTE : This Error is caused because you don't have the dataMap.bin file*" +
+                    "\n*NOTE : This file is only required for the AI SMART to work well, not loading it " +
+                    "will not affect the rest of the game*" +
+                    "\n*NOTE : Playing over 1.000 games at once will automatically generate this file" +
+                    " but note that it is recommended to play at least 10.000*";
         } finally {
             if (fis != null) {
                 try {

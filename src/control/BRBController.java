@@ -41,9 +41,11 @@ public class BRBController extends Controller {
     public BRBController(Model model, View view) {
         super(model, view);
         firstPlayer = true;
-        setControlKey(new BRBControllerKey(model, view, this));
-        setControlMouse(new BRBControllerMouse(model, view, this));
-        setControlAction (new BRBControllerAction(model, view, this));
+        if (Controller.gVersion) {
+            setControlKey(new BRBControllerKey(model, view, this));
+            setControlMouse(new BRBControllerMouse(model, view, this));
+            setControlAction(new BRBControllerAction(model, view, this));
+        }
     }
 
     /**

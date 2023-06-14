@@ -1,5 +1,6 @@
 package boardifier.view;
 
+import boardifier.control.Controller;
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -123,5 +124,11 @@ public class RootPane extends Pane {
             }
             System.out.println();
         }
+    }
+
+    public void update() {
+        if (gameStageView == null) return;
+        if (Controller.gVersion) gameStageView.update();
+        else gameStageView.consoleUpdate();
     }
 }

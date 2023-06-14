@@ -1,7 +1,9 @@
 package model;
 
+import boardifier.model.GameElement;
 import boardifier.model.GameStageModel;
 import boardifier.model.StageElementsFactory;
+import boardifier.model.TextElement;
 
 public class BRBStageFactory extends StageElementsFactory {
     private BRBStageModel stageModel;
@@ -53,5 +55,11 @@ public class BRBStageFactory extends StageElementsFactory {
         stageModel.getBoard().putElement(redPawns[7], 6, 3);
 
         stageModel.getBoard().putElement(blackPawnsKing[0], 3, 3);
+
+        // create the text
+        TextElement text = new TextElement(stageModel.getCurrentPlayerName(), stageModel);
+        text.setLocation(10,30);
+        text.setLocationType(GameElement.LOCATION_TOPLEFT);
+        stageModel.setPlayerName(text);
     }
 }

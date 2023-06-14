@@ -1,5 +1,6 @@
 package boardifier.view;
 
+import boardifier.control.Controller;
 import boardifier.model.GameElement;
 import boardifier.model.GameException;
 import boardifier.model.Model;
@@ -107,6 +108,14 @@ public class View {
         rootPane.setClip(r);
     }
 
+    /**
+     *
+     * @return the primary javafx stage
+     */
+    public Stage getStage() {
+        return stage;
+    }
+
     /* ***************************************
        TRAMPOLINE METHODS
     **************************************** */
@@ -119,17 +128,24 @@ public class View {
     }
 
     public void update() {
-        gameStageView.update();
+        if (Controller.gVersion) gameStageView.update();
+        else gameStageView.consoleUpdate();
         // by default, would update the root pane and then print it
         root.udpate(gameStageView);
         int nbPartie = getNumberGame();
         if (nbPartie <= 1000) root.print();
     }
 
+    public void updateGraphique() {
+        rootPane.update();
+    }
+
     public void setView(GameStageView gameStageView) {
-        rootPane.init(gameStageView);
+        System.out.println("View.setView()");
+        if (Controller.gVersion) rootPane.init(gameStageView);
         //NB: gameStageView may be null if there is no game stage view to draw (cf. SimpleTextView)
         this.gameStageView = gameStageView;
+        if (!Controller.gVersion) return;
         // detach the current vbox as a root node of the current scene
         // so that it can be reused for the new scene.
         scene.setRoot(new Group());
