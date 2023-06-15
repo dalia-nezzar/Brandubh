@@ -6,37 +6,22 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
+// assertions
+import org.junit.jupiter.api.Assertions;
 
 public class TestBrandubhConsole {
 
     @Test
-    public void testStartMethod() {
-        // Test modeChoice = -1
-        String[] args1 = {};
-        // Mock the input to simulate user interaction
-        BRBController.input = new Scanner("1\n");
-        BRBDecider.loadData("dataMap.bin");
-        // Call the method and assert the expected behavior
-        assertDoesNotThrow(() -> BrandubhConsole.start(args1));
-       
+    public void testSetAI() {
+        // Arrange
+        String[] args = {"", "2", ""};
 
-        // Test modeChoice = 1
-        String[] args2 = {"1"};
-        // Mock the input to simulate user interaction
-        BRBController.input = new Scanner("1\n");
-        BRBDecider.loadData("dataMap.bin");
-        // Call the method and assert the expected behavior
-        assertDoesNotThrow(() -> BrandubhConsole.start(args2));
+        // Act
+        String aiMode = BrandubhConsole.setAI(1, args);
 
-        // Test modeChoice = 2
-        String[] args3 = {"2"};
-        // Mock the input to simulate user interaction
-        BRBController.input = new Scanner("1\n");
-        BRBDecider.loadData("dataMap.bin");
-        // Call the method and assert the expected behavior
-        assertDoesNotThrow(() -> BrandubhConsole.start(args3));
+        // Assert
+        Assertions.assertEquals("God Loki (EAT)", aiMode);
+        Assertions.assertEquals(3, BRBController.typeAI1);
     }
-
-    // Add more test methods for other methods in your code
 
 }
