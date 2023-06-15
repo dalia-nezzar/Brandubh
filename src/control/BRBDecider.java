@@ -302,11 +302,11 @@ public class BRBDecider extends Decider {
             GridLook look = (GridLook) control.getElementLook(board);
             Coord2D center = look.getRootPaneLocationForCellCenter(rowDest, colDest);
             // create the move action, with animation => the pawn will move to dest cell
-            move = new MoveAction(model, pawn, "BRBboard", rowDest, colDest, AnimationTypes.MOVE_LINEARPROP, center.getX(), center.getY(), 10);
+            move = new MoveAction(model, selectedPawn, "BRBboard", rowDest, colDest, AnimationTypes.MOVE_LINEARPROP, center.getX(), center.getY(), 10);
         }
         else {
             // create the move action, without animation => the pawn will be put at the center of dest cell
-            move = new MoveAction(model, pawn, "BRBboard", rowDest, colDest);
+            move = new MoveAction(model, selectedPawn, "BRBboard", rowDest, colDest);
         }
         actions.addSingleAction(move);
         return actions;
@@ -475,11 +475,11 @@ public class BRBDecider extends Decider {
             GridLook look = (GridLook) control.getElementLook(board);
             Coord2D center = look.getRootPaneLocationForCellCenter(rowDest, colDest);
             // create the move action, with animation => the pawn will move to dest cell
-            move = new MoveAction(model, pawn, "BRBboard", rowDest, colDest, AnimationTypes.MOVE_LINEARPROP, center.getX(), center.getY(), 10);
+            move = new MoveAction(model, selectedPawn, "BRBboard", rowDest, colDest, AnimationTypes.MOVE_LINEARPROP, center.getX(), center.getY(), 10);
         }
         else {
             // create the move action, without animation => the pawn will be put at the center of dest cell
-            move = new MoveAction(model, pawn, "BRBboard", rowDest, colDest);
+            move = new MoveAction(model, selectedPawn, "BRBboard", rowDest, colDest);
         }
         actions.addSingleAction(move);
         return actions;

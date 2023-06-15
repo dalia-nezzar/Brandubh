@@ -8,6 +8,8 @@ import boardifier.model.Model;
 import boardifier.view.View;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.stage.StageStyle;
 import view.BRBView;
 
 /**
@@ -71,15 +73,35 @@ public class BRBControllerAction extends ControllerAction implements EventHandle
         // set event handler on the MenuAI1 item
         BRBView.getMenuAI1().setOnAction(e -> {
             ActionPlayer.typeAI = 1;
+            String message = "AI successfully set to Random";
+            createAlert(message);
         });
         // set event handler on the MenuAI2 item
         BRBView.getMenuAI2().setOnAction(e -> {
             ActionPlayer.typeAI = 2;
+            String message = "AI successfully set to Smart";
+            createAlert(message);
         });
         // set event handler on the MenuAI3 item
         BRBView.getMenuAI3().setOnAction(e -> {
             ActionPlayer.typeAI = 3;
+            String message = "AI successfully set to EAT";
+            createAlert(message);
         });
+    }
+
+    public void createAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        // remove the frame around the dialog
+        alert.initStyle(StageStyle.UNDECORATED);
+        // make it a children of the main game window => it appears centered
+        // make it appear on the top right
+        alert.setX(view.getStage().getX() + view.getStage().getWidth() - alert.getWidth());
+        alert.initOwner(view.getStage());
+        // set the message displayed
+        alert.setHeaderText(message);
+        // display the dialog and wait for the user to close it
+        alert.showAndWait();
     }
 
     public void startNewGame() {
