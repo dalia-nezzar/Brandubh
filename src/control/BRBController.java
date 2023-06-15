@@ -3,7 +3,6 @@ package control;
 import boardifier.control.ActionPlayer;
 import boardifier.control.Controller;
 import boardifier.model.GameElement;
-import boardifier.model.GridElement;
 import boardifier.model.Model;
 import boardifier.model.Player;
 import boardifier.model.action.ActionList;
@@ -13,6 +12,7 @@ import boardifier.view.*;
 import model.BRBBoard;
 import model.BRBStageModel;
 
+import javax.naming.ldap.Control;
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -53,10 +53,11 @@ public class BRBController extends Controller {
      * It is pretty straight forward to write :
      */
     public void stageLoop() {
+        System.out.println("StageLoop");
         update();
         while (!model.isEndStage()) {
             nextPlayer();
-            update();
+            if (!Controller.gVersion) update();
             // get the color of the current player
             int hasPlayedPlayer = model.getIdPlayer();
             // if hasPlayedPlayer == 0, the current player is 'R', else it is 'B'
@@ -304,6 +305,26 @@ public class BRBController extends Controller {
      * Defines what to do when the stage is over
      */
     public void nextPlayer() {
+        if (Controller.gVersion) {
+            // use the default method to compute next player
+            model.setNextPlayer();
+            // get the new player
+            Player p = model.getCurrentPlayer();
+            // change the text of the TextElement
+            BRBStageModel stageModel = (BRBStageModel) model.getGameStage();
+            stageModel.getPlayerName().setText(p.getName());
+            if (p.getType() == Player.COMPUTER) {
+                System.out.println("COMPUTER PLAYS");
+                BRBDecider decider = new BRBDecider(model,this);
+                ActionPlayer play = new ActionPlayer(model, this, decider, null);
+                play.start();
+            }
+        } else {
+            nextPlayerConsole();
+        }
+    }
+
+    public void nextPlayerConsole() {
         // for the first player, the id of the player is already set, so do not compute it
         if (!firstPlayer) {
             model.setNextPlayer();
@@ -319,11 +340,11 @@ public class BRBController extends Controller {
             ActionPlayer play = new ActionPlayer(model, this, decider, null);
             //System.out.println("typeAI1 = " + typeAI1 + " typeAI2 = " + typeAI2 + " idPlayer = " + model.getIdPlayer());
             if (typeAI2 == -1) {
-                play.start(typeAI1);
+                play.play(typeAI1);
             } else if (model.getIdPlayer() == 1) {
-                play.start(typeAI1);
+                play.play(typeAI1);
             } else {
-                play.start(typeAI2);
+                play.play(typeAI2);
             }
         } else {
             boolean ok = false;
@@ -338,7 +359,7 @@ public class BRBController extends Controller {
                     if (line.length() == 3 && (!line.equals(null))) {
                         ok = analyseAndPlay(line);
                     } else if(line.toLowerCase().contains("stop")
-                    || (line.toLowerCase().contains("exit"))) {
+                            || (line.toLowerCase().contains("exit"))) {
                         stopBool=true;
                         stopStage();
                         endGame();
@@ -437,7 +458,7 @@ public class BRBController extends Controller {
         System.out.println("Player " + model.getCurrentPlayer().getName() + " plays " + line);
 
         ActionPlayer play = new ActionPlayer(model, this, actions);
-        play.start(-1);// Number here doesn't matter since this function is only used by the player
+        play.play(-1);// Number here doesn't matter since this function is only used by the player
         // get the pawns to remove
         BRBStageModel stage = (BRBStageModel)model.getGameStage();
         BRBBoard board = stage.getBoard(); // get the board

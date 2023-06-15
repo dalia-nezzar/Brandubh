@@ -29,6 +29,7 @@ public class ControllerAnimation {
                     return;
                 }
                 model.setLastFrame(time);
+                //System.out.println("ControllerAnimation.handle");
                 control.update();
             }
         };

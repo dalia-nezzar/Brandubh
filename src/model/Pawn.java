@@ -63,4 +63,17 @@ public class Pawn extends GameElement {
     public boolean isKing() {
         return king == 'K';
     }
+
+    public void update(double width, double height, GridGeometry gridGeometry) {
+        // if must be animated, move the pawn
+        if (animation != null) {
+            AnimationStep step = animation.next();
+            if (step != null) {
+                setLocation(step.getInt(0), step.getInt(1));
+            }
+            else {
+                animation = null;
+            }
+        }
+    }
 }

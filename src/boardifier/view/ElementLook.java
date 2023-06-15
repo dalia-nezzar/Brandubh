@@ -112,8 +112,8 @@ public abstract class ElementLook {
      * a game element is moved in space.
      */
     public void onLocationChange() {
-        System.out.println("onLocationChange");
-        System.out.println("element.getLocationType() = " + element.getLocationType());
+        //System.out.println("onLocationChange");
+        //System.out.println("element.getLocationType() = " + element.getLocationType());
         if (element.getLocationType() == GameElement.LOCATION_CENTER) {
             Bounds b = group.getBoundsInLocal();
             group.setTranslateX(element.getX() - b.getWidth() / 2);

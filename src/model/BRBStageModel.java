@@ -1,5 +1,6 @@
 package model;
 
+import boardifier.control.Controller;
 import boardifier.model.*;
 import control.BRBController;
 
@@ -126,7 +127,8 @@ public class BRBStageModel extends GameStageModel {
             // set the winner
             model.setIdWinner(idWinner);
             // stop de the game
-            model.stopStage();
+            if (Controller.gVersion) model.stopGame();
+            else model.stopStage();
         }
     }
     private void computePartyResult() {
@@ -192,7 +194,9 @@ public class BRBStageModel extends GameStageModel {
             if (idWinner == 0) nbWinBlack++;
             else if (idWinner == 1) nbWinRed++;
             // stop de the game
-            model.stopStage();
+            if (Controller.gVersion) model.stopGame();
+            else model.stopStage();
+
         }
         else {
             //System.out.println("No winner yet");
