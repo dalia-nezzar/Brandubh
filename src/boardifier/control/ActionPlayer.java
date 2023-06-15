@@ -17,6 +17,9 @@ public class ActionPlayer extends Thread {
     protected ActionList actions;
     protected ActionList preActions;
     public static int typeAI = 1;
+    public static int specialAI1 = -1;
+    public static int specialAI2 = -1;
+    public static boolean switchAI = false;
 
     public ActionPlayer(Model model, Controller control, Decider decider, ActionList preActions) {
         this.model = model;
@@ -35,7 +38,19 @@ public class ActionPlayer extends Thread {
     }
 
     public void run(){
-        play(typeAI);
+        System.out.println("specialAI1 : "+specialAI1);
+        System.out.println("specialAI2 : "+specialAI2);
+        if (specialAI1 != -1 && specialAI2 != -1)
+            if (switchAI) {
+                play(specialAI1);
+                switchAI = false;
+            } else {
+                play(specialAI2);
+                switchAI = true;
+            }
+        else {
+            play(typeAI);
+        }
     }
 
     public void play(int typeAI) {

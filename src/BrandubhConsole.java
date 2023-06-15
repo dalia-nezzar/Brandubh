@@ -157,7 +157,7 @@ public class BrandubhConsole {
         }
         if (BRBController.nbParties > 1000) {
             System.out.println("DataMap size: " + BRBController.dataMap.size() + " elements.");
-            System.out.println("This will maybe take " + BRBController.dataMap.size()/100000 + " seconds to save.");
+            System.out.println("This will maybe take " + (BRBController.dataMap.size()/100000)/4 + " seconds to save.");
             Thread saveFilesThread = new Thread(() -> progressBar(BRBController.dataMap.size()/1000, "Saving files, do not quit... "));
             saveFilesThread.start();
             control.saveAllFiles();

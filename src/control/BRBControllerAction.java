@@ -9,6 +9,8 @@ import boardifier.view.View;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.stage.StageStyle;
 import view.BRBView;
 
@@ -52,23 +54,89 @@ public class BRBControllerAction extends ControllerAction implements EventHandle
         // set event handler on the MenuPvP item
         BRBView.getMenuPvP().setOnAction(e -> {
             mode = 0;
+            ActionPlayer.specialAI1 = -1;
+            ActionPlayer.specialAI2 = -1;
             startNewGame();
         });
         // set event handler on the MenuPvE item
         BRBView.getMenuPvE().setOnAction(e -> {
             mode = 2;
+            ActionPlayer.specialAI1 = -1;
+            ActionPlayer.specialAI2 = -1;
             startNewGame();
         });
         // set event handler on the MenuEvP item
         BRBView.getMenuEvP().setOnAction(e -> {
             mode = 1;
+            ActionPlayer.specialAI1 = -1;
+            ActionPlayer.specialAI2 = -1;
             model.setNextPlayer();
             startNewGame();
         });
         // set event handler on the MenuEvE item
         BRBView.getMenuEvE().setOnAction(e -> {
             mode = 3;
-            startNewGame();
+            // Create a dialog box to prompt the user for AI choice for defenders
+            Alert defenderDialog = new Alert(Alert.AlertType.CONFIRMATION);
+            defenderDialog.setTitle("AI Choice");
+            defenderDialog.setHeaderText("You selected AI vs AI mode.");
+            defenderDialog.setContentText("Please select an AI that will play as defender:");
+
+            // Add AI options as buttons for defenders
+            ButtonType defenderAI1Button = new ButtonType("Random");
+            ButtonType defenderAI2Button = new ButtonType("EAT");
+            ButtonType defenderAI3Button = new ButtonType("SMART");
+            ButtonType defenderCancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            defenderDialog.getButtonTypes().setAll(defenderAI1Button, defenderAI2Button, defenderAI3Button, defenderCancelButton);
+
+            // Show the defender dialog and wait for user input
+            defenderDialog.showAndWait().ifPresent(defenderResult -> {
+                int defenderTypeAI = -1;
+                if (defenderResult == defenderAI1Button) {
+                    defenderTypeAI = 1;
+                } else if (defenderResult == defenderAI2Button) {
+                    defenderTypeAI = 2;
+                } else if (defenderResult == defenderAI3Button) {
+                    defenderTypeAI = 3;
+                } else {
+                    // User clicked Cancel or closed the dialog
+                    return; // Exit the method without starting a new game
+                }
+                ActionPlayer.specialAI1 = defenderTypeAI;
+                // Create a dialog box to prompt the user for AI choice for attackers
+                Alert attackerDialog = new Alert(Alert.AlertType.CONFIRMATION);
+                attackerDialog.setTitle("AI Choice");
+                attackerDialog.setHeaderText("You selected AI vs AI mode.");
+                attackerDialog.setContentText("Please select an AI that will play as attacker:");
+
+                // Add AI options as buttons for attackers
+                ButtonType attackerAI1Button = new ButtonType("Random");
+                ButtonType attackerAI2Button = new ButtonType("EAT");
+                ButtonType attackerAI3Button = new ButtonType("SMART");
+                ButtonType attackerCancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+                attackerDialog.getButtonTypes().setAll(attackerAI1Button, attackerAI2Button, attackerAI3Button, attackerCancelButton);
+
+                // Show the attacker dialog and wait for user input
+                attackerDialog.showAndWait().ifPresent(attackerResult -> {
+                    int attackerTypeAI = -1;
+                    if (attackerResult == attackerAI1Button) {
+                        attackerTypeAI = 1;
+                    } else if (attackerResult == attackerAI2Button) {
+                        attackerTypeAI = 2;
+                    } else if (attackerResult == attackerAI3Button) {
+                        attackerTypeAI = 3;
+                    } else {
+                        // User clicked Cancel or closed the dialog
+                        return; // Exit the method without starting a new game
+                    }
+                    ActionPlayer.specialAI2 = attackerTypeAI;
+                    // Start a new game based on the selected AI modes for defenders and attackers
+
+                    startNewGame();
+                });
+            });
         });
         // set event handler on the MenuAI1 item
         BRBView.getMenuAI1().setOnAction(e -> {

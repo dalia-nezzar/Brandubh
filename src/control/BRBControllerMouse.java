@@ -104,15 +104,15 @@ public class BRBControllerMouse extends ControllerMouse implements EventHandler<
             }
              */
             GameElement pawn = model.getSelected().get(0);
-            System.out.println("pawn "+pawn);
+            //System.out.println("pawn "+pawn);
 
             // thirdly, get the clicked cell in the 7x7 board
             GridLook lookBoard = (GridLook) control.getElementLook(board);
             int[] dest = lookBoard.getCellFromSceneLocation(clic);
-            System.out.println("dest "+dest[0]+","+dest[1]);
+            //System.out.println("dest "+dest[0]+","+dest[1]);
             // get the cell in the pot that owns the selected pawn
             //int[] from = pot.getElementCell(pawn);
-            System.out.println("try to move pawn " + pawn.getNumber() + " to " + dest[0]+","+dest[1]);
+            //System.out.println("try to move pawn " + pawn.getNumber() + " to " + dest[0]+","+dest[1]);
             // if the destination cell is valid for the selected pawn
             //System.out.println("can reach cell "+board.canReachCell(dest[0], dest[1]));
             // if isKing(), then char is 'K', else ' '
@@ -123,23 +123,23 @@ public class BRBControllerMouse extends ControllerMouse implements EventHandler<
             List<Point> valid = null;
             valid = board.computeValidCells(coords[0], coords[1], pawn.isKing());
             // if dest[0],dest[1] is in the list of valid cells, then move the pawn
-            System.out.println("valid contains "+valid.contains(new Point(dest[0], dest[1])));
+            //System.out.println("valid contains "+valid.contains(new Point(dest[0], dest[1])));
             if (valid.contains(new Point(dest[0], dest[1]))) {
                 // build the list of actions to do, and pass to the next player when done
                 ActionList actions = new ActionList(true);
                 // determine the destination point in the root pane
                 Coord2D center = lookBoard.getRootPaneLocationForCellCenter(dest[1], dest[0]);
                 // create an action with a linear move animation, with 10 pixel/frame
-                System.out.println("pawn "+pawn);
-                System.out.println("center "+center.getX()+","+center.getY());
+                //System.out.println("pawn "+pawn);
+                //System.out.println("center "+center.getX()+","+center.getY());
                 GameAction move = new MoveAction(model, pawn, "BRBboard", dest[1], dest[0], AnimationTypes.MOVE_LINEARPROP, center.getX(), center.getY(), 10);
                 // add the action to the action list.
                 actions.addSingleAction(move);
-                System.out.println("move " + move);
+                //System.out.println("move " + move);
                 stageModel.unselectAll();
                 stageModel.setState(BRBStageModel.STATE_SELECTPAWN);
                 ActionPlayer play = new ActionPlayer(model, control, actions);
-                System.out.println("play " + play);
+                //System.out.println("play " + play);
                 play.start();
                 // check if there are pawns to remove
                 List<GameElement> toRemove = board.getPawnsToRemove(dest[1], dest[0], pawn.getColor());
