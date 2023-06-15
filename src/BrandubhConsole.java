@@ -30,7 +30,7 @@ public class BrandubhConsole {
 
         int modeChoice;
         try {
-            modeChoice = Integer.parseInt(args[0]);
+            modeChoice = Integer.parseInt(args[1]);
             if ((modeChoice <0) || (modeChoice>2)) modeChoice = -1;
         }
         catch(NumberFormatException | ArrayIndexOutOfBoundsException e) {
@@ -44,13 +44,13 @@ public class BrandubhConsole {
 
         switch (mode) {
             case HUMAN_VS_HUMAN:
-                System.out.println("You chose a"+ BLACK_BOLD +" brother (human) vs brother (human) "+ BLACK +"game!");
+                System.out.println(BLACK_BOLD +"You chose a"+ BLACK_BOLD +" brother (human) vs brother (human) "+ BLACK +"game!");
                 break;
             case HUMAN_VS_COMPUTER:
-                System.out.println("You chose a"+ BLACK_BOLD +" brother (human) vs God (computer) "+ BLACK +"game!");
+                System.out.println(BLACK_BOLD +"You chose a"+ BLACK_BOLD +" brother (human) vs God (computer) "+ BLACK +"game!");
                 break;
             case COMPUTER_VS_COMPUTER:
-                System.out.println("You chose a"+ BLACK_BOLD +" God (computer) vs God (computer) "+ BLACK +"game!");
+                System.out.println(BLACK_BOLD +"You chose a"+ BLACK_BOLD +" God (computer) vs God (computer) "+ BLACK +"game!");
                 break;
         }
         String AI1Mode1="";
@@ -232,9 +232,9 @@ public class BrandubhConsole {
 
         try {
             if (player == 1)
-                ai = Integer.parseInt(args[1]);
-            else if (player == 2)
                 ai = Integer.parseInt(args[2]);
+            else if (player == 2)
+                ai = Integer.parseInt(args[3]);
             else
                 ai = -1;
         } catch (Exception e) {

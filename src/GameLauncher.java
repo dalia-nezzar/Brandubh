@@ -27,11 +27,11 @@ public class GameLauncher extends Application {
         System.out.println("Choose the game version:");
         System.out.println("1. Console Version");
         System.out.println("2. Graphical Version");
-        if (args.length > 0 && args[0].equals("console")) {
+        if (args.length > 0 && args[0].equals("console".toLowerCase())) {
             // Execute the console version
             BrandubhConsole game = new BrandubhConsole();
             game.start(args);
-        } else if (args.length > 0 && args[0].equals("graphical")) {
+        } else if (args.length > 0 && args[0].equals("graphical".toLowerCase())) {
             // Execute the graphical version
             Controller.gVersion = true;
             launch(args);

@@ -7,8 +7,9 @@
     <list default="true" id="2d7a093e-41d2-4c7a-bd8f-3ae7fe96411e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dataMap.bin" beforeDir="false" afterPath="$PROJECT_DIR$/dataMap.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/control/ActionPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/control/ActionPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/control/BRBControllerAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBControllerAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BrandubhConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BrandubhConsole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameLauncher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/GameSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/GameSettings.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,11 +88,12 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Brandubh">
+  <component name="RunManager" selected="Application.Brandubh eatWhenPossible">
     <configuration name="Brandubh AI vs AI" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="GameLauncher" />
       <module name="Brandubh" />
-      <option name="PROGRAM_PARAMETERS" value="2 3 3 100" />
+      <option name="PROGRAM_PARAMETERS" value="console 2 3 3 100" />
+      <option name="VM_PARAMETERS" value="-Xmx6g --module-path E:\Github\MyJavaLibs\javafx-sdk-20.0.1\lib --add-modules javafx.controls,javafx.fxml" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -101,6 +103,7 @@
       <module name="Brandubh" />
       <option name="REDIRECT_INPUT" value="true" />
       <option name="INPUT_FILE" value="src/playerDraw.txt" />
+      <option name="VM_PARAMETERS" value="-Xmx6g --module-path E:\Github\MyJavaLibs\javafx-sdk-20.0.1\lib --add-modules javafx.controls,javafx.fxml" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -110,7 +113,7 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="GameLauncher" />
       <module name="Brandubh" />
-      <option name="VM_PARAMETERS" value="--module-path $USER_HOME$/Téléchargements/javafx-sdk-20.0.1/lib --add-modules=javafx.base,javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web" />
+      <option name="VM_PARAMETERS" value="-Xmx6g --module-path E:\Github\MyJavaLibs\javafx-sdk-20.0.1\lib --add-modules javafx.controls,javafx.fxml" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -120,6 +123,7 @@
       <module name="Brandubh" />
       <option name="REDIRECT_INPUT" value="true" />
       <option name="INPUT_FILE" value="src/eatWhenPossible.txt" />
+      <option name="VM_PARAMETERS" value="-Xmx6g --module-path E:\Github\MyJavaLibs\javafx-sdk-20.0.1\lib --add-modules javafx.controls,javafx.fxml" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -129,6 +133,7 @@
       <module name="Brandubh" />
       <option name="REDIRECT_INPUT" value="true" />
       <option name="INPUT_FILE" value="src/gamer1Win.txt" />
+      <option name="VM_PARAMETERS" value="-Xmx6g --module-path E:\Github\MyJavaLibs\javafx-sdk-20.0.1\lib --add-modules javafx.controls,javafx.fxml" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -138,6 +143,7 @@
       <module name="Brandubh" />
       <option name="REDIRECT_INPUT" value="true" />
       <option name="INPUT_FILE" value="src/gamer2Win.txt" />
+      <option name="VM_PARAMETERS" value="-Xmx6g --module-path E:\Github\MyJavaLibs\javafx-sdk-20.0.1\lib --add-modules javafx.controls,javafx.fxml" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -155,6 +161,7 @@
       <module name="Brandubh" />
       <option name="REDIRECT_INPUT" value="true" />
       <option name="INPUT_FILE" value="src/mistakes.txt" />
+      <option name="VM_PARAMETERS" value="-Xmx6g --module-path E:\Github\MyJavaLibs\javafx-sdk-20.0.1\lib --add-modules javafx.controls,javafx.fxml" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
