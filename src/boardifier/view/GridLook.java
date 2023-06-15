@@ -32,7 +32,7 @@ public class GridLook extends ElementLook {
         }
 
         geometry = new GridGeometry(this);
-        System.out.println("GridLook height " + height + " width " + width);
+        //System.out.println("GridLook height " + height + " width " + width);
     }
 
     public GridLook(int cellWidth, int cellHeight, GridElement gridElement, int depth, boolean showCoords) {
@@ -53,8 +53,8 @@ public class GridLook extends ElementLook {
      * createShape() provides a default look for the grid. It can be overriden in subclasses.
      */
     protected void createShape() {
-        System.out.println("GridLook.createShape");
-        System.out.println("shape " + shape);
+        //System.out.println("GridLook.createShape");
+        //System.out.println("shape " + shape);
         // draw cells
         GridElement gridElement = (GridElement) element;
         int nbRows = gridElement.getNbRows();

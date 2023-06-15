@@ -53,7 +53,7 @@ public class BRBController extends Controller {
      * It is pretty straight forward to write :
      */
     public void stageLoop() {
-        System.out.println("StageLoop");
+        //System.out.println("StageLoop");
         update();
         while (!model.isEndStage()) {
             nextPlayer();
@@ -72,14 +72,26 @@ public class BRBController extends Controller {
         // Print the number of wins for each player
         int[] score = BRBStageModel.getScore();
 
-        System.out.println("========================================");
-        System.out.println("Score : "+ BLACK_BOLD+"BLACK " + score[0] + BLUE+ " - "+ RED_BOLD +"RED " + score[1] + BLACK);
-        System.out.println("========================================");
+        if (nbParties < 1000) {
+            System.out.println(BLACK +
+                    "========================================" +
+                    "\nScore : " + BLACK_BOLD + "BLACK " + score[0] + BLUE + " - " + RED_BOLD + "RED " + score[1] + BLACK +
+                    "\n========================================");
+        } else {
+            System.out.print(
+                    "\r" + ( BLACK +
+                    "========================================" +
+                    "\nScore : " + BLACK_BOLD + "BLACK " + score[0] + BLUE + " - " + RED_BOLD + "RED " + score[1] + BLACK +
+                    "\n========================================"));
+        }
+        System.out.println();
         firstPlayer= true;
-        System.out.println("Score : BLACK " + score[0] + " - RED " + score[1]);
-        System.out.println("NB of RDM moves : " + BRBDecider.nbRDM);
-        System.out.println("NB of Smart moves : " + BRBDecider.nbSmart);
-        System.out.println("NB of pawns eaten : " + BRBDecider.nbOfRemovedPawns);
+        if (nbParties <= 1000) {
+            System.out.println("Score : BLACK " + score[0] + " - RED " + score[1]);
+            System.out.println("NB of RDM moves : " + BRBDecider.nbRDM);
+            System.out.println("NB of Smart moves : " + BRBDecider.nbSmart);
+            System.out.println("NB of pawns eaten : " + BRBDecider.nbOfRemovedPawns);
+        }
         stopStage();
         endGame();
         // save the data into the files

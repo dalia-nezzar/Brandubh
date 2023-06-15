@@ -25,8 +25,8 @@ public class BrandubhConsole {
     public static final int COMPUTER_VS_COMPUTER = 2;
 
     public static void start(String[] args) {
-        Thread loadFilesThread = new Thread(() -> BRBDecider.loadData("dataMap.bin"));
-        loadFilesThread.start();
+        //Thread loadFilesThread = new Thread(() -> BRBDecider.loadData("dataMap.bin"));
+        //loadFilesThread.start();
 
         int modeChoice;
         try {
@@ -125,16 +125,16 @@ public class BrandubhConsole {
         }
          */
         //if both of the AI are not smart then interrupt the thread
-        if (BRBController.typeAI1 != 2 && BRBController.typeAI2 != 2 && loadFilesThread.isAlive()) {
+        if (BRBController.typeAI1 != 2 && BRBController.typeAI2 != 2 && GameLauncher.loadFilesThread.isAlive()) {
             //System.out.println("interrupting thread");
-            loadFilesThread.interrupt();
+            GameLauncher.loadFilesThread.interrupt();
             // Free up memory
             BRBController.dataMap.clear();
-        } else if ((BRBController.typeAI1 == 2 || BRBController.typeAI2 == 2) && loadFilesThread.isAlive()) {
+        } else if ((BRBController.typeAI1 == 2 || BRBController.typeAI2 == 2) && GameLauncher.loadFilesThread.isAlive()) {
             Thread loadBarThread = new Thread(() -> loadBar(500, "Data still loading, please wait"));
             loadBarThread.start();
             try {
-                loadFilesThread.join();
+                GameLauncher.loadFilesThread.join();
             } catch (InterruptedException e) {
                 //e.printStackTrace();
             }
@@ -157,7 +157,7 @@ public class BrandubhConsole {
         }
         if (BRBController.nbParties > 1000) {
             System.out.println("DataMap size: " + BRBController.dataMap.size() + " elements.");
-            System.out.println("This will take " + BRBController.dataMap.size()/100000 + " seconds to save.");
+            System.out.println("This will maybe take " + (BRBController.dataMap.size()/100000)/4 + " seconds to save.");
             Thread saveFilesThread = new Thread(() -> progressBar(BRBController.dataMap.size()/1000, "Saving files, do not quit... "));
             saveFilesThread.start();
             control.saveAllFiles();

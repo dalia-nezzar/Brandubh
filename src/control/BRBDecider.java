@@ -43,6 +43,8 @@ public class BRBDecider extends Decider {
     public static int nbRDM = 0;
     public static int nbSmart = 0;
     public static int nbOfRemovedPawns = 0;
+    // ArrayList of the last moves
+    public static ArrayList<String> lastMoves = new ArrayList<>();
 
     /**
      * Select the AI we want to play against
@@ -179,7 +181,15 @@ public class BRBDecider extends Decider {
             valid = board.computeValidCells(coords[0], coords[1], pawn.isKing());
             // print the valid cells one by one
             for (int j = 0; j < valid.size(); j++) {
-                System.out.println("pawn " + pawn.getNumber() + " of color " + pawn.getColor() + " can move to row: " + valid.get(j).y + " col: " + valid.get(j).x);
+                //print lastMoves
+                //System.out.println("lastMoves: " + lastMoves);
+                //System.out.println(""+pawn.getColor()+pawn.getNumber()+valid.get(j).y+valid.get(j).x);
+                //System.out.println(lastMoves.contains(""+pawn.getColor()+pawn.getNumber()+valid.get(j).y+valid.get(j).x));
+                if (lastMoves.contains(""+pawn.getColor()+pawn.getNumber()+valid.get(j).y+valid.get(j).x)) {
+                    valid.remove(j);
+                    continue;
+                }
+                //System.out.println("pawn " + pawn.getNumber() + " of color " + pawn.getColor() + " can move to row: " + valid.get(j).y + " col: " + valid.get(j).x);
                 // Can he eat something?
                 toRemove.clear();
                 if (!pawn.isKing()) toRemove = board.getPawnsToRemove(valid.get(j).y, valid.get(j).x, pawn.getColor());
@@ -270,8 +280,8 @@ public class BRBDecider extends Decider {
                     selectedPawn = pawn;
                 }
                 // print data info
-                System.out.println(data);
-                System.out.println("score: " + score);
+                //System.out.println(data);
+                //System.out.println("score: " + score);
             }
         }
         if (highestScore == 0) return decideEAT();
@@ -308,6 +318,11 @@ public class BRBDecider extends Decider {
             // create the move action, without animation => the pawn will be put at the center of dest cell
             move = new MoveAction(model, selectedPawn, "BRBboard", rowDest, colDest);
         }
+        //update last move
+        if (lastMoves.size() >= 10) {
+            lastMoves.remove(0);
+        }
+        lastMoves.add(""+pawn.getColor()+pawn.getNumber()+rowDest+colDest);
         actions.addSingleAction(move);
         return actions;
     }

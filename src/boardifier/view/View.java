@@ -145,7 +145,7 @@ public class View {
     }
 
     public void setView(GameStageView gameStageView) {
-        System.out.println("View.setView()");
+        //System.out.println("View.setView()");
         if (Controller.gVersion) rootPane.init(gameStageView);
         //NB: gameStageView may be null if there is no game stage view to draw (cf. SimpleTextView)
         this.gameStageView = gameStageView;

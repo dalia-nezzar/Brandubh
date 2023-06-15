@@ -57,7 +57,7 @@ public abstract class ElementLook {
 
     public ElementLook(GameElement element, int depth) {
         this.element = element;
-        System.out.println("element = " + element);
+        //System.out.println("element = " + element);
         group = new Group();
         shapes = new ArrayList<>();
         this.width = 1;

@@ -1,6 +1,7 @@
 import boardifier.control.StageFactory;
 import boardifier.model.Model;
 import control.BRBController;
+import control.BRBDecider;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import control.BRBController;
@@ -13,8 +14,16 @@ import view.BRBView;
 import java.util.Scanner;
 import boardifier.control.*;
 
+import static boardifier.view.ConsoleColor.BLACK;
+import static boardifier.view.ConsoleColor.WHITE;
+
 public class GameLauncher extends Application {
+    public static Thread loadFilesThread;
+
     public static void main(String[] args) {
+        loadFilesThread = new Thread(() -> BRBDecider.loadData("dataMap.bin"));
+        loadFilesThread.start();
+
         System.out.println("Choose the game version:");
         System.out.println("1. Console Version");
         System.out.println("2. Graphical Version");
@@ -28,7 +37,22 @@ public class GameLauncher extends Application {
             launch(args);
         } else {
             String choice = BRBController.input.nextLine().replaceAll("\\D+", "");
-            int choiceInt = Integer.parseInt(choice);
+            boolean continueLoop = true;
+            int choiceInt = 0;
+            while (continueLoop) {
+                try {
+                    choiceInt = Integer.parseInt(choice);
+                    if (choiceInt == 1 || choiceInt == 2) {
+                        continueLoop = false;
+                    } else {
+                        System.out.println("Invalid choice. Please enter 1 or 2.");
+                        choice = BRBController.input.nextLine().replaceAll("\\D+", "");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid choice. Please enter 1 or 2.");
+                    choice = BRBController.input.nextLine().replaceAll("\\D+", "");
+                }
+            }
 
             if (choiceInt == 1) {
                 // Execute the console version
@@ -46,7 +70,22 @@ public class GameLauncher extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
+        if (GameLauncher.loadFilesThread.isAlive()) {
+            Thread loadBarThread = new Thread(() -> BrandubhConsole.loadBar(500, "Data still loading, please wait"));
+            loadBarThread.start();
+            try {
+                GameLauncher.loadFilesThread.join();
+            } catch (InterruptedException e) {
+                //e.printStackTrace();
+            }
+            loadBarThread.interrupt();
+            Thread.sleep(50);
+            if (BRBDecider.consoleMessages != "") {
+                System.out.println(BRBDecider.consoleMessages);
+                BRBDecider.consoleMessages = "";
+                System.out.println(BLACK);
+            }
+        }
         // create the global model
         Model model = new Model();
         int mode = 0;

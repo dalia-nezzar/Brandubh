@@ -63,9 +63,11 @@ public abstract class Controller {
 
     public void startGame() throws GameException {
         if (firstStageName.isEmpty()) throw new GameException("The name of the first stage have not been set. Abort");
-        System.out.println("======================");
-        System.out.println(BLUE_BOLD + "THE WAR HAS STARTED" + BLACK);
-        System.out.println("======================");
+        if (BRBController.nbParties <= 1000) {
+            System.out.println("======================");
+            System.out.println(BLUE_BOLD + "THE WAR HAS STARTED" + BLACK);
+            System.out.println("======================");
+        }
         startStage(firstStageName);
         // Make the second player play first
         if (!Controller.gVersion) model.setNextPlayer();
@@ -84,7 +86,7 @@ public abstract class Controller {
      */
     protected void startStage(String stageName) throws GameException {
         if (model.isStageStarted()) { stopGame(); }
-        System.out.println("START STAGE "+stageName);
+        //System.out.println("START STAGE "+stageName);
         // create the model of the stage by using the StageFactory
         GameStageModel gameStageModel = StageFactory.createStageModel(stageName, model);
         // create the elements of the stage by getting the default factory of this stage and giving it to createElements()
@@ -120,7 +122,7 @@ public abstract class Controller {
     }
 
     public void stopStage() {
-        System.out.println("STOP STAGE");
+        //System.out.println("STOP STAGE");
         model.stopStage();
         if (Controller.gVersion) {
             model.reset();
@@ -142,7 +144,7 @@ public abstract class Controller {
      * winner and that proposes to start a new game or to quit.
      */
     public void endGame() {
-        System.out.println("endGame()");
+        //System.out.println("endGame()");
         if (Controller.gVersion) {
             String message = "";
             if (model.getIdWinner() != -1) {
@@ -189,12 +191,14 @@ public abstract class Controller {
                 System.exit(1);
             }
         } else {
-            System.out.println("======================");
-            System.out.println(RED_BOLD + "THE WAR HAS ENDED" + BLACK);
-            System.out.println("======================");
-            if (model.getIdWinner() != -1) {
+            if (BRBController.nbParties <= 1000) {
+                System.out.println("======================");
+                System.out.println(RED_BOLD + "THE WAR HAS ENDED" + BLACK);
+                System.out.println("======================");
+            }
+            if (model.getIdWinner() != -1 && BRBController.nbParties <= 1000) {
                 System.out.println(model.getPlayers().get(model.getIdWinner()).getName() + " wins! Shall the land of the defeated be in the hands of the true warrior!");
-            } else {
+            } else if (BRBController.nbParties <= 1000) {
                 System.out.println("Game has been drawn! No victory, nor loss. Just a draw.");
             }
         }

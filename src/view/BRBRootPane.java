@@ -14,9 +14,9 @@ public class BRBRootPane extends RootPane {
 
     @Override
     public void createDefaultGroup() {
-        System.out.println("BRBRootPane.createDefaultGroup()");
+        //System.out.println("BRBRootPane.createDefaultGroup()");
         Rectangle frame = new Rectangle(600, 100, Color.LIGHTGREY);
-        Text text = new Text("Playing to The Hole");
+        Text text = new Text("Playing Brandubh !");
         text.setFont(new Font(15));
         text.setFill(Color.BLACK);
         text.setX(10);
