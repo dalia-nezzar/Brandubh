@@ -41,7 +41,7 @@ public class BRBControllerMouse extends ControllerMouse implements EventHandler<
         Coord2D clic = new Coord2D(event.getSceneX(),event.getSceneY());
         // get elements at that position
         List<GameElement> list = control.elementsAt(clic);
-        // for debug, uncomment next instructions to display x,y and elements at that postion
+        // for debug, uncomment next instructions to display x,y and elements at that position
         /*
         System.out.println("click in "+event.getSceneX()+","+event.getSceneY());
         for(GameElement element : list) {
@@ -50,7 +50,7 @@ public class BRBControllerMouse extends ControllerMouse implements EventHandler<
          */
         BRBStageModel stageModel = (BRBStageModel) model.getGameStage();
 
-        if (stageModel.getState() == BRBStageModel.STATE_SELECTPAWN) {
+        if (stageModel.getState() == BRBStageModel.STATE_SELECTPAWN) { // if we are in the state where we select a pawn
             for (GameElement element : list) {
                 if (element.getType() == ElementTypes.getType("pawn")) {
                     Pawn pawn = (Pawn)element;
@@ -63,7 +63,7 @@ public class BRBControllerMouse extends ControllerMouse implements EventHandler<
                 }
             }
         }
-        else if (stageModel.getState() == BRBStageModel.STATE_SELECTDEST) {
+        else if (stageModel.getState() == BRBStageModel.STATE_SELECTDEST) { // if we are in the state where we select a destination
             // first check if the click is on the current selected pawn. In this case, unselect it
             for (GameElement element : list) {
                 if (element.isSelected()) {
@@ -72,7 +72,20 @@ public class BRBControllerMouse extends ControllerMouse implements EventHandler<
                     return;
                 }
             }
-            // secondly, search if the board has been clicked. If not just return
+            // secondly, check if the click is on another pawn from the same color. In this case, select it
+            for (GameElement element : list) {
+                if (element.getType() == ElementTypes.getType("pawn")) {
+                    Pawn pawn = (Pawn)element;
+                    // check if color of the pawn corresponds to the current player id
+                    if (pawn.getColor() == model.getIdPlayer() || (pawn.getColor() == 2 && model.getIdPlayer() == 0)) {
+                        // unselect the previous selected pawn
+                        model.getSelected().get(0).toggleSelected();
+                        element.toggleSelected();
+                        return; // do not allow another element to be selected
+                    }
+                }
+            }
+            // thirdly, search if the board has been clicked. If not just return
             boolean boardClicked = false;
             for (GameElement element : list) {
                 if (element == stageModel.getBoard()) {
@@ -135,6 +148,5 @@ public class BRBControllerMouse extends ControllerMouse implements EventHandler<
             }
         }
     }
-
 }
 
