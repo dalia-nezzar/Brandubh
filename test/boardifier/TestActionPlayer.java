@@ -31,7 +31,7 @@ class TestActionPlayer {
         ActionPlayer actionPlayer = new ActionPlayer(mockModel, mockController, mockDecider, mockPreActions);
 
         // Act
-        actionPlayer.start(1);
+        actionPlayer.play(1);
 
         // Assert
         verify(mockModel, times(1)).setCaptureEvents(false);
@@ -51,7 +51,7 @@ class TestActionPlayer {
         ActionPlayer actionPlayer = new ActionPlayer(mockModel, mockController, mockActions);
 
         // Act
-        actionPlayer.start(1);
+        actionPlayer.play(1);
 
         // Assert
         verify(mockModel, times(1)).setCaptureEvents(false);
