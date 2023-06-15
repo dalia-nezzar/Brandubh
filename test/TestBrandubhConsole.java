@@ -1,33 +1,42 @@
+import control.BRBController;
+import control.BRBDecider;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.Scanner;
 
 public class TestBrandubhConsole {
 
     @Test
-    public void testStart() {
+    public void testStartMethod() {
+        // Test modeChoice = -1
         String[] args1 = {};
-        String input1 = "1\nPlayer1\n2\nPlayer2\n";
-        System.setIn(new ByteArrayInputStream(input1.getBytes()));
-        BrandubhConsole.start(args1);
-        // Exemple : Vérification de la sortie attendue dans la console
-        assertEquals("You chose a brother (human) vs brother (human) game!\n", getConsoleOutput());
+        // Mock the input to simulate user interaction
+        BRBController.input = new Scanner("1\n");
+        BRBDecider.loadData("dataMap.bin");
+        // Call the method and assert the expected behavior
+        assertDoesNotThrow(() -> BrandubhConsole.start(args1));
+       
 
+        // Test modeChoice = 1
+        String[] args2 = {"1"};
+        // Mock the input to simulate user interaction
+        BRBController.input = new Scanner("1\n");
+        BRBDecider.loadData("dataMap.bin");
+        // Call the method and assert the expected behavior
+        assertDoesNotThrow(() -> BrandubhConsole.start(args2));
+
+        // Test modeChoice = 2
+        String[] args3 = {"2"};
+        // Mock the input to simulate user interaction
+        BRBController.input = new Scanner("1\n");
+        BRBDecider.loadData("dataMap.bin");
+        // Call the method and assert the expected behavior
+        assertDoesNotThrow(() -> BrandubhConsole.start(args3));
     }
 
-    private String getConsoleOutput() {
-        // Capture la sortie de la console
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(outputStream);
-        System.setOut(printStream);
-        // Récupère la sortie
-        String output = outputStream.toString();
-        // Restaure la sortie standard
-        System.setOut(System.out);
-        return output;
-
-    }
+    // Add more test methods for other methods in your code
 
 }

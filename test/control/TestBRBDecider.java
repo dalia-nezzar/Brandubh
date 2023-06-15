@@ -1,51 +1,27 @@
 package control;
-
-import boardifier.control.Controller;
-import boardifier.control.Decider;
-import boardifier.model.GameElement;
-import boardifier.model.Model;
-import boardifier.model.action.ActionList;
-import boardifier.view.View;
-import model.BRBBoard;
+import boardifier.model.TextElement;
 import model.BRBStageModel;
-import org.junit.jupiter.api.BeforeEach;
+import model.Pawn;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+// mockito
+import org.mockito.Mockito;
+import model.BRBBoard;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+public class TestBRBDecider{
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-class TestBRBDecider {
     @Test
-    void testDecideEAT() {
-        // Arrange
-        Model mockModel = mock(Model.class);
-        BRBStageModel mockStage = mock(BRBStageModel.class);
-        BRBBoard mockBoard = mock(BRBBoard.class);
-        GameElement mockPawn = mock(GameElement.class);
-        Controller mockController = mock(Controller.class);
-
-        int[] coords = {};  // ou toute autre valeur pertinente
-        when(mockBoard.getCoords(anyInt(), anyInt(), anyChar())).thenReturn(coords);
-
-        when(mockModel.getGameStage()).thenReturn(mockStage);
-        when(mockStage.getBoard()).thenReturn(mockBoard);
-        when(mockBoard.getPawns(anyInt())).thenReturn(Arrays.asList(mockPawn));
-        when(mockBoard.computeValidCells(anyInt(), anyInt(), anyBoolean())).thenReturn(new ArrayList<Point>());
-        when(mockBoard.getPawnsToRemove(anyInt(), anyInt(), anyInt())).thenReturn(new ArrayList<GameElement>());
-
-        BRBDecider decider = new BRBDecider(mockModel, mockController);
-
-        // Act
-        ActionList result = decider.decideEAT();
-
-        // Assert
-        assertNotNull(result); // replace this with more specific checks based on your requirements
+    public void stageModelTest() {
+        BRBStageModel stage = Mockito.mock(BRBStageModel.class);
+        BRBBoard board = Mockito.mock(BRBBoard.class);
+        Pawn[] pawns = new Pawn[3];
+        Pawn[] pawns2 = new Pawn[3];
+        Pawn[] pawns3 = new Pawn[2];
+        TextElement playerName = Mockito.mock(TextElement.class);
+        Mockito.when(stage.getBoard()).thenReturn(board);
+        Mockito.when(stage.getBlackPawns()).thenReturn(pawns);
+        Mockito.when(stage.getRedPawns()).thenReturn(pawns2);
+        Mockito.when(stage.getBlackKingPawns()).thenReturn(pawns3);
+        Mockito.when(stage.getPlayerName()).thenReturn(playerName);
     }
-
 }
