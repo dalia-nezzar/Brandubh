@@ -54,4 +54,8 @@ public class BRBBoardLook extends GridLook {
             }
         }
     }
+
+    public Rectangle[][] getCells() {
+        return cells;
+    }
 }
