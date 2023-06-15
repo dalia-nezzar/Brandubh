@@ -1,8 +1,10 @@
 package boardifier.model;
 
 import model.BRBBoard;
+import model.BRBStageModel;
 import model.Pawn;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

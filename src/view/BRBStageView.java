@@ -27,9 +27,6 @@ public class BRBStageView extends GameStageView {
         if (!Controller.gVersion) addLook(new GridLook(4, 2, model.getBoard(), -4, true));
         else addLook(new BRBBoardLook(320, model.getBoard()));
 
-        if (!Controller.gVersion) addLook(new GridLook(4, 2, model.getBoard(), -4, true));
-        else addLook(new BRBBoardLook(320, model.getBoard()));
-
         for(int i=0;i<4;i++) {
             if (!Controller.gVersion) addLook(new PawnLook(model.getBlackPawns()[i]));
             else addLook(new PawnLook(25, model.getBlackPawns()[i]));

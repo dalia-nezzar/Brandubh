@@ -1,3 +1,4 @@
+import boardifier.control.Controller;
 import boardifier.control.StageFactory;
 import boardifier.model.GameException;
 import boardifier.model.Model;
@@ -14,6 +15,7 @@ import java.io.*;
 import javax.swing.*;
 
 import static boardifier.view.ConsoleColor.*;
+import static java.lang.System.exit;
 import static model.GameSettings.setNumberGame;
 
 
@@ -146,7 +148,7 @@ public class BrandubhConsole {
         try {
             for (int i=0;i<BRBController.nbParties;i++) {
                 control.startGame();
-                control.stageLoop();
+                if (!Controller.gVersion) control.stageLoop();
                 if (BRBController.stopBool) break;
             }
         }
@@ -163,7 +165,9 @@ public class BrandubhConsole {
                 saveFilesThread.interrupt();
                 progressBar(10, "\rSaving files, do not quit... ");
             }
+            System.out.println("Saving files done.");
         }
+        exit(0);
     }
 
     /**

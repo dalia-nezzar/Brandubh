@@ -3,11 +3,13 @@ package boardifier.control;
 import boardifier.model.*;
 import boardifier.model.action.ActionList;
 import boardifier.model.action.GameAction;
+import boardifier.model.animation.Animation;
+import javafx.application.Platform;
 
 import java.util.List;
 
 
-public class ActionPlayer {
+public class ActionPlayer extends Thread {
 
     protected Controller control;
     protected Model model;
@@ -31,7 +33,13 @@ public class ActionPlayer {
         this.preActions = null;
     }
 
-    public void start(int typeAI) {
+    public void run(){
+
+        play(0);
+    }
+
+    public void play(int typeAI) {
+        System.out.println("ActionPlayer.run");
         // first disable event capture
         model.setCaptureEvents(false);
 
@@ -39,7 +47,7 @@ public class ActionPlayer {
             playActions(preActions);
         }
         // if there is a decider, decide what to do
-        if (decider != null && typeAI != 0 && (typeAI==1 || typeAI==2 || typeAI==3)) {
+        if (decider != null && (typeAI==1 || typeAI==2 || typeAI==3)) {
             // create neural network
             actions = decider.decider(typeAI);
             //1 aléatoire
@@ -52,14 +60,37 @@ public class ActionPlayer {
         //System.out.println(this);
 
         model.setCaptureEvents(true);
-
+        // now check if the next player must play, but only if not at the end of the stage/game
+        // NB: the ned of the stage/game may have been detected by playing the actions
+        if (Controller.gVersion && (!model.isEndStage()) && (!model.isEndGame()) && (actions.mustDoNextPlayer())) {
+            Platform.runLater( () -> {control.nextPlayer();});
+        }
     }
 
     private void playActions(ActionList actions) {
         // loop over all action packs
         int idPack = 0;
         for(List<GameAction> actionPack : actions.getActions()) {
-            // System.out.println("playing pack "+idPack);
+            System.out.println("playing pack "+idPack);
+            System.out.println("actionPack size : "+actionPack.size());
+            // step 1 : start animations from actions.
+            Animation[] animations = new Animation[actionPack.size()];
+            int idx=0;
+            for(GameAction action : actionPack) {
+                if (action.getAnimation() != null) {
+                    animations[idx++] = action.getAnimation();
+                    System.out.println("animation "+idx+" : "+action.getAnimation());
+                    action.setupAnimation();
+                }
+            }
+            // step 2 : start animations of the same pack
+            for(int i=0;i<idx;i++) {
+                animations[i].start();
+            }
+            // step 3 : wait for the end of all animations
+            for(int i=0;i<idx;i++) {
+                animations[i].getAnimationState().waitStop();
+            }
             // step 4 : do the real actions, based on action.type
             for(GameAction action : actionPack) {
                 action.execute();

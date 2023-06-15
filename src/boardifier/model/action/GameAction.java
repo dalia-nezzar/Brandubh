@@ -51,6 +51,7 @@ public abstract class GameAction {
      * Used in the ActionPlayer thread to prepare the animation before it is started
      */
     public void setupAnimation() {
+        System.out.println("GameAction.setupAnimation animation = " + animation);
         if (animation == null) return;
         animation.computeSteps();
         element.setAnimation(animation);

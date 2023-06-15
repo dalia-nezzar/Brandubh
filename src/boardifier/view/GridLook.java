@@ -32,6 +32,7 @@ public class GridLook extends ElementLook {
         }
 
         geometry = new GridGeometry(this);
+        System.out.println("GridLook height " + height + " width " + width);
     }
 
     public GridLook(int cellWidth, int cellHeight, GridElement gridElement, int depth, boolean showCoords) {
@@ -176,7 +177,19 @@ public class GridLook extends ElementLook {
     public int[] getCellFromSceneLocation(Coord2D p) {
         // get the group node that contains the shapes/nodes of this grid and get the coordinates of p within this group
         Point2D inMyGroup = getGroup().sceneToLocal(p.getX(), p.getY());
-        return getCellFromLocalLocation(inMyGroup.getX(), inMyGroup.getY());
+
+        double cellWidth = getGroup().getBoundsInLocal().getWidth() / 7; // Assuming 7 columns
+        double cellHeight = getGroup().getBoundsInLocal().getHeight() / 7; // Assuming 7 rows
+
+        int col = (int) (inMyGroup.getX() / cellWidth);
+        int row = (int) (inMyGroup.getY() / cellHeight);
+
+        // Check if the clicked location is outside the grid
+        if (row < 0 || row >= 7 || col < 0 || col >= 7) {
+            return null; // Return null or handle the out-of-bounds case appropriately
+        }
+
+        return new int[]{col, row};
     }
 
     /* default computation, may be overridden in subclasses :

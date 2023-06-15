@@ -128,12 +128,16 @@ public class View {
     }
 
     public void update() {
-        if (Controller.gVersion) gameStageView.update();
-        else gameStageView.consoleUpdate();
-        // by default, would update the root pane and then print it
-        root.udpate(gameStageView);
+        if (Controller.gVersion) {
+            gameStageView.update();
+            rootPane.update();
+        }
+        else {
+            gameStageView.consoleUpdate();
+            root.udpate(gameStageView);
+        }
         int nbPartie = getNumberGame();
-        if (nbPartie <= 1000) root.print();
+        if (!Controller.gVersion && nbPartie <= 1000) root.print();
     }
 
     public void updateGraphique() {

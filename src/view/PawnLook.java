@@ -34,28 +34,30 @@ public class PawnLook extends ElementLook {
         Pawn pawn = (Pawn)element;
         circle = new Circle();
         circle.setRadius(radius);
-        if (pawn.getColor() == Pawn.PAWN_BLACK) {
+        if (pawn.getColor() == Pawn.PAWN_BLACK || pawn.getColor() == Pawn.PAWN_BLACK_KING) {
             circle.setFill(Color.BLACK);
         }
         else {
             circle.setFill(Color.RED);
         }
 
-        circle.setCenterX(radius);
-        circle.setCenterY(radius);
+        circle.setCenterX(radius+10);
+        circle.setCenterY(radius+10);
         addShape(circle);
         // NB: text won't change so no need to put it as an attribute
-        Text text = new Text(String.valueOf(pawn.getNumber()));
+        Text text;
+        if (pawn.getColor() == Pawn.PAWN_BLACK_KING) text = new Text("K");
+        else text = new Text(String.valueOf(pawn.getNumber()));
         text.setFont(new Font(24));
-        if (pawn.getColor() == Pawn.PAWN_BLACK) {
+        if (pawn.getColor() == Pawn.PAWN_BLACK || pawn.getColor() == Pawn.PAWN_BLACK_KING) {
             text.setFill(Color.valueOf("0xFFFFFF"));
         }
         else {
             text.setFill(Color.valueOf("0x000000"));
         }
         Bounds bt = text.getBoundsInLocal();
-        text.setX(radius - bt.getWidth()/2);
-        text.setY(text.getBaselineOffset()+ bt.getHeight()/2-3);
+        text.setX(radius+10 - bt.getWidth()/2);
+        text.setY(text.getBaselineOffset()+ bt.getHeight()/2+3);
         addShape(text);
     }
 

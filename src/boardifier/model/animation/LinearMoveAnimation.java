@@ -32,13 +32,11 @@ public class LinearMoveAnimation extends MoveAnimation {
         double x1 = start.getX();
         double x2 = end.getX();
         double width = x1 < x2 ? x2 - x1 : x1 - x2;
-
         double y1 = start.getY();
         double y2 = end.getY();
+        double height = y1 < y2 ? y2 - y1 : y1 - y2;
         // the length of the segment
-        double length = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
-        double slope = (y2 - y1) / (x2 - x1);
-        double orig = -y1 + slope * x1;
+        double length = Math.sqrt(width*width+height*height);
         int nbPoints;
         if (type == AnimationTypes.getType("move/linearcst")) {
             nbPoints = duration / frameGap;
@@ -48,6 +46,13 @@ public class LinearMoveAnimation extends MoveAnimation {
             duration = nbPoints*frameGap;
         }
         double stepX = width / (double) nbPoints;
+        double stepY = height / (double) nbPoints;
+        double slope = 0;
+        double orig = 0;
+        if (x1 != x2) {
+            slope = (y2 - y1) / (x2 - x1);
+            orig = -y1 + slope * x1;
+        }
         AnimationStep step = new AnimationStep();
         step.addData(start.getX());
         step.addData(start.getY());
@@ -55,13 +60,22 @@ public class LinearMoveAnimation extends MoveAnimation {
 
         for (int i = 0; i < nbPoints - 1; i++) {
             double xx = x1;
-            double yy;
-            if (x1 > x2) {
-                xx -= i * stepX;
-            } else {
-                xx += i * stepX;
+            double yy = y1;
+            if (x1 != x2) {
+                if (x1 > x2) {
+                    xx -= i * stepX;
+                } else {
+                    xx += i * stepX;
+                }
+                yy = -orig + slope * xx;
             }
-            yy = -orig + slope * xx;
+            else {
+                if (y1 > y2) {
+                    yy -= i * stepY;
+                } else {
+                    yy += i * stepY;
+                }
+            }
             step = new AnimationStep();
             step.addData(xx);
             step.addData(yy);

@@ -7,15 +7,17 @@ import boardifier.view.GridLook;
 import boardifier.view.*;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.stage.StageStyle;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 import static boardifier.view.ConsoleColor.*;
 
@@ -79,8 +81,7 @@ public abstract class Controller {
      * @throws GameException
      */
     protected void startStage(String stageName) throws GameException {
-        if (model.isStageStarted()) { stopStage(); }
-        model.reset();
+        if (model.isStageStarted()) { stopGame(); }
         System.out.println("START STAGE "+stageName);
         // create the model of the stage by using the StageFactory
         GameStageModel gameStageModel = StageFactory.createStageModel(stageName, model);
@@ -117,7 +118,9 @@ public abstract class Controller {
     }
 
     public void stopStage() {
+        System.out.println("STOP STAGE");
         model.stopStage();
+        model.reset();
     }
 
     /**
@@ -135,15 +138,61 @@ public abstract class Controller {
      * winner and that proposes to start a new game or to quit.
      */
     public void endGame() {
-
-        System.out.println("======================");
-        System.out.println(RED_BOLD + "THE WAR HAS ENDED" +BLACK);
-        System.out.println("======================");
-        if (model.getIdWinner() != -1) {
-            System.out.println(model.getPlayers().get(model.getIdWinner()).getName() + " wins! Shall the land of the defeated be in the hands of the true warrior!");
-        }
-        else {
-            System.out.println("Game has been drawn! No victory, nor loss. Just a draw.");
+        System.out.println("endGame()");
+        if (Controller.gVersion) {
+            String message = "";
+            if (model.getIdWinner() != -1) {
+                message = model.getPlayers().get(model.getIdWinner()).getName() + " wins";
+            }
+            else {
+                message = "Draw game";
+            }
+            // disable all events
+            model.setCaptureEvents(false);
+            // create a dialog
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            // remove the frame around the dialog
+            alert.initStyle(StageStyle.UNDECORATED);
+            // make it a children of the main game window => it appears centered
+            alert.initOwner(view.getStage());
+            // set the message displayed
+            alert.setHeaderText(message);
+            // define new ButtonType to fit with our needs => one type is for Quit, one for New Game
+            ButtonType quit = new ButtonType("Quit");
+            ButtonType newGame = new ButtonType("New Game");
+            // remove default ButtonTypes
+            alert.getButtonTypes().clear();
+            // add the new ones
+            alert.getButtonTypes().addAll(quit, newGame);
+            // show the dialog and wait for the result
+            Optional<ButtonType> option = alert.showAndWait();
+            // check if result is quit
+            if (option.get() == quit) {
+                System.exit(0);
+            }
+            // check if result is new game
+            else if (option.get() == newGame) {
+                try {
+                    startGame();
+                } catch (GameException e) {
+                    e.printStackTrace();
+                    System.exit(1);
+                }
+            }
+            // abnormal case :-)
+            else {
+                System.err.println("Abnormal case: dialog closed with not choice");
+                System.exit(1);
+            }
+        } else {
+            System.out.println("======================");
+            System.out.println(RED_BOLD + "THE WAR HAS ENDED" + BLACK);
+            System.out.println("======================");
+            if (model.getIdWinner() != -1) {
+                System.out.println(model.getPlayers().get(model.getIdWinner()).getName() + " wins! Shall the land of the defeated be in the hands of the true warrior!");
+            } else {
+                System.out.println("Game has been drawn! No victory, nor loss. Just a draw.");
+            }
         }
     }
 
@@ -253,7 +302,7 @@ public abstract class Controller {
 
     public void stopGame() {
         controlAnimation.stopAnimation();
-        model.reset();
+        if (Controller.gVersion) model.reset();
     }
 
     /**
