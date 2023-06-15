@@ -191,6 +191,10 @@ public class Model {
         players.add(Player.createComputerPlayer(name));
     }
 
+    public void removeAllPlayers() {
+        players.clear();
+    }
+
     public int getIdPlayer() {
         return idPlayer;
     }

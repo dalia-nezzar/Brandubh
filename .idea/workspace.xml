@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="2d7a093e-41d2-4c7a-bd8f-3ae7fe96411e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/control/BRBControllerMouse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBControllerMouse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boardifier/control/ActionPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/control/ActionPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boardifier/control/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/control/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boardifier/model/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/model/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/control/BRBControllerAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBControllerAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/BRBView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/BRBView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -283,7 +287,7 @@
       <workItem from="1686667589975" duration="253000" />
       <workItem from="1686668345724" duration="1221000" />
       <workItem from="1686776471870" duration="15271000" />
-      <workItem from="1686825364272" duration="1094000" />
+      <workItem from="1686825364272" duration="6119000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>

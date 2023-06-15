@@ -66,7 +66,7 @@ public abstract class Controller {
         System.out.println("======================");
         startStage(firstStageName);
         // Make the second player play first
-        model.setNextPlayer();
+        if (!Controller.gVersion) model.setNextPlayer();
     }
 
     /**
@@ -120,7 +120,9 @@ public abstract class Controller {
     public void stopStage() {
         System.out.println("STOP STAGE");
         model.stopStage();
-        model.reset();
+        if (Controller.gVersion) {
+            model.reset();
+        }
     }
 
     /**
@@ -302,7 +304,7 @@ public abstract class Controller {
 
     public void stopGame() {
         controlAnimation.stopAnimation();
-        if (Controller.gVersion) model.reset();
+        model.reset();
     }
 
     /**
