@@ -6,22 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2d7a093e-41d2-4c7a-bd8f-3ae7fe96411e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BrandubhConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BrandubhConsole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/control/ActionPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/control/ActionPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/control/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/control/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/control/ControllerAnimation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/control/ControllerAnimation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/model/GridElement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/model/GridElement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/model/action/GameAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/model/action/GameAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/model/animation/LinearMoveAnimation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/model/animation/LinearMoveAnimation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/view/ElementLook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/view/ElementLook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/view/GridLook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/view/GridLook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/boardifier/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/boardifier/view/View.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/control/BRBController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/control/BRBControllerMouse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBControllerMouse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/BRBStageModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BRBStageModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Pawn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/BRBStageView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/BRBStageView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/PawnLook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/PawnLook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/control/BRBControllerAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBControllerAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/control/BRBDecider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/control/BRBDecider.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -298,6 +284,8 @@
       <workItem from="1686667589975" duration="253000" />
       <workItem from="1686668345724" duration="1221000" />
       <workItem from="1686776471870" duration="15271000" />
+      <workItem from="1686825364272" duration="6758000" />
+      <workItem from="1686842745417" duration="1834000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1677741093104</created>

@@ -5,11 +5,13 @@ import boardifier.view.ElementLook;
 import boardifier.view.GameStageView;
 import boardifier.view.GridLook;
 import boardifier.view.*;
+import control.BRBController;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.StageStyle;
+import model.BRBStageModel;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -66,7 +68,7 @@ public abstract class Controller {
         System.out.println("======================");
         startStage(firstStageName);
         // Make the second player play first
-        model.setNextPlayer();
+        if (!Controller.gVersion) model.setNextPlayer();
     }
 
     /**
@@ -120,7 +122,9 @@ public abstract class Controller {
     public void stopStage() {
         System.out.println("STOP STAGE");
         model.stopStage();
-        model.reset();
+        if (Controller.gVersion) {
+            model.reset();
+        }
     }
 
     /**
@@ -143,6 +147,10 @@ public abstract class Controller {
             String message = "";
             if (model.getIdWinner() != -1) {
                 message = model.getPlayers().get(model.getIdWinner()).getName() + " wins";
+                int[] score = BRBStageModel.getScore();
+                message += "\n\n------------------ Scores ------------------\n";
+                message += "Defenders : " + score[0] + "\n";
+                message += "Attackers : " + score[1] + "\n";
             }
             else {
                 message = "Draw game";
@@ -159,7 +167,7 @@ public abstract class Controller {
             alert.setHeaderText(message);
             // define new ButtonType to fit with our needs => one type is for Quit, one for New Game
             ButtonType quit = new ButtonType("Quit");
-            ButtonType newGame = new ButtonType("New Game");
+            ButtonType newGame = new ButtonType("Continue");
             // remove default ButtonTypes
             alert.getButtonTypes().clear();
             // add the new ones
@@ -172,12 +180,8 @@ public abstract class Controller {
             }
             // check if result is new game
             else if (option.get() == newGame) {
-                try {
-                    startGame();
-                } catch (GameException e) {
-                    e.printStackTrace();
-                    System.exit(1);
-                }
+                // close the dialog
+                alert.close();
             }
             // abnormal case :-)
             else {
@@ -302,7 +306,7 @@ public abstract class Controller {
 
     public void stopGame() {
         controlAnimation.stopAnimation();
-        if (Controller.gVersion) model.reset();
+        model.reset();
     }
 
     /**

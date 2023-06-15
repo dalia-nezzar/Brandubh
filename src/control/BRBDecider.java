@@ -2,11 +2,14 @@ package control;
 
 import boardifier.control.Controller;
 import boardifier.control.Decider;
+import boardifier.model.Coord2D;
 import boardifier.model.GameElement;
 import boardifier.model.Model;
 import boardifier.model.action.ActionList;
 import boardifier.model.action.GameAction;
 import boardifier.model.action.MoveAction;
+import boardifier.model.animation.AnimationTypes;
+import boardifier.view.GridLook;
 import model.BRBBoard;
 import model.BRBStageModel;
 
@@ -112,8 +115,18 @@ public class BRBDecider extends Decider {
 
         // create action list. After the last action, it is next player's turn.
         ActionList actions = new ActionList(true);
-        // create the move action, without animation => the pawn will be put at the center of dest cell
-        GameAction move = new MoveAction(model, pawn, "BRBboard", rowDest, colDest);
+        // if Controller.gVersion, then get the dest. cell center in space
+        GameAction move = null;
+        if (Controller.gVersion) {
+            GridLook look = (GridLook) control.getElementLook(board);
+            Coord2D center = look.getRootPaneLocationForCellCenter(rowDest, colDest);
+            // create the move action, with animation => the pawn will move to dest cell
+            move = new MoveAction(model, pawn, "BRBboard", rowDest, colDest, AnimationTypes.MOVE_LINEARPROP, center.getX(), center.getY(), 10);
+        }
+        else {
+            // create the move action, without animation => the pawn will be put at the center of dest cell
+            move = new MoveAction(model, pawn, "BRBboard", rowDest, colDest);
+        }
         actions.addSingleAction(move);
         return actions;
     }
@@ -284,8 +297,17 @@ public class BRBDecider extends Decider {
         board.removePawns(toRemoveReal);
         // create action list. After the last action, it is next player's turn.
         ActionList actions = new ActionList(true);
-        // create the move action, without animation => the pawn will be put at the center of dest cell
-        GameAction move = new MoveAction(model, selectedPawn, "BRBboard", rowDest, colDest);
+        GameAction move = null;
+        if (Controller.gVersion) {
+            GridLook look = (GridLook) control.getElementLook(board);
+            Coord2D center = look.getRootPaneLocationForCellCenter(rowDest, colDest);
+            // create the move action, with animation => the pawn will move to dest cell
+            move = new MoveAction(model, selectedPawn, "BRBboard", rowDest, colDest, AnimationTypes.MOVE_LINEARPROP, center.getX(), center.getY(), 10);
+        }
+        else {
+            // create the move action, without animation => the pawn will be put at the center of dest cell
+            move = new MoveAction(model, selectedPawn, "BRBboard", rowDest, colDest);
+        }
         actions.addSingleAction(move);
         return actions;
     }
@@ -448,8 +470,17 @@ public class BRBDecider extends Decider {
         nbOfRemovedPawns += toRemoveReal.size();
         // create action list. After the last action, it is next player's turn.
         ActionList actions = new ActionList(true);
-        // create the move action, without animation => the pawn will be put at the center of dest cell
-        GameAction move = new MoveAction(model, selectedPawn, "BRBboard", rowDest, colDest);
+        GameAction move = null;
+        if (Controller.gVersion) {
+            GridLook look = (GridLook) control.getElementLook(board);
+            Coord2D center = look.getRootPaneLocationForCellCenter(rowDest, colDest);
+            // create the move action, with animation => the pawn will move to dest cell
+            move = new MoveAction(model, selectedPawn, "BRBboard", rowDest, colDest, AnimationTypes.MOVE_LINEARPROP, center.getX(), center.getY(), 10);
+        }
+        else {
+            // create the move action, without animation => the pawn will be put at the center of dest cell
+            move = new MoveAction(model, selectedPawn, "BRBboard", rowDest, colDest);
+        }
         actions.addSingleAction(move);
         return actions;
     }

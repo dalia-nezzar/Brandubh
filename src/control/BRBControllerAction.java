@@ -1,5 +1,6 @@
 package control;
 
+import boardifier.control.ActionPlayer;
 import boardifier.control.Controller;
 import boardifier.control.ControllerAction;
 import boardifier.model.GameException;
@@ -7,6 +8,8 @@ import boardifier.model.Model;
 import boardifier.view.View;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.stage.StageStyle;
 import view.BRBView;
 
 /**
@@ -18,6 +21,7 @@ public class BRBControllerAction extends ControllerAction implements EventHandle
 
     // to avoid lots of casts, create an attribute that matches the instance type.
     private BRBView BRBView;
+    public int mode = 0;
 
     public BRBControllerAction(Model model, View view, Controller control) {
         super(model, view, control);
@@ -36,17 +40,6 @@ public class BRBControllerAction extends ControllerAction implements EventHandle
     }
 
     private void setMenuHandlers() {
-
-        // set event handler on the MenuStart item
-        BRBView.getMenuStart().setOnAction(e -> {
-            try {
-                control.startGame();
-            }
-            catch(GameException err) {
-                System.err.println(err.getMessage());
-                System.exit(1);
-            }
-        });
         // set event handler on the MenuIntro item
         BRBView.getMenuIntro().setOnAction(e -> {
             control.stopGame();
@@ -56,6 +49,87 @@ public class BRBControllerAction extends ControllerAction implements EventHandle
         BRBView.getMenuQuit().setOnAction(e -> {
             System.exit(0);
         });
+        // set event handler on the MenuPvP item
+        BRBView.getMenuPvP().setOnAction(e -> {
+            mode = 0;
+            startNewGame();
+        });
+        // set event handler on the MenuPvE item
+        BRBView.getMenuPvE().setOnAction(e -> {
+            mode = 2;
+            startNewGame();
+        });
+        // set event handler on the MenuEvP item
+        BRBView.getMenuEvP().setOnAction(e -> {
+            mode = 1;
+            model.setNextPlayer();
+            startNewGame();
+        });
+        // set event handler on the MenuEvE item
+        BRBView.getMenuEvE().setOnAction(e -> {
+            mode = 3;
+            startNewGame();
+        });
+        // set event handler on the MenuAI1 item
+        BRBView.getMenuAI1().setOnAction(e -> {
+            ActionPlayer.typeAI = 1;
+            String message = "AI successfully set to Random";
+            createAlert(message);
+        });
+        // set event handler on the MenuAI2 item
+        BRBView.getMenuAI2().setOnAction(e -> {
+            ActionPlayer.typeAI = 2;
+            String message = "AI successfully set to Smart";
+            createAlert(message);
+        });
+        // set event handler on the MenuAI3 item
+        BRBView.getMenuAI3().setOnAction(e -> {
+            ActionPlayer.typeAI = 3;
+            String message = "AI successfully set to EAT";
+            createAlert(message);
+        });
+    }
+
+    public void createAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        // remove the frame around the dialog
+        alert.initStyle(StageStyle.UNDECORATED);
+        // make it a children of the main game window => it appears centered
+        // make it appear on the top right
+        alert.setX(view.getStage().getX() + view.getStage().getWidth() - alert.getWidth());
+        alert.initOwner(view.getStage());
+        // set the message displayed
+        alert.setHeaderText(message);
+        // display the dialog and wait for the user to close it
+        alert.showAndWait();
+    }
+
+    public void startNewGame() {
+        model.removeAllPlayers();
+        if (mode == 0) {
+            model.addHumanPlayer("player1");
+            model.addHumanPlayer("player2");
+        }
+        else if (mode == 1) {
+            model.addHumanPlayer("player");
+            model.addComputerPlayer("computer");
+        }
+        else if (mode == 2) {
+            model.addComputerPlayer("computer");
+            model.addHumanPlayer("player");
+        }
+        else if (mode == 3) {
+            model.addComputerPlayer("computer1");
+            model.addComputerPlayer("computer2");
+        }
+        try {
+            control.startGame();
+            control.nextPlayer();
+        }
+        catch(GameException err) {
+            System.err.println(err.getMessage());
+            System.exit(1);
+        }
     }
 
     /**
