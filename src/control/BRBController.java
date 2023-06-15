@@ -53,7 +53,7 @@ public class BRBController extends Controller {
      * It is pretty straight forward to write :
      */
     public void stageLoop() {
-        System.out.println("StageLoop");
+        //System.out.println("StageLoop");
         update();
         while (!model.isEndStage()) {
             nextPlayer();

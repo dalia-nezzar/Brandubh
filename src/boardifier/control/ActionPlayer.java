@@ -39,7 +39,7 @@ public class ActionPlayer extends Thread {
     }
 
     public void play(int typeAI) {
-        System.out.println("ActionPlayer.run");
+        //System.out.println("ActionPlayer.run");
         // first disable event capture
         model.setCaptureEvents(false);
 
@@ -47,10 +47,10 @@ public class ActionPlayer extends Thread {
             playActions(preActions);
         }
         // if there is a decider, decide what to do
-        System.out.println("play(typeAI) decider: "+decider);
+        //System.out.println("play(typeAI) decider: "+decider);
         if (decider != null && (typeAI==1 || typeAI==2 || typeAI==3)) {
             // create neural network
-            System.out.println("decider.decider");
+            //System.out.println("decider.decider");
             actions = decider.decider(typeAI);
             //1 aléatoire
             //2 smart
@@ -64,7 +64,6 @@ public class ActionPlayer extends Thread {
         model.setCaptureEvents(true);
         // now check if the next player must play, but only if not at the end of the stage/game
         // NB: the ned of the stage/game may have been detected by playing the actions
-        System.out.println("mustDoNextPlayer: "+actions.mustDoNextPlayer());
         if (Controller.gVersion && (!model.isEndStage()) && (!model.isEndGame()) && (actions.mustDoNextPlayer())) {
             Platform.runLater( () -> {control.nextPlayer();});
         }
@@ -74,15 +73,15 @@ public class ActionPlayer extends Thread {
         // loop over all action packs
         int idPack = 0;
         for(List<GameAction> actionPack : actions.getActions()) {
-            System.out.println("playing pack "+idPack);
-            System.out.println("actionPack size : "+actionPack.size());
+            //System.out.println("playing pack "+idPack);
+            //System.out.println("actionPack size : "+actionPack.size());
             // step 1 : start animations from actions.
             Animation[] animations = new Animation[actionPack.size()];
             int idx=0;
             for(GameAction action : actionPack) {
                 if (action.getAnimation() != null) {
                     animations[idx++] = action.getAnimation();
-                    System.out.println("animation "+idx+" : "+action.getAnimation());
+                    //System.out.println("animation "+idx+" : "+action.getAnimation());
                     action.setupAnimation();
                 }
             }

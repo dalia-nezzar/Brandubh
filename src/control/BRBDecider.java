@@ -179,7 +179,7 @@ public class BRBDecider extends Decider {
             valid = board.computeValidCells(coords[0], coords[1], pawn.isKing());
             // print the valid cells one by one
             for (int j = 0; j < valid.size(); j++) {
-                System.out.println("pawn " + pawn.getNumber() + " of color " + pawn.getColor() + " can move to row: " + valid.get(j).y + " col: " + valid.get(j).x);
+                //System.out.println("pawn " + pawn.getNumber() + " of color " + pawn.getColor() + " can move to row: " + valid.get(j).y + " col: " + valid.get(j).x);
                 // Can he eat something?
                 toRemove.clear();
                 if (!pawn.isKing()) toRemove = board.getPawnsToRemove(valid.get(j).y, valid.get(j).x, pawn.getColor());
@@ -270,8 +270,8 @@ public class BRBDecider extends Decider {
                     selectedPawn = pawn;
                 }
                 // print data info
-                System.out.println(data);
-                System.out.println("score: " + score);
+                //System.out.println(data);
+                //System.out.println("score: " + score);
             }
         }
         if (highestScore == 0) return decideEAT();
