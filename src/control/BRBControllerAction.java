@@ -38,11 +38,6 @@ public class BRBControllerAction extends ControllerAction implements EventHandle
     }
 
     private void setMenuHandlers() {
-
-        // set event handler on the MenuStart item
-        BRBView.getMenuStart().setOnAction(e -> {
-            startNewGame();
-        });
         // set event handler on the MenuIntro item
         BRBView.getMenuIntro().setOnAction(e -> {
             control.stopGame();
@@ -67,12 +62,23 @@ public class BRBControllerAction extends ControllerAction implements EventHandle
             mode = 1;
             model.setNextPlayer();
             startNewGame();
-
         });
         // set event handler on the MenuEvE item
         BRBView.getMenuEvE().setOnAction(e -> {
             mode = 3;
             startNewGame();
+        });
+        // set event handler on the MenuAI1 item
+        BRBView.getMenuAI1().setOnAction(e -> {
+            ActionPlayer.typeAI = 1;
+        });
+        // set event handler on the MenuAI2 item
+        BRBView.getMenuAI2().setOnAction(e -> {
+            ActionPlayer.typeAI = 2;
+        });
+        // set event handler on the MenuAI3 item
+        BRBView.getMenuAI3().setOnAction(e -> {
+            ActionPlayer.typeAI = 3;
         });
     }
 

@@ -18,6 +18,8 @@ public class BRBView extends View {
     private MenuItem menuEvP;
     private MenuItem menuEvE;
     private MenuItem IA1;
+    private MenuItem IA2;
+    private MenuItem IA3;
 
     public BRBView(Model model, Stage stage, RootPane rootPane) {
         super(model, stage, rootPane);
@@ -27,35 +29,32 @@ public class BRBView extends View {
     protected void createMenuBar() {
         menuBar = new MenuBar();
         Menu menu1 = new Menu("Game");
-        menuStart = new MenuItem("New game");
         menuIntro = new MenuItem("Intro");
         menuQuit = new MenuItem("Quit");
-        menu1.getItems().add(menuStart);
         menu1.getItems().add(menuIntro);
         menu1.getItems().add(menuQuit);
 
-        Menu menuOptions = new Menu("Options");
+        Menu menuNewGame = new Menu("New Game");
         menuPvP = new MenuItem("PvP");
         menuEvP = new MenuItem("EvP");
         menuPvE = new MenuItem("PvE");
         menuEvE = new MenuItem("EvE");
-        menuOptions.getItems().add(menuPvP);
-        menuOptions.getItems().add(menuEvP);
-        menuOptions.getItems().add(menuPvE);
-        menuOptions.getItems().add(menuEvE);
+        menuNewGame.getItems().add(menuPvP);
+        menuNewGame.getItems().add(menuEvP);
+        menuNewGame.getItems().add(menuPvE);
+        menuNewGame.getItems().add(menuEvE);
 
         Menu menuSelectIA = new Menu("Select IA");
-        IA1 = new MenuItem("IA1");
+        IA1 = new MenuItem("IA Random");
+        IA2 = new MenuItem("IA Smart");
+        IA3 = new MenuItem("IA EAT");
         menuSelectIA.getItems().add(IA1);
-
+        menuSelectIA.getItems().add(IA2);
+        menuSelectIA.getItems().add(IA3);
 
         menuBar.getMenus().add(menu1);
-        menuBar.getMenus().add(menuOptions);
+        menuBar.getMenus().add(menuNewGame);
         menuBar.getMenus().add(menuSelectIA);
-    }
-
-    public MenuItem getMenuStart() {
-        return menuStart;
     }
 
     public MenuItem getMenuIntro() {
@@ -80,5 +79,17 @@ public class BRBView extends View {
 
     public MenuItem getMenuEvE() {
         return menuEvE;
+    }
+
+    public MenuItem getMenuAI1() {
+        return IA1;
+    }
+
+    public MenuItem getMenuAI2() {
+        return IA2;
+    }
+
+    public MenuItem getMenuAI3() {
+        return IA3;
     }
 }
