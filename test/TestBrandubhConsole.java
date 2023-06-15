@@ -23,5 +23,4 @@ public class TestBrandubhConsole {
         Assertions.assertEquals("God Loki (EAT)", aiMode);
         Assertions.assertEquals(3, BRBController.typeAI1);
     }
-
 }
