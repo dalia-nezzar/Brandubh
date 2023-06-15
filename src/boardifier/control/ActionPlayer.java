@@ -38,8 +38,6 @@ public class ActionPlayer extends Thread {
     }
 
     public void run(){
-        System.out.println("specialAI1 : "+specialAI1);
-        System.out.println("specialAI2 : "+specialAI2);
         if (specialAI1 != -1 && specialAI2 != -1)
             if (switchAI) {
                 play(specialAI1);
@@ -54,7 +52,6 @@ public class ActionPlayer extends Thread {
     }
 
     public void play(int typeAI) {
-        //System.out.println("ActionPlayer.run");
         // first disable event capture
         model.setCaptureEvents(false);
 

@@ -96,9 +96,9 @@ public class BRBControllerAction extends ControllerAction implements EventHandle
                 if (defenderResult == defenderAI1Button) {
                     defenderTypeAI = 1;
                 } else if (defenderResult == defenderAI2Button) {
-                    defenderTypeAI = 2;
-                } else if (defenderResult == defenderAI3Button) {
                     defenderTypeAI = 3;
+                } else if (defenderResult == defenderAI3Button) {
+                    defenderTypeAI = 2;
                 } else {
                     // User clicked Cancel or closed the dialog
                     return; // Exit the method without starting a new game
@@ -124,14 +124,15 @@ public class BRBControllerAction extends ControllerAction implements EventHandle
                     if (attackerResult == attackerAI1Button) {
                         attackerTypeAI = 1;
                     } else if (attackerResult == attackerAI2Button) {
-                        attackerTypeAI = 2;
-                    } else if (attackerResult == attackerAI3Button) {
                         attackerTypeAI = 3;
+                    } else if (attackerResult == attackerAI3Button) {
+                        attackerTypeAI = 2;
                     } else {
                         // User clicked Cancel or closed the dialog
                         return; // Exit the method without starting a new game
                     }
                     ActionPlayer.specialAI2 = attackerTypeAI;
+                    ActionPlayer.switchAI = false;
                     // Start a new game based on the selected AI modes for defenders and attackers
 
                     startNewGame();
