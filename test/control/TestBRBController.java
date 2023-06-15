@@ -6,6 +6,8 @@ import model.BRBStageModel;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.mockito.Mockito;
+
 
 public class TestBRBController{
     // assuming we have a suitable class and method to set up the model and other dependencies
@@ -41,6 +43,14 @@ public class TestBRBController{
     public void testAnalyseAndPlayWithInvalidPlayerId() {
         model.setIdPlayer(1);
         String line = "kA1"; // 'k' is not valid for idPlayer 1
+        assertFalse(controller.startanalyseAndPlay(line));
+    }
+
+    // test analyseandplay with empty line 
+    @Test
+    public void testAnalyseAndPlayWithEmptyLine() {
+        model.setIdPlayer(0);
+        String line = " ";
         assertFalse(controller.startanalyseAndPlay(line));
     }
 

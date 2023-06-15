@@ -3,6 +3,7 @@ package boardifier.model.action;
 import boardifier.model.GameElement;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ActionList {
@@ -16,6 +17,13 @@ public class ActionList {
         currentPack = null;
         this.doNextPlayer = doNextPlayer;
     }
+
+    public ActionList(boolean doNextPlayer,List<GameAction> act) {
+        actions = Collections.singletonList(act);
+        currentPack = null;
+        this.doNextPlayer = doNextPlayer;
+    }
+
 
     public void addActionPack() {
         currentPack = new ArrayList<>();

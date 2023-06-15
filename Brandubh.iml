@@ -51,6 +51,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="lib1" level="project" />
+    <orderEntry type="library" name="lib1" level="application" />
+    <orderEntry type="library" name="mockito.core" level="project" />
   </component>
 </module>
